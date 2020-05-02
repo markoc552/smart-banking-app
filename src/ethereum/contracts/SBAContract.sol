@@ -11,7 +11,6 @@ contract FactorySBA
     address[] public accounts;
 
     function createAccount(address _user, string firstName, string lastName, string email) public {
-        //Create new instance of SBAContract
         address newAccount = new SBAContract(_user, firstName, lastName, email);
 
         accounts.push(newAccount);
@@ -49,7 +48,6 @@ contract SBAContract
         _;
     }
 
-    //SBAContract constructor
     function SBAContract(address user, string firstName, string lastName, string email) public {
         _authority = msg.sender;
 
@@ -77,7 +75,6 @@ contract SBAContract
         return waults;
     }
 
-    //Send money to specified account
     function sendMoney(address recepient) public payable {
         recepient.transfer(msg.value);
 
@@ -88,7 +85,6 @@ contract SBAContract
             });
 
         transactions[getTransactionCount()] = newTransaction;
-
         transactionCount++;
     }
 
@@ -108,8 +104,7 @@ contract SBAContract
         transactionCount++;
     }
 
-    function addSenderToTransactions(address _address, uint256 amount) public
-    {
+    function addSenderToTransactions(address _address, uint256 amount) public {
         Transaction memory newTransaction = Transaction({
             _sender : _address,
             _recepient : 0,
@@ -129,14 +124,12 @@ contract SBAContract
         return (sender, recepient, amount);
     }
 
-    function getMoneyStatus() public view returns (uint256)
-    {
+    function getMoneyStatus() public view returns (uint256) {
         return this.balance;
     }
 
     //Simulation of withdraw money (money is sent to authority instead withdrawn)
-    function withDrawMoney(uint256 _amount, address authority) public payable restricted
-    {
+    function withDrawMoney(uint256 _amount, address authority) public payable restricted {
         authority.transfer(this.balance - _amount);
     }
 }

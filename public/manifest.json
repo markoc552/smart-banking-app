@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "SBA",
+  "name": "Smart Banking App",
+  "author": "Marko Perajica",
   "icons": [
     {
       "src": "favicon.ico",
