@@ -2,6 +2,7 @@
 * Smart Banking app smart contract.
 *
 * Created by: Marko Perajica
+* Date: 02.05.2020
 ******************************************************************************/
 
 pragma solidity 0.4.17;
@@ -42,6 +43,8 @@ contract SBAContract
     mapping(uint => Transaction) transactions;
     mapping(uint => User) _user;
     address[] waults;
+
+    event SendTransaction(address indexed recepient, address indexed sender, uint amount);
 
     modifier restricted() {
         require(msg.sender == _user[0]._address);
@@ -86,6 +89,9 @@ contract SBAContract
 
         transactions[getTransactionCount()] = newTransaction;
         transactionCount++;
+
+        //emit event SendTransaction
+        SendTransaction(recepient, msg.sender, msg.value);
     }
 
     function getTransactionCount() public view returns (uint256) {
@@ -102,6 +108,8 @@ contract SBAContract
         transactions[getTransactionCount()] = newTransaction;
 
         transactionCount++;
+
+        SendTransaction(0, msg.sender, msg.value);
     }
 
     function addSenderToTransactions(address _address, uint256 amount) public {
