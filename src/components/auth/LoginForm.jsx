@@ -1,21 +1,30 @@
 import React from 'react'
-import {reduxForm, Field} from "redux-form";
-import {Button, Icon, Label} from "semantic-ui-react"
-import {renderInput, validate} from "./formUtils"
+import { reduxForm, Field } from "redux-form";
+import { connect } from "react-redux"
+import { Button } from "semantic-ui-react"
+import { renderInput, validate } from "./formUtils"
+import { checkAccount } from "../../redux/actions"
+import OAuth2 from "./OAuth2";
 
 const LoginForm = (props) => {
 
-  return (<form className="ui form error">
-    <Field name="username" label="Enter username" component={renderInput}/>
-    <Field name="password" label="Enter password" component={renderInput}/>
+  return (<form className="ui form error" onSubmit={props.handleSubmit((formValues) => props.checkAccount(formValues))}>
+    <Field name="username" type="text" label="Enter username" component={renderInput}/>
+    <Field name="password" type="password" label="Enter password" component={renderInput}/>
     <Button.Group>
-      <Button color="blue" onClick={() => this.props.changeForm("register")}>Register</Button>
+      <Button color="blue" onClick={() => props.changeForm("register")}>Register</Button>
       <Button.Or/>
-      <Button positive="positive">Log in</Button>
+      <Button positive>Log in</Button>
       <Button.Or/>
-      <Button color="red"><Icon name="google"/>Sign in with Google</Button>
+      <OAuth2/>
     </Button.Group>
   </form>)
 }
 
-export default reduxForm({form: "loginForm", validate})(LoginForm);
+const mapStateToProps = (state) => {
+  return { status: state.accounts.status }
+}
+
+const wrap = reduxForm({ form: "loginForm", validate })(LoginForm);
+
+export default connect(mapStateToProps, { checkAccount })(wrap);

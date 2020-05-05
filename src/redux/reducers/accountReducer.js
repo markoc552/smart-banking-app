@@ -4,6 +4,11 @@ export default(state = {}, action) => {
       ...state,
       [action.payload.id]: action.payload
     }
+  } else if (action.type === "CHECK_ACCOUNT") {
+    return {
+      ...state,
+      status: action.payload
+    }
   }
   return state;
 }

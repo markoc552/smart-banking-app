@@ -1,23 +1,25 @@
 import React from 'react';
-import {Label} from "semantic-ui-react"
+import { Label } from "semantic-ui-react"
+import axios from "../../redux/axios";
+import _ from "lodash"
 
-export const renderInput = ({input, label, meta}) => {
+export const renderInput = ({ input, label, meta }) => {
   const className = `field ${meta.error && meta.touched
     ? "error"
     : ""}`;
   return (<div className={className}>
     <label>{label}</label>
-    <input {...input}/> {renderError(meta)}
+    <input {...input}/>
+    {renderError(meta)}
   </div>);
 };
 
-export const renderError = ({error, touched}) => {
+export const renderError = ({ error, touched }) => {
   //if error is true(not empty object) and also touched is true
-  if (touched && error) {
-    return (<Label basic="basic" color='red' pointing="above">
+  if (touched && error)
+    return (<Label basic color='red' pointing="above">
       {error}
     </Label>);
-  }
 }
 
 export const validate = (formValues) => {
@@ -28,6 +30,15 @@ export const validate = (formValues) => {
   }
   if (!formValues.password) {
     errors.password = "You must enter a password";
+  }
+  if (!formValues.firstname) {
+    errors.firstname = "You must enter firstname"
+  }
+  if (!formValues.lastname) {
+    errors.lastname = "You must enter lastname"
+  }
+  if (!formValues.email) {
+    errors.email = "You must enter email"
   }
   return errors;
 };
