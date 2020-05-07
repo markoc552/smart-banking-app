@@ -7,9 +7,10 @@ export const renderInput = ({ input, label, meta }) => {
   const className = `field ${meta.error && meta.touched
     ? "error"
     : ""}`;
+  const type = label === "Password" ? "password" : "text";
   return (<div className={className}>
     <label>{label}</label>
-    <input {...input}/>
+    <input {...input} type={type}/>
     {renderError(meta)}
   </div>);
 };

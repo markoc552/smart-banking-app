@@ -9,8 +9,8 @@ import OAuth2 from "./OAuth2";
 const LoginForm = (props) => {
 
   return (<form className="ui form error" onSubmit={props.handleSubmit((formValues) => props.checkAccount(formValues))}>
-    <Field name="username" type="text" label="Enter username" component={renderInput}/>
-    <Field name="password" type="password" label="Enter password" component={renderInput}/>
+    <Field name="username" type="text" label="Username" component={renderInput}/>
+    <Field name="password" type="password" label="Password" component={renderInput}/>
     <Button.Group>
       <Button color="blue" onClick={() => props.changeForm("register")}>Register</Button>
       <Button.Or/>

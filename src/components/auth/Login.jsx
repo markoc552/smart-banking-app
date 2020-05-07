@@ -26,10 +26,10 @@ const Login = (props) => {
   }
 
   return ReactDOM.createPortal(<div>
-    <Image src='https://images.pexels.com/photos/3183159/pexels-photo-3183159.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940' fluid/>
     <Modal size="tiny" dimmer="inverted" open={true} style={{
         textAlign: "center"
       }}>
+      <Image size="tiny" verticalAlign="middle" src={require("../../logo.png")}/>
       <Modal.Header>{formName}</Modal.Header>
       <Modal.Content>
         <Modal.Description>
