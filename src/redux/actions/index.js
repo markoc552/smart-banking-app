@@ -15,6 +15,26 @@ export const createAccount = (formValues) => async dispatch => {
   }
 }
 
+export const checkRegister = (formValues) => async dispatch => {
+
+  const response = await axios.get("/accounts");
+
+  const arr = _.mapKeys(response.data, "id");
+
+  const user = _.mapKeys(arr, "username");
+
+  let status;
+  if (user[formValues.username] !== undefined) {
+    status = true;
+  } else {
+    status = false;
+  }
+
+  console.log(status);
+
+  dispatch({ type: "CHECK_ACCOUNT", payload: status });
+}
+
 export const checkAccount = (formValues) => async dispatch => {
   const response = await axios.get("/accounts");
 

@@ -21,7 +21,7 @@ const WaultsCard = (props) => {
 
   return (
     <div>
-    <Card fluid color="blue">
+    <Card raised fluid color="blue">
     <Card.Content>
         <Card.Header>Waults</Card.Header>
         <Card.Meta>Currently active waults</Card.Meta>

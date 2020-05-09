@@ -1,13 +1,15 @@
 import React from 'react'
-import { Menu, Item } from "semantic-ui-react"
+import { Grid, Icon, Input } from "semantic-ui-react"
 
 const Bottom = (props) => {
   return (
-    <div style={{marginBottom: "10px", marginTop: "10px"}}>
-    <Menu borderless inverted color="blue">
-      <Menu.Item icon="copyright outline" name="BudiMladBudiLud ltd."/>
-    </Menu>
-  </div>
+    <div className="ui container" style={{color: "rgb(202, 204, 207)", backgroundColor: "rgb(85, 96, 115)", height: "45px", marginBottom: "5px", marginTop: "15px"}}>
+      <Grid container padded verticalAlign="middle">
+        <Grid.Column>
+          Budi Mlad Budi Lud ltd.
+        </Grid.Column>
+      </Grid>
+    </div>
   )
 }
 

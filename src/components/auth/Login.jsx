@@ -13,20 +13,16 @@ const Login = (props) => {
   const [formState, setFormState] = useState("")
   const [formName, setName] = useState("Login")
 
-  const onSubmit = (formValues) => {
-    props.createAccount(formValues);
-  }
-
   const renderForm = () => {
     if (formState === "login" || formState === "") {
       return <LoginForm changeForm={setFormState}/>
     } else if (formState === "register") {
-      return <RegisterForm changeName={setName} onSubmit={onSubmit} changeForm={setFormState}/>;
+      return <RegisterForm changeName={setName} changeForm={setFormState}/>;
     }
   }
 
   return ReactDOM.createPortal(<div>
-    <Modal size="tiny" dimmer="inverted" open={true} style={{
+    <Modal size="tiny" open={true} style={{
         textAlign: "center"
       }}>
       <Image size="tiny" verticalAlign="middle" src={require("../../logo.png")}/>

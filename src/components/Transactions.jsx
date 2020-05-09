@@ -20,7 +20,7 @@ const Transactions = (props) => {
 
   return (
     <div style={{width: "95%"}}>
-      <Card fluid centered color="blue">
+      <Card fluid centered raised color="blue">
       <Card.Content>
           <Card.Header>Transactions</Card.Header>
           <Card.Meta>Recently sent and received transactions</Card.Meta>

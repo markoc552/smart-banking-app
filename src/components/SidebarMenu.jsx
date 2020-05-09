@@ -27,13 +27,12 @@ const SidebarMenu = () => {
     <Sidebar.Pushable as="div">
       <Sidebar
         as={Menu}
-        animation='overlay'
+        animation='slide along'
         icon='labeled'
-        inverted
         onHide={() => setVisible(false)}
         vertical
         visible={visible}
-        width='thin'
+        width='wide'
       >
         <Menu.Item as='a'>
           <Icon name='home' />
@@ -60,11 +59,11 @@ const SidebarMenu = () => {
           <GridRow columns={3} centered>
             <GridColumn>
               <div style={{height: "100%"}}>
-                <Card color="blue" header="Account Payments" description={Graph} meta="Graph shows recent account payments" centered fluid/>
+                <Card raised color="blue" header="Account Payments" description={Graph} meta="Graph shows recent account payments" centered fluid/>
               </div>
               </GridColumn>
               <GridColumn width={3}>
-                  <Card color="blue" header="Exchange rates" fluid description={ExchangeTable} centered/>
+                  <Card raised color="blue" header="Exchange rates" fluid description={ExchangeTable} centered/>
               </GridColumn>
               <GridColumn>
                 <WaultsCard/>
@@ -73,7 +72,6 @@ const SidebarMenu = () => {
          <GridRow>
           <Transactions/>
          </GridRow>
-
       </Grid>
       <Bottom/>
      </Sidebar.Pusher>
