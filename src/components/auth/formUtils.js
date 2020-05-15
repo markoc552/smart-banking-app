@@ -8,7 +8,7 @@ export const renderInput = ({ input, label, meta }) => {
     ? "error"
     : ""}`;
   const type = label === "Password" ? "password" : "text";
-  return (<div className={className}>
+  return (<div className={className} style={{margin: "0 auto"}}>
     <label>{label}</label>
     <input {...input} type={type}/>
     {renderError(meta)}

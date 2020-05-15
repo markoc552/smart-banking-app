@@ -1,14 +1,25 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
 import { reduxForm, Field } from "redux-form";
-import { connect } from "react-redux"
-import { Button, TransitionablePortal, Segment, Header } from "semantic-ui-react"
-import { renderInput, validate } from "./formUtils"
-import { checkAccount } from "../../redux/actions"
+import { connect } from "react-redux";
+import {
+  Button,
+  TransitionablePortal,
+  Segment,
+  Header,
+  Grid
+} from "semantic-ui-react";
+import { renderInput, validate } from "./FormUtils";
+import { checkAccount } from "../../redux/actions";
 import OAuth2 from "./OAuth2";
+import styled from "styled-components";
+import "../../index.css";
 
-const LoginForm = (props) => {
+const LoginForm = props => {
+  const ButtonForm = styled.div`
+    margin: 10px auto;
+  `;
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (props.status !== undefined) {
@@ -18,32 +29,72 @@ const LoginForm = (props) => {
         setOpen(false);
       }
     }
-  }, [props.status])
+  }, [props.status]);
 
-  return (<form className="ui form error" onSubmit={props.handleSubmit((formValues) => props.checkAccount(formValues))}>
-    <Field name="username" type="text" label="Username" component={renderInput}/>
-    <Field name="password" type="password" label="Password" component={renderInput}/>
-    <Button.Group>
-      <Button color="blue" onClick={() => props.changeForm("register")}>Register</Button>
-      <Button.Or/>
-      <Button positive>Log in</Button>
-      <Button.Or/>
-      <OAuth2/>
-    </Button.Group>
-    <TransitionablePortal
-        closeOnTriggerClick
-        openOnTriggerClick
-        open={open}>
-        <Segment color="red" circular compact size="mini" textAlign="center" style={{left: "50%", position: 'fixed', marginTop: "-50px", marginLeft: "-112px", top: "65%", zIndex: 1000 }}>
-          <Header>Username/password incorrect!</Header>
-        </Segment>
-      </TransitionablePortal>
-  </form>)
-}
+  return (
+    <form
+      className="ui form error formWidth"
+      size="small"
+      onSubmit={props.handleSubmit(formValues =>
+        props.checkAccount(formValues)
+      )}
+    >
+      <Field
+        name="username"
+        type="text"
+        label="Username"
+        component={renderInput}
+      />
+      <Field
+        name="password"
+        type="password"
+        label="Password"
+        component={renderInput}
+      />
+      <Grid centered padded="vertically" stackable>
+        <ButtonForm>
+          <Button.Group>
+            <Button color="blue" onClick={() => props.changeForm("register")}>
+              Register
+            </Button>
+            <Button.Or />
+            <Button positive>Log in</Button>
+            <Button.Or />
+            <OAuth2 />
+          </Button.Group>
+        </ButtonForm>
 
-const mapStateToProps = (state) => {
-  return { status: state.accounts.status }
-}
+        <TransitionablePortal
+          closeOnTriggerClick
+          openOnTriggerClick
+          open={open}
+        >
+          <Segment
+            color="red"
+            circular
+            compact
+            size="mini"
+            textAlign="center"
+            style={{
+              left: "50%",
+              position: "fixed",
+              marginTop: "-50px",
+              marginLeft: "-112px",
+              top: "65%",
+              zIndex: 1000
+            }}
+          >
+            <Header>Username/password incorrect!</Header>
+          </Segment>
+        </TransitionablePortal>
+      </Grid>
+    </form>
+  );
+};
+
+const mapStateToProps = state => {
+  return { status: state.accounts.status };
+};
 
 const wrap = reduxForm({ form: "loginForm", validate })(LoginForm);
 

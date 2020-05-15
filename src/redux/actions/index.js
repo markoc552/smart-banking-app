@@ -54,6 +54,16 @@ export const checkAccount = (formValues) => async dispatch => {
   dispatch({ type: "CHECK_ACCOUNT", payload: status });
 }
 
+export const getAccountInfo = username => async dispatch => {
+  const response = await axios.get("/accounts");
+
+  const arr = _.mapKeys(response.data, "id");
+
+  const user = _.mapKeys(arr, "username");
+
+  dispatch({ type: "GET_USER", payload: user[username] })
+}
+
 //Google OAuth action creators
 export const signIn = (userId) => {
   return { type: "SIGN_IN", payload: userId };

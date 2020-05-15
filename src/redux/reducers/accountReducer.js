@@ -1,4 +1,4 @@
-export default(state = {}, action) => {
+export default (state = {}, action) => {
   if (action.type === "CREATE_ACCOUNT") {
     return {
       ...state,
@@ -8,6 +8,11 @@ export default(state = {}, action) => {
     return {
       ...state,
       status: action.payload
+    }
+  } else if (action.type === "GET_ACCOUNT") {
+    return {
+      ...state,
+      user: action.payload
     }
   }
   return state;
