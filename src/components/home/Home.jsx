@@ -10,14 +10,13 @@ import SideNavigation from "./SideNavigation";
 
 const HomeSection = styled.div`
   position: absolute;
-  right: 1%;
-  left: 1%;
+  right: 0%;
+  left: 0%;
   font-family: "Lato", sans-serif;
 `;
 
 const Background = styled.div`
-  background-image: url("https://www.publicdomainpictures.net/pictures/80000/velka/blue-background-clipart-1392210818CaU.jpg");
-  background-position: 30% 50%;
+  background-position: 17% 50%;
 `;
 
 const Home = props => {
@@ -40,8 +39,8 @@ const Home = props => {
         <Background>
           <EthereumStack />
           <MobileBankingStack />
-          <HomeBottom />
         </Background>
+        <HomeBottom />
       </SideNavigation>
     </HomeSection>
   );

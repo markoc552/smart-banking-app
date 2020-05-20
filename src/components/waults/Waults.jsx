@@ -33,7 +33,7 @@ const Background = styled.div`
   right: 0;
   top: 0;
   bottom: 0;
-  background-image: url("https://cdn.pixabay.com/photo/2015/04/20/13/18/animals-731213_1280.jpg");
+  background-image: url("https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;

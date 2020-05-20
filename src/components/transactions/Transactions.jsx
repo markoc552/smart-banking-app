@@ -33,7 +33,7 @@ const Background = styled.div`
   right: 0;
   top: 0;
   bottom: 0;
-  background-image: url("https://cdn.pixabay.com/photo/2017/10/14/11/30/block-chain-2850276_1280.jpg");
+  background-image: url("https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;

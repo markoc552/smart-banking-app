@@ -60,7 +60,7 @@ export const getAccountInfo = username => async dispatch => {
 
   const user = _.mapKeys(arr, "username");
 
-  dispatch({ type: "GET_USER", payload: user[username] });
+  dispatch({ type: "GET_ACCOUNT", payload: user[username] });
 };
 
 //Google OAuth action creators

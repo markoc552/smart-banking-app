@@ -3,6 +3,7 @@ import { Grid, Button, Icon, Label, Image, Container } from "semantic-ui-react";
 import styled from "styled-components";
 import Background from "../../home.png";
 import BackgroundVector from "../../vector.jpg";
+import Search from "../Search";
 
 const HeaderText = styled.div`
   position: relative;
@@ -28,7 +29,7 @@ const HomeHeader = props => {
   return (
     <Vector>
       <Grid padded="vertically" stackable>
-        <Grid.Row columns={3}>
+        <Grid.Row columns={5}>
           <Grid.Column>
             <div>
               <Icon
@@ -41,8 +42,12 @@ const HomeHeader = props => {
               />
             </div>
           </Grid.Column>
+          <Grid.Column></Grid.Column>
           <Grid.Column textAlign="center">
             <Image centered src={require("../../logo.png")} size="tiny" />
+          </Grid.Column>
+          <Grid.Column>
+            <Search />
           </Grid.Column>
           <Grid.Column stretched textAlign="right">
             <div>

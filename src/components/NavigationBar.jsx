@@ -1,11 +1,12 @@
 import React from "react";
 import { Grid, Icon, Button, Label, Image } from "semantic-ui-react";
+import Search from "./Search";
 
 const NavigationBar = props => {
   return (
     <div>
       <Grid padded="vertically" stackable>
-        <Grid.Row columns={3}>
+        <Grid.Row columns={5}>
           <Grid.Column>
             <div>
               <Icon
@@ -18,8 +19,12 @@ const NavigationBar = props => {
               />
             </div>
           </Grid.Column>
+          <Grid.Column></Grid.Column>
           <Grid.Column style={{ textAlign: "center" }}>
             <Image size="tiny" centered inline src={require("../logo.png")} />
+          </Grid.Column>
+          <Grid.Column>
+            <Search />
           </Grid.Column>
           <Grid.Column stretched textAlign="right">
             <div>
