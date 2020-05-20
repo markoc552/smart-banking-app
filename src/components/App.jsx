@@ -7,6 +7,8 @@ import Dashboard from "./Dashboard";
 import Home from "./home/Home";
 import Transactions from "./transactions/Transactions";
 import NewTransaction from "./transactions/NewTransaction";
+import Waults from "./waults/Waults";
+import NewWault from "./waults/NewWault";
 
 const App = props => {
   return (
@@ -22,6 +24,8 @@ const App = props => {
             exact
             component={NewTransaction}
           />
+          <Route path="/home/waults/:id" exact component={Waults} />
+          <Route path="/home/waults/:id/new" exact component={NewWault} />
         </Switch>
       </Router>
     </div>

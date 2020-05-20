@@ -3,15 +3,16 @@ import { Grid, Image, Header, Container, Divider } from "semantic-ui-react";
 
 const EthereumStack = props => {
   return (
-    <div style={{ paddingTop: "300px" }}>
+    <div>
       <Grid padded="vertically" container>
         <Grid.Row columns={2}>
           <Grid.Column>
             <Image
               as="img"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Ethereum-icon-purple.svg/800px-Ethereum-icon-purple.svg.png"
-              size="medium"
+              src="https://www.goodfreephotos.com/cache/other-photos/bitcoin-ethereum-and-world-coin.jpg"
+              size="large"
               centered
+              style={{ paddingTop: "10px", borderRadius: "25px" }}
             />
           </Grid.Column>
           <Grid.Column

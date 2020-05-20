@@ -17,6 +17,8 @@ const HomeBottom = props => {
     color: rgb(81, 147, 252);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    position: relative;
+    bottom: 0;
   `;
 
   return (

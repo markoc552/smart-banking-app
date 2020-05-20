@@ -19,12 +19,13 @@ const RegisterForm = props => {
   `;
 
   const [open, setOpen] = useState(false);
+  const [formValues, setFormValues] = useState(undefined);
 
   useEffect(() => {
-    console.log(props.status);
     if (props.status !== undefined) {
       if (props.status === true) {
         setOpen(true);
+        setTimeout(() => setOpen(false), "2000");
       } else {
         setOpen(false);
       }
@@ -35,12 +36,6 @@ const RegisterForm = props => {
     setOpen(false);
 
     await props.checkRegister(formValues);
-
-    setTimeout(() => {
-      if (props.status !== undefined && props.status === false) {
-        props.createAccount(formValues);
-      }
-    }, 1000);
   };
 
   props.changeName("Register");

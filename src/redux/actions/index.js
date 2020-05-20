@@ -1,22 +1,22 @@
-import axios from "../axios"
+import axios from "../axios";
 import history from "../../history";
-import _ from "lodash"
+import _ from "lodash";
 
-export const createAccount = (formValues) => async dispatch => {
-
+export const createAccount = formValues => async dispatch => {
   const response = await axios.post("/accounts", {
     ...formValues
   });
 
-  dispatch({ type: "CREATE_ACCOUNT", payload: response.data })
+  dispatch({ type: "CREATE_ACCOUNT", payload: response.data });
+
+  console.log(formValues.username);
 
   if (formValues.username !== undefined) {
-    history.push(`/home/${formValues.username}`)
+    history.push(`/home/${formValues.username}`);
   }
-}
+};
 
-export const checkRegister = (formValues) => async dispatch => {
-
+export const checkRegister = formValues => async dispatch => {
   const response = await axios.get("/accounts");
 
   const arr = _.mapKeys(response.data, "id");
@@ -28,14 +28,13 @@ export const checkRegister = (formValues) => async dispatch => {
     status = true;
   } else {
     status = false;
+    dispatch(createAccount(formValues));
   }
 
-  console.log(status);
-
   dispatch({ type: "CHECK_ACCOUNT", payload: status });
-}
+};
 
-export const checkAccount = (formValues) => async dispatch => {
+export const checkAccount = formValues => async dispatch => {
   const response = await axios.get("/accounts");
 
   const arr = _.mapKeys(response.data, "id");
@@ -46,13 +45,13 @@ export const checkAccount = (formValues) => async dispatch => {
   if (user[formValues.username] !== undefined) {
     if (user[formValues.username].password === formValues.password) {
       status = true;
-      history.push(`/home/${formValues.username}`)
+      history.push(`/home/${formValues.username}`);
     }
   } else {
     status = false;
   }
   dispatch({ type: "CHECK_ACCOUNT", payload: status });
-}
+};
 
 export const getAccountInfo = username => async dispatch => {
   const response = await axios.get("/accounts");
@@ -61,11 +60,11 @@ export const getAccountInfo = username => async dispatch => {
 
   const user = _.mapKeys(arr, "username");
 
-  dispatch({ type: "GET_USER", payload: user[username] })
-}
+  dispatch({ type: "GET_USER", payload: user[username] });
+};
 
 //Google OAuth action creators
-export const signIn = (userId) => {
+export const signIn = userId => {
   return { type: "SIGN_IN", payload: userId };
 };
 

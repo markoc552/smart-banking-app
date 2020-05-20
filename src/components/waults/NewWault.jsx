@@ -5,7 +5,7 @@ import { Card, Button, Label, Form, Grid } from "semantic-ui-react";
 import { Field, reduxForm } from "redux-form";
 import history from "../../history";
 
-const NewTransaction = props => {
+const NewWault = props => {
   const renderInput = ({ input, label, meta }) => {
     return (
       <Form.Field>
@@ -19,7 +19,7 @@ const NewTransaction = props => {
 
   return ReactDOM.createPortal(
     <div
-      onClick={() => history.push(`/home/transactions/${Id}`)}
+      onClick={() => history.push(`/home/waults/${Id}`)}
       className="ui dimmer modals visible active"
     >
       <div
@@ -27,38 +27,38 @@ const NewTransaction = props => {
         className="ui standard modal visible active"
         style={{ textAlign: "center" }}
       >
-        <div class="header">Create new transaction</div>
+        <div class="header">Create new wault</div>
         <div className="content">
           <Form>
             <Field
-              name="sender"
+              name="reason"
               type="text"
-              label="Sender"
+              label="Reason"
               component={renderInput}
             />
             <Field
-              name="receiver"
+              name="timePeriod"
               type="text"
-              label="Receiver"
+              label="Time period"
               component={renderInput}
             />
             <Field
               name="amount"
               type="text"
-              label="Amount of money"
+              label="Wanted money to save"
               component={renderInput}
             />
           </Form>
         </div>
         <div className="actions" style={{ textAlign: "center" }}>
           <Button primary circular>
-            Send transaction
+            Create Wault
           </Button>
         </div>
       </div>
     </div>,
-    document.querySelector("#modal")
+    document.querySelector("#wault")
   );
 };
 
-export default reduxForm({ form: "newTransaction" })(NewTransaction);
+export default reduxForm({ form: "newWault" })(NewWault);

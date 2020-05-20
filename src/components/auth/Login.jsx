@@ -15,7 +15,6 @@ const Login = props => {
     margin: 100px auto 0px auto;
     background-color: white;
     z-index: 1;
-    padding: 10px;
   `;
 
   const ModalContainer = styled.div`
@@ -58,10 +57,10 @@ const Login = props => {
   return (
     <ModalContainer>
       <Modal>
-        <Image src={require("../../logo.png")} /> <Header> {formName} </Header>{" "}
+        <Image src={require("../../logo.png")} /> <Header> {formName} </Header>
         <div>
-          <div> {renderForm()} </div>{" "}
-        </div>{" "}
+          <div> {renderForm()} </div>
+        </div>
       </Modal>
     </ModalContainer>
   );

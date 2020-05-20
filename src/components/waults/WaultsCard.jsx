@@ -10,9 +10,9 @@ const Transactions = props => {
       return (
         <div>
           <div>
-            <Icon name="history" size="massive" />
+            <Icon name="archive" size="massive" />
           </div>
-          You don't have any transactions
+          You don't have any waults
         </div>
       );
     } else {
@@ -31,16 +31,16 @@ const Transactions = props => {
     <div style={{ width: "95%", margin: "0 auto", paddingBottom: "25px" }}>
       <Card fluid centered raised color="blue">
         <Card.Content>
-          <Card.Header>Transactions</Card.Header>
-          <Card.Meta>Recently sent and received transactions</Card.Meta>
+          <Card.Header>Waults</Card.Header>
+          <Card.Meta>Recently created waults</Card.Meta>
         </Card.Content>
         <Card.Content extra textAlign="center">
           <List celled>{renderTransactions()}</List>
         </Card.Content>
         <Card.Content extra textAlign="center">
-          <Link to={`/home/transactions/${props.id}/new`}>
+          <Link to={`/home/waults/${props.id}/new`}>
             <Button primary circular>
-              Create new transaction
+              Create new wault
             </Button>
           </Link>
         </Card.Content>

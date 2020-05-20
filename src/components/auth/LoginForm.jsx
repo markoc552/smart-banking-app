@@ -25,6 +25,7 @@ const LoginForm = props => {
     if (props.status !== undefined) {
       if (props.status === false) {
         setOpen(true);
+        setTimeout(() => setOpen(false), "2000");
       } else {
         setOpen(false);
       }

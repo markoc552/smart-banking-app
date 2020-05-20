@@ -1,11 +1,11 @@
 import React from "react";
-import { Grid, Icon, Button, Label } from "semantic-ui-react";
+import { Grid, Icon, Button, Label, Image } from "semantic-ui-react";
 
 const NavigationBar = props => {
   return (
     <div>
       <Grid padded="vertically" stackable>
-        <Grid.Row columns={2}>
+        <Grid.Row columns={3}>
           <Grid.Column>
             <div>
               <Icon
@@ -17,6 +17,9 @@ const NavigationBar = props => {
                 onClick={() => props.setVisible(true)}
               />
             </div>
+          </Grid.Column>
+          <Grid.Column style={{ textAlign: "center" }}>
+            <Image size="tiny" centered inline src={require("../logo.png")} />
           </Grid.Column>
           <Grid.Column stretched textAlign="right">
             <div>

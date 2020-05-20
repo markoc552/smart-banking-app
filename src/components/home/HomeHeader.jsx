@@ -1,13 +1,14 @@
 import React from "react";
-import { Grid, Button, Icon, Label, Image } from "semantic-ui-react";
+import { Grid, Button, Icon, Label, Image, Container } from "semantic-ui-react";
 import styled from "styled-components";
 import Background from "../../home.png";
+import BackgroundVector from "../../vector.jpg";
 
 const HeaderText = styled.div`
   position: relative;
   margin-right: 300px;
   margin-top: 200px;
-  margin-left: 15px;
+  margin-left: 30px;
   font-weight: bold;
   font-size: 50px;
   font-family: "Poppins", sans-serif;
@@ -15,9 +16,17 @@ const HeaderText = styled.div`
   z-index: 1;
 `;
 
+const Vector = styled.div`
+  background-image: url(${BackgroundVector});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 110vh;
+`;
+
 const HomeHeader = props => {
   return (
-    <div>
+    <Vector>
       <Grid padded="vertically" stackable>
         <Grid.Row columns={3}>
           <Grid.Column>
@@ -49,9 +58,11 @@ const HomeHeader = props => {
             </div>
           </Grid.Column>
         </Grid.Row>
-        <img
+        <Image
+          as="img"
+          size="large"
           src={Background}
-          style={{ position: "absolute", left: "50%", top: "5%" }}
+          style={{ position: "absolute", left: "59%", top: "5%" }}
         />
         <Grid.Row textAlign="center">
           <HeaderText>The next level of banking</HeaderText>
@@ -63,9 +74,17 @@ const HomeHeader = props => {
             </Button>
           </Grid.Column>
           <Grid.Column></Grid.Column>
+          <Container
+            as="div"
+            style={{ position: "absolute", marginTop: "150px" }}
+          >
+            <a href="http://www.freepik.com">
+              Designed by Creative_hat / Freepik
+            </a>
+          </Container>
         </Grid.Row>
       </Grid>
-    </div>
+    </Vector>
   );
 };
 
