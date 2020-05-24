@@ -3,17 +3,22 @@ export default (state = {}, action) => {
     return {
       ...state,
       [action.payload.id]: action.payload
-    }
+    };
   } else if (action.type === "CHECK_ACCOUNT") {
     return {
       ...state,
       status: action.payload
-    }
+    };
   } else if (action.type === "GET_ACCOUNT") {
     return {
       ...state,
       user: action.payload
-    }
+    };
+  } else if (action.type === "GET_ACCOUNTS") {
+    return {
+      ...state,
+      users: action.payload
+    };
   }
   return state;
-}
+};

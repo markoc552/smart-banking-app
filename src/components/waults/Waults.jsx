@@ -24,16 +24,15 @@ const WaultDiv = styled.div`
   bottom: 0;
   background-color: white;
   opacity: 0.97;
+  height: 100vh;
 `;
 
 const Background = styled.div`
   position: absolute;
-  height: 174vh;
   left: 0;
   right: 0;
-  top: 0;
-  bottom: 0;
-  background-image: url("https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80");
+  height: 100vh;
+  background-image: url("https://c.pxhere.com/photos/28/3f/code_code_editor_coding_computer_data_developing_development_ethernet-1366450.jpg!d");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;

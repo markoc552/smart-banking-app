@@ -8,6 +8,7 @@ import Transactions from "./transactions/Transactions";
 import NewTransaction from "./transactions/NewTransaction";
 import Waults from "./waults/Waults";
 import NewWault from "./waults/NewWault";
+import References from "./references/References";
 
 const App = props => {
   return (
@@ -24,6 +25,7 @@ const App = props => {
           />
           <Route path="/home/waults/:id" exact component={Waults} />
           <Route path="/home/waults/:id/new" exact component={NewWault} />
+          <Route path="/home/references/:id" exact component={References} />
         </Switch>
       </Router>
     </div>

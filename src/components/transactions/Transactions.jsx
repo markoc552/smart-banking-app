@@ -28,7 +28,6 @@ const TransactionDiv = styled.div`
 
 const Background = styled.div`
   position: absolute;
-  height: 153vh;
   left: 0;
   right: 0;
   top: 0;

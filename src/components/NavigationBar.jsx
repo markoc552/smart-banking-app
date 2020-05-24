@@ -21,12 +21,17 @@ const NavigationBar = props => {
           </Grid.Column>
           <Grid.Column></Grid.Column>
           <Grid.Column style={{ textAlign: "center" }}>
-            <Image size="tiny" centered inline src={require("../logo.png")} />
+            <Image
+              size="tiny"
+              centered
+              inline
+              src={require("../images/logo.png")}
+            />
           </Grid.Column>
           <Grid.Column>
             <Search />
           </Grid.Column>
-          <Grid.Column stretched textAlign="right">
+          <Grid.Column textAlign="right">
             <div>
               <Button as="div" labelPosition="right">
                 <Button basic color="blue">

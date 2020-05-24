@@ -12,6 +12,7 @@ const HomeSection = styled.div`
   right: 1%;
   left: 1%;
   font-family: "Lato", sans-serif;
+  height: 100vh;
 `;
 
 const SideNavigation = props => {

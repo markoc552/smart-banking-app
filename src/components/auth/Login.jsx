@@ -4,17 +4,22 @@ import styled from "styled-components";
 import { createAccount } from "../../redux/actions";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
+import "../../index.css";
 
 const Login = props => {
   const Modal = styled.div`
     position: relative;
-    height: 55%;
+    height: auto;
     width: 40%;
     border: 1px gray;
     border-radius: 20px;
     margin: 100px auto 0px auto;
     background-color: white;
     z-index: 1;
+
+    @media only screen and (max-width: 600px) {
+      width: 90%;
+    }
   `;
 
   const ModalContainer = styled.div`
@@ -23,10 +28,12 @@ const Login = props => {
     background-position: center center;
     background-size: cover;
     padding-top: 15px;
-    padding-bottom: 100px;
     position: absolute;
+    height: 120vh;
     left: 0;
     right: 0;
+    top: 0;
+    bottom: 0;
   `;
 
   const Image = styled.img`
@@ -57,7 +64,8 @@ const Login = props => {
   return (
     <ModalContainer>
       <Modal>
-        <Image src={require("../../logo.png")} /> <Header> {formName} </Header>
+        <Image src={require("../../images/logo.png")} />
+        <Header> {formName} </Header>
         <div>
           <div> {renderForm()} </div>
         </div>

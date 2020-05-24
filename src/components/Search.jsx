@@ -1,9 +1,9 @@
+import React, { useState, useEffect } from "react";
 import _ from "lodash";
 import faker from "faker";
-import React, { useState, useEffect } from "react";
 import { Search, Grid, Header, Segment } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { getAccountInfo } from "../redux/actions";
+import { getAllAccounts } from "../redux/actions";
 
 const SearchForm = props => {
   const [isLoading, setLoading] = useState(false);
@@ -11,31 +11,36 @@ const SearchForm = props => {
   const [value, setValue] = useState("");
 
   useEffect(() => {
-    if (props.user !== undefined) {
-      setTimeout(() => {
-        props.getAccountInfo(value);
-      }, 2000);
-    }
-  }, [props, value]);
+    props.getAllAccounts();
+  }, [props]);
 
   const handleResultSelect = (e, { result }) => setValue(result.title);
-
-  const source = _.times(5, () => ({
-    firstName: props.user.firstName,
-    lastName: props.user.lastName
-  }));
 
   const handleSearchChange = (e, { value }) => {
     setLoading(true);
     setValue(value);
 
-    setTimeout(() => {
-      const re = new RegExp(_.escapeRegExp(value), "i");
-      const isMatch = result => re.test(result.title);
-
+    if (value.length < 1) {
       setLoading(false);
-      setResults(_.filter(source, isMatch));
-    }, 300);
+      setResults([]);
+      setValue("");
+      return;
+    }
+
+    const arr = _.mapKeys(props.users, "id");
+    const users = _.mapKeys(arr, "username");
+
+    const re = new RegExp(_.escapeRegExp(value), "i");
+    const isMatch = result => re.test(result.title);
+
+    const source = _.times(5, () => ({
+      title: faker.company.companyName(),
+      description: faker.company.catchPhrase(),
+      price: faker.finance.amount(0, 100, 2, "$")
+    }));
+
+    setLoading(false);
+    setResults(_.filter(source, isMatch));
   };
 
   return (
@@ -45,7 +50,7 @@ const SearchForm = props => {
           aligned="right"
           loading={isLoading}
           onResultSelect={handleResultSelect}
-          onSearchChange={_.debounce(handleSearchChange, 500, {
+          onSearchChange={_.debounce(handleSearchChange, 1000, {
             leading: true
           })}
           results={results}
@@ -58,7 +63,7 @@ const SearchForm = props => {
 };
 
 const mapStateToProps = state => {
-  return { user: state.accounts.user };
+  return { users: state.accounts.users };
 };
 
-export default connect(mapStateToProps, { getAccountInfo })(SearchForm);
+export default connect(mapStateToProps, { getAllAccounts })(SearchForm);

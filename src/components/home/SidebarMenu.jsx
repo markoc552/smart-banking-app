@@ -14,6 +14,7 @@ const SidebarMenu = props => {
       width="wide"
       className="container"
       borderless
+      style={{ height: "100vh" }}
     >
       <Menu.Item icon>
         <Icon name="user circle" color="blue" />
@@ -39,7 +40,7 @@ const SidebarMenu = props => {
           Waults
         </Menu.Item>
       </Link>
-      <Link to="/home/reference">
+      <Link to={`/home/references/${props.id}`}>
         <Menu.Item as="a">
           <Icon name="file" color="blue" />
           Reference

@@ -1,8 +1,8 @@
 import React from "react";
 import { Grid, Button, Icon, Label, Image, Container } from "semantic-ui-react";
 import styled from "styled-components";
-import Background from "../../home.png";
-import BackgroundVector from "../../vector.jpg";
+import Background from "../../images/home.png";
+import BackgroundVector from "../../images/vector.jpg";
 import Search from "../Search";
 
 const HeaderText = styled.div`
@@ -44,7 +44,11 @@ const HomeHeader = props => {
           </Grid.Column>
           <Grid.Column></Grid.Column>
           <Grid.Column textAlign="center">
-            <Image centered src={require("../../logo.png")} size="tiny" />
+            <Image
+              centered
+              src={require("../../images/logo.png")}
+              size="tiny"
+            />
           </Grid.Column>
           <Grid.Column>
             <Search />
@@ -81,7 +85,11 @@ const HomeHeader = props => {
           <Grid.Column></Grid.Column>
           <Container
             as="div"
-            style={{ position: "absolute", marginTop: "150px" }}
+            style={{
+              marginTop: "15%",
+              marginLeft: "auto",
+              marginRight: "auto"
+            }}
           >
             <a href="http://www.freepik.com">
               Designed by Creative_hat / Freepik

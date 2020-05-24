@@ -63,6 +63,12 @@ export const getAccountInfo = username => async dispatch => {
   dispatch({ type: "GET_ACCOUNT", payload: user[username] });
 };
 
+export const getAllAccounts = () => async dispatch => {
+  const response = await axios.get("/accounts");
+
+  dispatch({ type: "GET_ACCOUNTS", payload: response.data });
+};
+
 //Google OAuth action creators
 export const signIn = userId => {
   return { type: "SIGN_IN", payload: userId };
