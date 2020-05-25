@@ -18,6 +18,14 @@
     },
     {
       "id": 3
+    },
+    {
+      "username": "markoc552",
+      "firstname": "Marko",
+      "lastname": "Perajica",
+      "email": "markoperajicca@gmail.com",
+      "password": "marko",
+      "id": 4
     }
   ]
 }

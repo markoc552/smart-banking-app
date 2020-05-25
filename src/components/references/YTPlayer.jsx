@@ -4,7 +4,6 @@ import VideoDetail from "./VideoDetail";
 import VideoList from "./VideoList";
 import YTSearch from "youtube-api-search";
 import _ from "lodash";
-import { YOUTUBE_API_KEY } from "../../env";
 import { Grid } from "semantic-ui-react";
 
 const YTPlayer = props => {
@@ -18,7 +17,7 @@ const YTPlayer = props => {
   const searchVideo = term => {
     if (!term) return;
 
-    YTSearch({ key: YOUTUBE_API_KEY, term: term }, videos => {
+    YTSearch({ key: window.ENVIRONMENT.YOUTUBE_API_KEY, term: term }, videos => {
       if (!videos) {
         return;
       }

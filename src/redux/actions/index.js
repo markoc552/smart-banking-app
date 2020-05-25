@@ -60,7 +60,12 @@ export const getAccountInfo = username => async dispatch => {
 
   const user = _.mapKeys(arr, "username");
 
-  dispatch({ type: "GET_ACCOUNT", payload: user[username] });
+  const name = user[username].firstname;
+  const lastname = user[username].lastname;
+
+  console.log(user)
+
+  dispatch({ type: "GET_ACCOUNT", payload: `${name} ${lastname}` });
 };
 
 export const getAllAccounts = () => async dispatch => {

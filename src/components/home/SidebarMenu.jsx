@@ -3,6 +3,7 @@ import { Sidebar, Menu, Icon, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 
 const SidebarMenu = props => {
+
   return (
     <Sidebar
       as={Menu}
@@ -18,7 +19,7 @@ const SidebarMenu = props => {
     >
       <Menu.Item icon>
         <Icon name="user circle" color="blue" />
-        <Header as="h4">John Doe</Header>
+        <Header as="h4">{props.user}</Header>
       </Menu.Item>
       <Menu.Item></Menu.Item>
       <Menu.Item></Menu.Item>

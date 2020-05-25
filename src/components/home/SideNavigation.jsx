@@ -16,6 +16,7 @@ const HomeSection = styled.div`
 `;
 
 const SideNavigation = props => {
+
   return (
     <HomeSection>
       <Sidebar.Pushable as="div">
@@ -23,6 +24,7 @@ const SideNavigation = props => {
           setVisible={props.setVisible}
           id={props.id}
           visible={props.visible}
+          user={props.user}
         />
         <Sidebar.Pusher as="div">{props.children}</Sidebar.Pusher>
       </Sidebar.Pushable>

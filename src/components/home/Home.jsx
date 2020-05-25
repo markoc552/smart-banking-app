@@ -7,6 +7,8 @@ import HomeBottom from "./HomeBottom";
 import SidebarMenu from "./SidebarMenu";
 import HomeHeader from "./HomeHeader";
 import SideNavigation from "./SideNavigation";
+import { connect } from "react-redux";
+import { getAccountInfo } from "../../redux/actions";
 
 const HomeSection = styled.div`
   position: absolute;
@@ -24,8 +26,10 @@ const Home = props => {
   const [id, setId] = useState(null);
 
   useEffect(() => {
-    setId(props.match.params.id);
-  }, [props.match.params.id]);
+    const id = props.match.params.id;
+    setId(id);
+    props.getAccountInfo(id);
+  }, []);
 
   return (
     <HomeSection>
@@ -34,6 +38,7 @@ const Home = props => {
         setId={setId}
         setVisible={setVisible}
         visible={visible}
+        user={props.user}
       >
         <HomeHeader setVisible={setVisible} />
         <Background>
@@ -46,4 +51,8 @@ const Home = props => {
   );
 };
 
-export default Home;
+const mapStateToProps = state => {
+  return { user: state.accounts.user };
+};
+
+export default connect(mapStateToProps, { getAccountInfo })(Home);

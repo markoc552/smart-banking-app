@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { CLIENT_ID } from "../../env";
 import { signIn, signOut } from "../../redux/actions";
 import { connect } from "react-redux";
 import history from "../../history";
@@ -10,7 +9,7 @@ const OAuth2 = props => {
   useEffect(() => {
     window.gapi.load("client:auth2", () => {
       window.gapi.client
-        .init({ clientId: CLIENT_ID, scope: "email" })
+        .init({ clientId: window.ENVIRONMENT.CLIENT_ID, scope: "email" })
         .then(() => {
           setAuth(window.gapi.auth2.getAuthInstance());
           onAuthChange(auth.isSignedIn.get());

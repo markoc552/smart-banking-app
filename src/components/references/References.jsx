@@ -16,6 +16,8 @@ import Bottom from "../home/HomeBottom";
 import styled from "styled-components";
 import _ from "lodash";
 import YTPlayer from "./YTPlayer";
+import {connect} from "react-redux"
+import {getAccountInfo} from "../../redux/actions"
 
 const ReferencesDiv = styled.div`
   position: absolute;
@@ -40,29 +42,35 @@ const Background = styled.div`
   background-position: center center;
 `;
 
+const Message = styled.div`
+font-family: 'Lato', sans-serif;
+font-weight: 500;
+`
+
 const References = props => {
   const [id, setId] = useState(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setId(props.match.params.id);
-  }, [props.match.params.id]);
+    const id = props.match.params.id;
+
+    props.getAccountInfo(id);
+    setId(id);
+  }, []);
 
   return (
     <Background>
       <ReferencesDiv>
-        <SideNavigation visible={visible} setVisible={setVisible} id={id}>
+        <SideNavigation visible={visible} setVisible={setVisible} id={id} user={props.user}>
           <Navigation setVisible={setVisible} />
-          <Segment raised color="blue" textAlign="center" secondary vertical>
-            <div
-              style={{ fontFamily: "'Lato', sans-serif", fontWeight: "500" }}
-            >
+          <Segment raised color="blue" textAlign="center" vertical>
+            <Message>
               Here you have embedded Youtube player so you can educate yourself
               about ethereum technology.
               <Divider hidden />
-              Maybe try to search: ethereum technology, solidity, smart
+              Search something like:  ethereum technology, solidity, smart
               contracts...
-            </div>
+            </Message>
           </Segment>
           <YTPlayer term="ethereum technology" />
           <Bottom />
@@ -72,4 +80,8 @@ const References = props => {
   );
 };
 
-export default References;
+const mapStateToProps = (state) => {
+  return {user: state.accounts.user}
+}
+
+export default connect(mapStateToProps, {getAccountInfo})(References);

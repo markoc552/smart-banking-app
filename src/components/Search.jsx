@@ -10,10 +10,6 @@ const SearchForm = props => {
   const [results, setResults] = useState([]);
   const [value, setValue] = useState("");
 
-  useEffect(() => {
-    props.getAllAccounts();
-  }, [props]);
-
   const handleResultSelect = (e, { result }) => setValue(result.title);
 
   const handleSearchChange = (e, { value }) => {

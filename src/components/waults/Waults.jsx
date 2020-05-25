@@ -15,6 +15,8 @@ import Navigation from "../NavigationBar";
 import SideNavigation from "../home/SideNavigation";
 import Bottom from "../home/HomeBottom";
 import styled from "styled-components";
+import {getAccountInfo} from "../../redux/actions";
+import {connect} from "react-redux"
 
 const WaultDiv = styled.div`
   position: absolute;
@@ -32,7 +34,7 @@ const Background = styled.div`
   left: 0;
   right: 0;
   height: 100vh;
-  background-image: url("https://c.pxhere.com/photos/28/3f/code_code_editor_coding_computer_data_developing_development_ethernet-1366450.jpg!d");
+  background-color: #fafafa;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -43,13 +45,16 @@ const Waults = props => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setId(props.match.params.id);
-  }, [props.match.params.id]);
+    const id = props.match.params.id;
+
+    setId(id);
+    props.getAccountInfo(id)
+  }, []);
 
   return (
     <Background>
       <WaultDiv>
-        <SideNavigation visible={visible} setVisible={setVisible} id={id}>
+        <SideNavigation visible={visible} setVisible={setVisible} id={id} user={props.user}>
           <Navigation setVisible={setVisible} />
           <Segment raised color="blue" textAlign="center">
             <div
@@ -109,4 +114,8 @@ const Waults = props => {
   );
 };
 
-export default Waults;
+const mapStateToProps = (state) => {
+  return {user: state.accounts.user}
+}
+
+export default connect(mapStateToProps, {getAccountInfo})(Waults);
