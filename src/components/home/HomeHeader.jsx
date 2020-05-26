@@ -2,28 +2,8 @@ import React from "react";
 import { Grid, Button, Icon, Label, Image, Container } from "semantic-ui-react";
 import styled from "styled-components";
 import Background from "../../images/home.png";
-import BackgroundVector from "../../images/vector.jpg";
-import Search from "../Search";
-
-const HeaderText = styled.div`
-  position: relative;
-  margin-right: 300px;
-  margin-top: 200px;
-  margin-left: 30px;
-  font-weight: bold;
-  font-size: 50px;
-  font-family: "Poppins", sans-serif;
-  color: rgb(71, 161, 255);
-  z-index: 1;
-`;
-
-const Vector = styled.div`
-  background-image: url(${BackgroundVector});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  height: 110vh;
-`;
+import Search from "../utils/Search";
+import {HeaderText, Vector} from "../utils/StyledComponents"
 
 const HomeHeader = props => {
   return (

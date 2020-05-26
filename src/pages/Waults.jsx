@@ -10,37 +10,16 @@ import {
   Header,
   Divider
 } from "semantic-ui-react";
-import TransactionCard from "./TransactionsCard";
-import Navigation from "../NavigationBar";
-import SideNavigation from "../home/SideNavigation";
-import Bottom from "../home/HomeBottom";
+import WaultCard from "../components/waults/WaultsCard";
+import Navigation from "../components/utils/NavigationBar";
+import SideNavigation from "../components/utils/SideNavigation";
+import Bottom from "../components/home/HomeBottom";
 import styled from "styled-components";
-import {getAccountInfo} from "../../redux/actions"
+import {getAccountInfo} from "../redux/actions";
 import {connect} from "react-redux"
+import {SBADiv, SBABackground} from "../components/utils/StyledComponents"
 
-const TransactionDiv = styled.div`
-  position: absolute;
-  left: 5%;
-  right: 5%;
-  top: 0;
-  bottom: 0;
-  background-color: white;
-  opacity: 0.97;
-`;
-
-const Background = styled.div`
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-color: #fafafa;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-`;
-
-const Transactions = props => {
+const Waults = props => {
   const [id, setId] = useState(null);
   const [visible, setVisible] = useState(false);
 
@@ -52,16 +31,15 @@ const Transactions = props => {
   }, []);
 
   return (
-    <Background>
-      <TransactionDiv>
+    <SBABackground>
+      <SBADiv>
         <SideNavigation visible={visible} setVisible={setVisible} id={id} user={props.user}>
           <Navigation setVisible={setVisible} />
           <Segment raised color="blue" textAlign="center">
             <div
               style={{ fontFamily: "'Lato', sans-serif", fontWeight: "500" }}
             >
-              On this page you can view your recent transactions and sent new
-              ones.
+              On this page you can view and manage your waults.
             </div>
           </Segment>
           <div style={{ paddingBottom: "20px" }}>
@@ -71,7 +49,7 @@ const Transactions = props => {
                   <Image
                     size="large"
                     as="img"
-                    src="https://cdn.pixabay.com/photo/2018/01/13/18/55/leather-3080553_1280.jpg"
+                    src={window.ENVIRONMENT.WAULT_IMAGE}
                     style={{ borderRadius: "20px", margin: "0 auto" }}
                   ></Image>
                 </Grid.Column>
@@ -86,34 +64,32 @@ const Transactions = props => {
                     as="div"
                     style={{ fontWeight: "bold", paddingTop: "30px" }}
                   >
-                    Ethereum Transactions
+                    Digital Waults
                   </Container>
                   <Divider />
                   <Container>
-                    Transaction is the way the external world interacting with
-                    the Ethereum network. Transaction is used when we wish to
-                    modify or update the state stored in the Ethereum network.
-                    Within an Ethereum network circulates a native currency:
-                    ether. Besides a native currency, ether is mainly used as
-                    the transaction fee or service charge (called gas in
-                    Ethereum) when Ethereum network is processing the
-                    transaction.
+                    A bank vault is a secure space where money, valuables,
+                    records, and documents are stored. It is intended to protect
+                    their contents from theft, unauthorized use, fire, natural
+                    disasters, and other threats, much like a safe.
                   </Container>
                   <Divider hidden />
                   <Container>
-                    Ethereum is an account-based blockchain implementation.
-                    There are two types of account: Externally-Owned Account and
-                    Contract Account. We will introduce them in a logical way.
+                    Digital Vault is a flexible, scalable, cloud-based platform
+                    that reaches across silos to gather data from disparate
+                    sources, stores it securely and standardizes the data. It
+                    enables you to have a streamlined, more productive
+                    day-to-day experience.
                   </Container>
                 </Grid.Column>
               </Grid.Row>
             </Grid>
           </div>
-          <TransactionCard id={id} />
+          <WaultCard id={id} />
           <Bottom />
         </SideNavigation>
-      </TransactionDiv>
-    </Background>
+      </SBADiv>
+    </SBABackground>
   );
 };
 
@@ -121,4 +97,4 @@ const mapStateToProps = (state) => {
   return {user: state.accounts.user}
 }
 
-export default connect(mapStateToProps, {getAccountInfo})(Transactions);
+export default connect(mapStateToProps, {getAccountInfo})(Waults);

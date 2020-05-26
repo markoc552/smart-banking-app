@@ -10,42 +10,16 @@ import {
   Header,
   Divider
 } from "semantic-ui-react";
-import Navigation from "../NavigationBar";
-import SideNavigation from "../home/SideNavigation";
-import Bottom from "../home/HomeBottom";
+import Navigation from "../components/utils/NavigationBar";
+import SideNavigation from "../components/utils/SideNavigation";
+import Bottom from "../components/home/HomeBottom";
 import styled from "styled-components";
 import _ from "lodash";
-import YTPlayer from "./YTPlayer";
+import YTPlayer from "../components/references/YTPlayer";
 import {connect} from "react-redux"
-import {getAccountInfo} from "../../redux/actions"
+import {getAccountInfo} from "../redux/actions"
+import {ReferencesDiv, ReferencesBG, Message} from "../components/utils/StyledComponents"
 
-const ReferencesDiv = styled.div`
-  position: absolute;
-  height: 100vh;
-  left: 2%;
-  right: 2%;
-  top: 0;
-  bottom: 0;
-  background-color: white;
-  opacity: 0.97;
-`;
-
-const Background = styled.div`
-  position: absolute;
-  height: 100vh;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-`;
-
-const Message = styled.div`
-font-family: 'Lato', sans-serif;
-font-weight: 500;
-`
 
 const References = props => {
   const [id, setId] = useState(null);
@@ -59,7 +33,7 @@ const References = props => {
   }, []);
 
   return (
-    <Background>
+    <ReferencesBG>
       <ReferencesDiv>
         <SideNavigation visible={visible} setVisible={setVisible} id={id} user={props.user}>
           <Navigation setVisible={setVisible} />
@@ -76,7 +50,7 @@ const References = props => {
           <Bottom />
         </SideNavigation>
       </ReferencesDiv>
-    </Background>
+    </ReferencesBG>
   );
 };
 

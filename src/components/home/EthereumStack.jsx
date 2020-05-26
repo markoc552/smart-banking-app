@@ -9,7 +9,7 @@ const EthereumStack = props => {
           <Grid.Column>
             <Image
               as="img"
-              src="https://www.goodfreephotos.com/cache/other-photos/bitcoin-ethereum-and-world-coin.jpg"
+              src={window.ENVIRONMENT.ETHEREUM_IMAGE}
               size="large"
               centered
               style={{ paddingTop: "10px", borderRadius: "25px" }}

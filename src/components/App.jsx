@@ -2,13 +2,13 @@ import React from "react";
 import { Route, Router, Switch } from "react-router-dom";
 import history from "../history";
 
-import Login from "./auth/Login";
-import Home from "./home/Home";
-import Transactions from "./transactions/Transactions";
+import Login from "../pages/Login";
+import Home from "../pages/Home";
+import Transactions from "../pages/Transactions";
 import NewTransaction from "./transactions/NewTransaction";
-import Waults from "./waults/Waults";
+import Waults from "../pages//Waults";
 import NewWault from "./waults/NewWault";
-import References from "./references/References";
+import References from "../pages/References";
 
 const App = props => {
   return (

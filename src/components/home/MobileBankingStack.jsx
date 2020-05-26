@@ -36,7 +36,7 @@ const MobileBankingStack = props => {
           <Grid.Column>
             <Image
               as="img"
-              src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80"
+              src={window.ENVIRONMENT.MOBILE_IMAGE}
               style={{ borderRadius: "15px", height: "300px" }}
               centered
             />

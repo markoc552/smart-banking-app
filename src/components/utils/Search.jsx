@@ -3,7 +3,7 @@ import _ from "lodash";
 import faker from "faker";
 import { Search, Grid, Header, Segment } from "semantic-ui-react";
 import { connect } from "react-redux";
-import { getAllAccounts } from "../redux/actions";
+import { getAllAccounts } from "../../redux/actions";
 
 const SearchForm = props => {
   const [isLoading, setLoading] = useState(false);

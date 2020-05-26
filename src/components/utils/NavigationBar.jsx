@@ -25,7 +25,7 @@ const NavigationBar = props => {
               size="tiny"
               centered
               inline
-              src={require("../images/logo.png")}
+              src={require("../../images/logo.png")}
             />
           </Grid.Column>
           <Grid.Column>

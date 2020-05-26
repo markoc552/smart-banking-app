@@ -10,37 +10,16 @@ import {
   Header,
   Divider
 } from "semantic-ui-react";
-import WaultCard from "./WaultsCard";
-import Navigation from "../NavigationBar";
-import SideNavigation from "../home/SideNavigation";
-import Bottom from "../home/HomeBottom";
+import TransactionCard from "../components/transactions/TransactionsCard";
+import Navigation from "../components/utils/NavigationBar";
+import SideNavigation from "../components/utils/SideNavigation";
+import Bottom from "../components/home/HomeBottom";
 import styled from "styled-components";
-import {getAccountInfo} from "../../redux/actions";
+import {getAccountInfo} from "../redux/actions"
 import {connect} from "react-redux"
+import {SBABackground, SBADiv} from "../components/utils/StyledComponents"
 
-const WaultDiv = styled.div`
-  position: absolute;
-  left: 5%;
-  right: 5%;
-  top: 0;
-  bottom: 0;
-  background-color: white;
-  opacity: 0.97;
-  height: 100vh;
-`;
-
-const Background = styled.div`
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 100vh;
-  background-color: #fafafa;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-`;
-
-const Waults = props => {
+const Transactions = props => {
   const [id, setId] = useState(null);
   const [visible, setVisible] = useState(false);
 
@@ -52,15 +31,16 @@ const Waults = props => {
   }, []);
 
   return (
-    <Background>
-      <WaultDiv>
+    <SBABackground>
+      <SBADiv>
         <SideNavigation visible={visible} setVisible={setVisible} id={id} user={props.user}>
           <Navigation setVisible={setVisible} />
           <Segment raised color="blue" textAlign="center">
             <div
               style={{ fontFamily: "'Lato', sans-serif", fontWeight: "500" }}
             >
-              On this page you can view and manage your waults.
+              On this page you can view your recent transactions and sent new
+              ones.
             </div>
           </Segment>
           <div style={{ paddingBottom: "20px" }}>
@@ -70,7 +50,7 @@ const Waults = props => {
                   <Image
                     size="large"
                     as="img"
-                    src="https://cdn.pixabay.com/photo/2013/07/12/18/56/vault-154023_1280.png"
+                    src={window.ENVIRONMENT.TRANSACTIONS_IMAGE}
                     style={{ borderRadius: "20px", margin: "0 auto" }}
                   ></Image>
                 </Grid.Column>
@@ -85,32 +65,34 @@ const Waults = props => {
                     as="div"
                     style={{ fontWeight: "bold", paddingTop: "30px" }}
                   >
-                    Digital Waults
+                    Ethereum Transactions
                   </Container>
                   <Divider />
                   <Container>
-                    A bank vault is a secure space where money, valuables,
-                    records, and documents are stored. It is intended to protect
-                    their contents from theft, unauthorized use, fire, natural
-                    disasters, and other threats, much like a safe.
+                    Transaction is the way the external world interacting with
+                    the Ethereum network. Transaction is used when we wish to
+                    modify or update the state stored in the Ethereum network.
+                    Within an Ethereum network circulates a native currency:
+                    ether. Besides a native currency, ether is mainly used as
+                    the transaction fee or service charge (called gas in
+                    Ethereum) when Ethereum network is processing the
+                    transaction.
                   </Container>
                   <Divider hidden />
                   <Container>
-                    Digital Vault is a flexible, scalable, cloud-based platform
-                    that reaches across silos to gather data from disparate
-                    sources, stores it securely and standardizes the data. It
-                    enables you to have a streamlined, more productive
-                    day-to-day experience.
+                    Ethereum is an account-based blockchain implementation.
+                    There are two types of account: Externally-Owned Account and
+                    Contract Account. We will introduce them in a logical way.
                   </Container>
                 </Grid.Column>
               </Grid.Row>
             </Grid>
           </div>
-          <WaultCard id={id} />
+          <TransactionCard id={id} />
           <Bottom />
         </SideNavigation>
-      </WaultDiv>
-    </Background>
+      </SBADiv>
+    </SBABackground>
   );
 };
 
@@ -118,4 +100,4 @@ const mapStateToProps = (state) => {
   return {user: state.accounts.user}
 }
 
-export default connect(mapStateToProps, {getAccountInfo})(Waults);
+export default connect(mapStateToProps, {getAccountInfo})(Transactions);
