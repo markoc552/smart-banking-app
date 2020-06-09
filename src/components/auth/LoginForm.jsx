@@ -61,7 +61,7 @@ const LoginForm = props => {
             <Button.Or />
             <Button positive>Log in</Button>
             <Button.Or />
-            <OAuth2 />
+            <OAuth2/>
           </Button.Group>
         </ButtonForm>
 

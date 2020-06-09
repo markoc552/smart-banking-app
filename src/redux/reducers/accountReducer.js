@@ -19,6 +19,12 @@ export default (state = {}, action) => {
       ...state,
       users: action.payload
     };
+  } else if (action.type === "UPDATE_ACCOUNT") {
+    return {
+      ...state,
+      [action.payload.id]: action.payload
+    };
   }
+
   return state;
 };

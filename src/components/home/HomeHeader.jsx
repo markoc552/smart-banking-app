@@ -1,9 +1,10 @@
 import React from "react";
 import { Grid, Button, Icon, Label, Image, Container } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Background from "../../images/home.png";
 import Search from "../utils/Search";
-import {HeaderText, Vector} from "../utils/StyledComponents"
+import { HeaderText, Vector } from "../utils/StyledComponents";
 
 const HomeHeader = props => {
   return (
@@ -58,9 +59,11 @@ const HomeHeader = props => {
         </Grid.Row>
         <Grid.Row columns={2} centered>
           <Grid.Column width={3} floated="left">
-            <Button basic color="blue">
-              Proceed to dashboard
-            </Button>
+            <Link to={`/home/transactions/${props.user}`}>
+              <Button basic color="blue">
+                Proceed to transactions
+              </Button>
+            </Link>
           </Grid.Column>
           <Grid.Column></Grid.Column>
           <Container

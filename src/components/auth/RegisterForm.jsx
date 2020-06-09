@@ -13,6 +13,7 @@ import styled from "styled-components";
 import { checkRegister, createAccount } from "../../redux/actions";
 import "../../index.css";
 
+
 const RegisterForm = props => {
   const ButtonForm = styled.div`
     margin: 10px auto;

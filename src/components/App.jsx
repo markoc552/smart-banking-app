@@ -9,6 +9,8 @@ import NewTransaction from "./transactions/NewTransaction";
 import Waults from "../pages//Waults";
 import NewWault from "./waults/NewWault";
 import References from "../pages/References";
+import UserProfile from "../pages/UserProfile"
+import UpdateProfile from "./profile/UpdateProfile"
 
 const App = props => {
   return (
@@ -26,7 +28,9 @@ const App = props => {
           <Route path="/home/waults/:id" exact component={Waults} />
           <Route path="/home/waults/:id/new" exact component={NewWault} />
           <Route path="/home/references/:id" exact component={References} />
-        </Switch>
+          <Route path="/home/:id/profile" exact component={UserProfile} />
+          <Route path="/home/:id/profile/update" exact component={UpdateProfile}/>
+          </Switch>
       </Router>
     </div>
   );

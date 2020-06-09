@@ -6,17 +6,17 @@ import history from "../../history";
 const OAuth2 = props => {
   const [auth, setAuth] = useState(null);
 
-  useEffect(() => {
-    window.gapi.load("client:auth2", () => {
-      window.gapi.client
-        .init({ clientId: window.ENVIRONMENT.CLIENT_ID, scope: "email" })
-        .then(() => {
-          setAuth(window.gapi.auth2.getAuthInstance());
-          onAuthChange(auth.isSignedIn.get());
-          auth.isSignedIn.listen(onAuthChange);
-        });
-    });
-  }, []);
+  // useEffect(() => {
+  //   window.gapi.load("client:auth2", () => {
+  //     window.gapi.client
+  //       .init({ clientId: window.ENVIRONMENT.CLIENT_ID, scope: "email" })
+  //       .then(() => {
+  //         setAuth(window.gapi.auth2.getAuthInstance());
+  //         onAuthChange(auth.isSignedIn.get());
+  //         auth.isSignedIn.listen(onAuthChange);
+  //       });
+  //   });
+  // }, []);
 
   const onAuthChange = signedIn => {
     if (signedIn) {

@@ -15,7 +15,7 @@ import Navigation from "../components/utils/NavigationBar";
 import SideNavigation from "../components/utils/SideNavigation";
 import Bottom from "../components/home/HomeBottom";
 import styled from "styled-components";
-import {getAccountInfo} from "../redux/actions";
+import {getAccountName} from "../redux/actions";
 import {connect} from "react-redux"
 import {SBADiv, SBABackground} from "../components/utils/StyledComponents"
 
@@ -27,7 +27,7 @@ const Waults = props => {
     const id = props.match.params.id;
 
     setId(id);
-    props.getAccountInfo(id)
+    props.getAccountName(id)
   }, []);
 
   return (
@@ -97,4 +97,4 @@ const mapStateToProps = (state) => {
   return {user: state.accounts.user}
 }
 
-export default connect(mapStateToProps, {getAccountInfo})(Waults);
+export default connect(mapStateToProps, {getAccountName})(Waults);

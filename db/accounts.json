@@ -23,9 +23,33 @@
       "username": "markoc552",
       "firstname": "Marko",
       "lastname": "Perajica",
-      "email": "markoperajicca@gmail.com",
+      "email": "marko@test.hr",
       "password": "marko",
       "id": 4
+    },
+    {
+      "username": "default",
+      "firstname": "default",
+      "lastname": "default",
+      "email": "default",
+      "password": "default",
+      "id": 5
+    },
+    {
+      "username": "neno1234",
+      "firstname": "Neno",
+      "lastname": "Neno",
+      "email": "Neno",
+      "password": "neno",
+      "id": 6
+    },
+    {
+      "username": "test",
+      "firstname": "test",
+      "lastname": "test",
+      "email": "test",
+      "password": "test",
+      "id": 7
     }
   ]
 }

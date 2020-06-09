@@ -8,19 +8,18 @@ import SidebarMenu from "../components/utils/SidebarMenu";
 import HomeHeader from "../components/home/HomeHeader";
 import SideNavigation from "../components/utils/SideNavigation";
 import { connect } from "react-redux";
-import { getAccountInfo } from "../redux/actions";
+import { getAccountName } from "../redux/actions";
 import {HomeSection, Background} from "../components/utils/StyledComponents"
 
-
 const Home = props => {
-  
+
   const [visible, setVisible] = useState(false);
   const [id, setId] = useState(null);
 
   useEffect(() => {
     const id = props.match.params.id;
     setId(id);
-    props.getAccountInfo(id);
+    props.getAccountName(id);
   }, []);
 
   return (
@@ -32,7 +31,7 @@ const Home = props => {
         visible={visible}
         user={props.user}
       >
-        <HomeHeader setVisible={setVisible} />
+        <HomeHeader setVisible={setVisible} user={id}/>
         <Background>
           <EthereumStack />
           <MobileBankingStack />
@@ -47,4 +46,4 @@ const mapStateToProps = state => {
   return { user: state.accounts.user };
 };
 
-export default connect(mapStateToProps, { getAccountInfo })(Home);
+export default connect(mapStateToProps, { getAccountName })(Home);

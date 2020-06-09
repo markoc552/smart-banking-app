@@ -17,7 +17,7 @@ import styled from "styled-components";
 import _ from "lodash";
 import YTPlayer from "../components/references/YTPlayer";
 import {connect} from "react-redux"
-import {getAccountInfo} from "../redux/actions"
+import {getAccountName} from "../redux/actions"
 import {ReferencesDiv, ReferencesBG, Message} from "../components/utils/StyledComponents"
 
 
@@ -28,7 +28,7 @@ const References = props => {
   useEffect(() => {
     const id = props.match.params.id;
 
-    props.getAccountInfo(id);
+    props.getAccountName(id);
     setId(id);
   }, []);
 
@@ -58,4 +58,4 @@ const mapStateToProps = (state) => {
   return {user: state.accounts.user}
 }
 
-export default connect(mapStateToProps, {getAccountInfo})(References);
+export default connect(mapStateToProps, {getAccountName})(References);

@@ -1,16 +1,25 @@
 import React, { useState, useEffect } from "react";
 import _ from "lodash";
 import faker from "faker";
-import { Search, Grid, Header, Segment } from "semantic-ui-react";
+import { Search, Grid, Header, Segment, Loader } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { getAllAccounts } from "../../redux/actions";
+import history from "../../history"
 
 const SearchForm = props => {
   const [isLoading, setLoading] = useState(false);
   const [results, setResults] = useState([]);
+  const [selected, setSelected] = useState("");
   const [value, setValue] = useState("");
 
-  const handleResultSelect = (e, { result }) => setValue(result.title);
+  useEffect(() => {
+    props.getAllAccounts();
+  }, []);
+
+  const handleResultSelect = (e, { result }) => {
+    history.push(`/home/${selected}/profile`);
+    history.go();
+  };
 
   const handleSearchChange = (e, { value }) => {
     setLoading(true);
@@ -29,33 +38,43 @@ const SearchForm = props => {
     const re = new RegExp(_.escapeRegExp(value), "i");
     const isMatch = result => re.test(result.title);
 
-    const source = _.times(5, () => ({
-      title: faker.company.companyName(),
-      description: faker.company.catchPhrase(),
-      price: faker.finance.amount(0, 100, 2, "$")
-    }));
+    const filter = _.find(users, { firstname: value });
 
-    setLoading(false);
-    setResults(_.filter(source, isMatch));
+    if (filter !== undefined) {
+      const name =
+        filter.firstname + " " + filter.lastname;
+
+      const source = _.times(1, () => ({
+        title: name,
+        description: filter.email
+      }));
+
+      setLoading(false);
+      setResults(_.filter(source, isMatch));
+      setSelected(filter.username)
+    }
   };
 
-  return (
-    <Grid>
-      <Grid.Column width={5}>
-        <Search
-          aligned="right"
-          loading={isLoading}
-          onResultSelect={handleResultSelect}
-          onSearchChange={_.debounce(handleSearchChange, 1000, {
-            leading: true
-          })}
-          results={results}
-          value={value}
-          {...props}
-        />
-      </Grid.Column>
-    </Grid>
-  );
+  if (props.users === undefined) {
+    return <Loader />;
+  } else {
+    return (
+      <Grid>
+        <Grid.Column width={5}>
+          <Search
+            loading={isLoading}
+            onResultSelect={handleResultSelect}
+            onSearchChange={_.debounce(handleSearchChange, 1000, {
+              leading: true
+            })}
+            results={results}
+            value={value}
+            {...props}
+          />
+        </Grid.Column>
+      </Grid>
+    );
+  }
 };
 
 const mapStateToProps = state => {

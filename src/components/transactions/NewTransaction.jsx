@@ -31,12 +31,6 @@ const NewTransaction = props => {
         <div className="content">
           <Form>
             <Field
-              name="sender"
-              type="text"
-              label="Sender"
-              component={renderInput}
-            />
-            <Field
               name="receiver"
               type="text"
               label="Receiver"

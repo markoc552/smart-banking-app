@@ -10455,6 +10455,11 @@ react-app-polyfill@^1.0.6:
     regenerator-runtime "^0.13.3"
     whatwg-fetch "^3.0.0"
 
+react-canvas-js@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-canvas-js/-/react-canvas-js-1.0.1.tgz#c3a788e9e96e95e6b0e76d48fffce5737c3575cb"
+  integrity sha512-rn+CEpdUmybItigZLPcSgecSf0kEWASa15jA3GbVsi9WJ19jngu/OW9+bUkepl5Eiioz0pkIiyny+3sJWcTcZg==
+
 react-chartjs-2@2.9.0:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/react-chartjs-2/-/react-chartjs-2-2.9.0.tgz#d054dbdd763fbe9a76296a4ae0752ea549b76d9e"

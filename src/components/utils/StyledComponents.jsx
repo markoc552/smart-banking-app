@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from "styled-components";
 import BackgroundVector from "../../images/vector.jpg";
 
 export const Bottom = styled.div`
@@ -115,9 +115,9 @@ export const ReferencesBG = styled.div`
 `;
 
 export const Message = styled.div`
-font-family: 'Lato', sans-serif;
-font-weight: 500;
-`
+  font-family: "Lato", sans-serif;
+  font-weight: 500;
+`;
 
 export const SBADiv = styled.div`
   position: absolute;
@@ -126,6 +126,7 @@ export const SBADiv = styled.div`
   top: 0;
   bottom: 0;
   background-color: white;
+  box-shadow: -1px -1px 5px -3px rgba(0,0,0,1);;
   opacity: 0.97;
   height: 100vh;
 `;
@@ -136,9 +137,40 @@ export const SBABackground = styled.div`
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: #fafafa;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   height: 100vh;
 `;
+
+export const SideText = styled.div`
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  color: #5b89a3;
+`;
+
+export const SideName = styled.div`
+font-family: 'Lato', sans-serif;
+font-weight: 700;
+font-size: 15px;
+margin-top: 7px;
+color: black;
+vertical-align: middle;
+`
+
+export const UserDescription = styled.div`
+width: 100vw;
+padding-left: 30px;
+padding-right: 50px;
+padding-top: 10px;
+position: relative;
+margin: 0 auto;
+`
+
+export const StyledName = styled.div`
+color: #a2acbd;
+font-size: 25px;
+font-family: 'Lato', sans-serif;
+padding-bottom: 25px;
+`
