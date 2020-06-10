@@ -1,6 +1,5 @@
 import React from "react";
-import { Grid, Icon } from "semantic-ui-react";
-import styled from "styled-components";
+import {Icon} from "semantic-ui-react";
 import {Bottom} from "../utils/StyledComponents"
 
 const HomeBottom = props => {

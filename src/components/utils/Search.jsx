@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import _ from "lodash";
-import faker from "faker";
-import { Search, Grid, Header, Segment, Loader } from "semantic-ui-react";
+import { Search, Grid, Loader } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { getAllAccounts } from "../../redux/actions";
 import history from "../../history"

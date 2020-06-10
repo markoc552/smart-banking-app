@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
 import {
   Grid,
-  Button,
-  Label,
-  Icon,
   Segment,
   Container,
   Image,
-  Header,
   Divider
 } from "semantic-ui-react";
 import WaultCard from "../components/waults/WaultsCard";
 import Navigation from "../components/utils/NavigationBar";
 import SideNavigation from "../components/utils/SideNavigation";
 import Bottom from "../components/home/HomeBottom";
-import styled from "styled-components";
 import {getAccountName} from "../redux/actions";
 import {connect} from "react-redux"
 import {SBADiv, SBABackground} from "../components/utils/StyledComponents"

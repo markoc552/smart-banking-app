@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Navigation from "../utils/NavigationBar";
-import { Card, Button, Label, Form, Grid } from "semantic-ui-react";
+import { Button, Form } from "semantic-ui-react";
 import { Field, reduxForm } from "redux-form";
 import history from "../../history";
 

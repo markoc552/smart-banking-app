@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Sidebar,
   Menu,
   Icon,
-  Header,
   Grid,
   Label,
   Popup,
-  Button,
   Container,
   Image
 } from "semantic-ui-react";

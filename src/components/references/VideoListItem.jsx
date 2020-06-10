@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Image, Container, Item, Label, Icon } from "semantic-ui-react";
+import { Item, Label, Icon } from "semantic-ui-react";
 import "../../index.css";
 
 const VideoListItem = ({ video, onVideoSelect }) => {

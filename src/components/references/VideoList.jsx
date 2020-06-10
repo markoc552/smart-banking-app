@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Grid, Item } from "semantic-ui-react";
+import { Item } from "semantic-ui-react";
 import VideoListItem from "./VideoListItem";
 
 const VideoList = props => {

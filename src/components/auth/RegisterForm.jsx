@@ -20,7 +20,6 @@ const RegisterForm = props => {
   `;
 
   const [open, setOpen] = useState(false);
-  const [formValues, setFormValues] = useState(undefined);
 
   useEffect(() => {
     if (props.status !== undefined) {

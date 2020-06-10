@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Sidebar, Container } from "semantic-ui-react";
-import styled from "styled-components";
 import EthereumStack from "../components/home/EthereumStack";
 import MobileBankingStack from "../components/home/MobileBankingStack";
 import HomeBottom from "../components/home/HomeBottom";
-import SidebarMenu from "../components/utils/SidebarMenu";
 import HomeHeader from "../components/home/HomeHeader";
 import SideNavigation from "../components/utils/SideNavigation";
 import { connect } from "react-redux";

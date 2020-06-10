@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import Navigation from "../utils/NavigationBar";
 import {
-  Card,
   Button,
-  Label,
   Form,
-  Grid,
   Loader,
-  Input
 } from "semantic-ui-react";
 import { Field, reduxForm } from "redux-form";
 import history from "../../history";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import { getAllAccounts, updateAccount } from "../../redux/actions";
 
 const data = {

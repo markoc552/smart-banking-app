@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Image, Header, Container, Divider } from "semantic-ui-react";
+import { Grid, Image, Container, Divider } from "semantic-ui-react";
 
 const EthereumStack = props => {
   return (

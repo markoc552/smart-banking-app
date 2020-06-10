@@ -1,11 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Sidebar } from "semantic-ui-react";
-import styled from "styled-components";
-import EthereumStack from "../home/EthereumStack";
-import MobileBankingStack from "../home/MobileBankingStack";
-import HomeBottom from "../home/HomeBottom";
 import SidebarMenu from "./SidebarMenu";
-import HomeHeader from "../home/HomeHeader";
 import {HomeSection} from "../utils/StyledComponents"
 
 const SideNavigation = props => {

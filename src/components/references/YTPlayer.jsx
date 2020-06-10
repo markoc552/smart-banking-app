@@ -3,7 +3,6 @@ import SearchBar from "./YoutubeSearch";
 import VideoDetail from "./VideoDetail";
 import VideoList from "./VideoList";
 import YTSearch from "youtube-api-search";
-import _ from "lodash";
 import { Grid } from "semantic-ui-react";
 
 const YTPlayer = props => {

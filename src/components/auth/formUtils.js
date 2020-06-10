@@ -1,7 +1,5 @@
 import React from 'react';
 import { Label } from "semantic-ui-react"
-import axios from "../../redux/axios";
-import _ from "lodash"
 
 export const renderInput = ({ input, label, meta }) => {
   const className = `field ${meta.error && meta.touched

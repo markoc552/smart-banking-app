@@ -1,7 +1,6 @@
 import React from "react";
 import { Grid, Button, Icon, Label, Image, Container } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 import Background from "../../images/home.png";
 import Search from "../utils/Search";
 import { HeaderText, Vector } from "../utils/StyledComponents";
