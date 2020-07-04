@@ -1,47 +1,12 @@
 {
   "accounts": [
     {
-      "username": "kok",
-      "firstname": "okok",
-      "lastname": "okok",
-      "email": "okok",
-      "password": "okoko",
-      "id": 1
-    },
-    {
-      "username": "koko",
-      "firstname": "koko",
-      "lastname": "kokok",
-      "email": "okokok",
-      "password": "okoko",
-      "id": 2
-    },
-    {
-      "id": 3
-    },
-    {
       "username": "markoc552",
       "firstname": "Marko",
-      "lastname": "Perajica",
-      "email": "marko@test.hr",
+      "lastname": "Test",
+      "email": "Test",
       "password": "marko",
-      "id": 4
-    },
-    {
-      "username": "default",
-      "firstname": "default",
-      "lastname": "default",
-      "email": "default",
-      "password": "default",
-      "id": 5
-    },
-    {
-      "username": "neno1234",
-      "firstname": "Neno",
-      "lastname": "Neno",
-      "email": "Neno",
-      "password": "neno",
-      "id": 6
+      "id": 1
     },
     {
       "username": "test",
@@ -49,7 +14,144 @@
       "lastname": "test",
       "email": "test",
       "password": "test",
+      "id": 2
+    },
+    {
+      "username": "tess",
+      "firstname": "test",
+      "lastname": "test",
+      "email": "test",
+      "password": "test",
+      "id": 3
+    },
+    {
+      "username": "testt",
+      "firstname": "test",
+      "lastname": "test",
+      "email": "tett",
+      "password": "test",
+      "id": 4
+    },
+    {
+      "username": "t",
+      "firstname": "t",
+      "lastname": "t",
+      "email": "t",
+      "password": "t",
+      "id": 5
+    },
+    {
+      "username": "r",
+      "firstname": "r",
+      "lastname": "r",
+      "email": "r",
+      "password": "r",
+      "id": 6
+    },
+    {
+      "username": "o",
+      "firstname": "o",
+      "lastname": "o",
+      "email": "o",
+      "password": "o",
       "id": 7
+    },
+    {
+      "username": "k",
+      "firstname": "k",
+      "lastname": "k",
+      "email": "o",
+      "password": "k",
+      "id": 8
+    },
+    {
+      "username": "okojoj",
+      "firstname": "ojokok",
+      "lastname": "joko",
+      "email": "jok,o",
+      "password": "joko",
+      "id": 9
+    },
+    {
+      "username": "oasdok",
+      "firstname": "oaskdoa",
+      "lastname": "oaksdo",
+      "email": "oaksdo",
+      "password": "aosdkoa",
+      "id": 10
+    },
+    {
+      "username": "oaskdok",
+      "firstname": "oskdoak",
+      "lastname": "okasodk",
+      "email": "okdaok",
+      "password": "okasodka",
+      "id": 11
+    },
+    {
+      "username": "oko",
+      "firstname": "kokok",
+      "lastname": "okoko",
+      "email": "kokok",
+      "password": "okoko",
+      "id": 12
+    },
+    {
+      "username": "ojhijm",
+      "firstname": "koojok",
+      "lastname": "oojoko",
+      "email": "ojoko",
+      "password": "ojjok",
+      "id": 13
+    },
+    {
+      "username": "asd",
+      "firstname": "asd",
+      "lastname": "asd",
+      "email": "asd",
+      "password": "ad",
+      "id": 14
+    },
+    {
+      "username": "tzu",
+      "firstname": "oi",
+      "lastname": "oi",
+      "email": "oio",
+      "password": "ioi",
+      "id": 15
+    },
+    {
+      "username": "w",
+      "firstname": "w",
+      "lastname": "w",
+      "email": "w",
+      "password": "w",
+      "id": 16
+    },
+    {
+      "username": "aoskd",
+      "firstname": "okasodk",
+      "lastname": "okaosdko",
+      "email": "koaksdok",
+      "password": "odkaso",
+      "id": 17
+    },
+    {
+      "username": "oaksdok",
+      "firstname": "okaodkok",
+      "lastname": "ok",
+      "email": "okoko",
+      "password": "kokok",
+      "id": 18
+    },
+    {
+      "username": "eko",
+      "firstname": "oke",
+      "lastname": "okeo",
+      "email": "keok",
+      "password": "ok",
+      "address": "0xa9057eB22026cAd1d2D04826d19C125433B1ad1A",
+      "id": 19
     }
   ]
 }

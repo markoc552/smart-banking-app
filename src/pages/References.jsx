@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Segment, Divider } from "semantic-ui-react";
+import { Segment, Divider, Loader } from "semantic-ui-react";
 import Navigation from "../components/utils/NavigationBar";
 import SideNavigation from "../components/utils/SideNavigation";
 import Bottom from "../components/home/HomeBottom";
 
 import YTPlayer from "../components/references/YTPlayer";
 import { connect } from "react-redux";
-import { getAccountName } from "../redux/actions";
+import { getAccountName, getEthStatus } from "../redux/actions";
 import {
   ReferencesDiv,
   ReferencesBG,
@@ -20,9 +20,14 @@ const References = props => {
   useEffect(() => {
     const id = props.match.params.id;
 
-    props.getAccountName(id);
     setId(id);
+    props.getEthStatus(id);
+    props.getAccountName(id);
   }, []);
+
+  if(props.ethUser === undefined) {
+    return <Loader/>
+  }
 
   return (
     <ReferencesBG>
@@ -33,7 +38,7 @@ const References = props => {
           id={id}
           user={props.user}
         >
-          <Navigation setVisible={setVisible} />
+          <Navigation setVisible={setVisible} id={id}/>
           <Segment raised color="blue" textAlign="center" vertical>
             <Message>
               Here you have embedded Youtube player so you can educate yourself
@@ -51,8 +56,11 @@ const References = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return { user: state.accounts.user };
+const mapStateToProps = (state, ownProps) => {
+  return {
+    ethUser: state.accounts[ownProps.match.params.id],
+    name: state.accounts.name
+  };
 };
 
-export default connect(mapStateToProps, { getAccountName })(References);
+export default connect(mapStateToProps, {getEthStatus, getAccountName})(References);

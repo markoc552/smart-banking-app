@@ -9,17 +9,22 @@ pragma solidity 0.4.17;
 
 contract FactorySBA
 {
-    address[] public accounts;
+  address[] public accounts;
+  address public created;
 
-    function createAccount(address _user, string firstName, string lastName, string email) public {
-        address newAccount = new SBAContract(_user, firstName, lastName, email);
+  event EmitContract(address indexed contractAddress);
 
-        accounts.push(newAccount);
-    }
+  function createAccount(address _user, string firstName, string lastName, string email) public {
+      address newAccount = new SBAContract(_user, firstName, lastName, email);
 
-    function getAccounts() public view returns (address[] memory) {
-        return accounts;
-    }
+      accounts.push(newAccount);
+
+      created = newAccount;
+  }
+
+  function getAccount() public view returns (address) {
+      return created;
+  }
 }
 
 contract SBAContract

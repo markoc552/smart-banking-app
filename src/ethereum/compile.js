@@ -5,7 +5,7 @@ const path = require("path");
 const buildPath = path.resolve(__dirname, "build");
 fs.removeSync(buildPath);
 
-const contract = path.resolve(__dirname, "contracts", "SBAContract.sol");
+const contract = path.resolve(__dirname, "sba-truffle-suite", "contracts", "SBAContract.sol");
 
 const src = fs.readFileSync(contract, "utf8");
 const output = solc.compile(src, 1).contracts;

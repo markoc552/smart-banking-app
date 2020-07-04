@@ -1,53 +1,98 @@
-import React from "react";
-import { Grid, Icon, Button, Label, Image } from "semantic-ui-react";
+import React, { useState } from "react";
+import {
+  Grid,
+  Icon,
+  Button,
+  Label,
+  Image,
+  Menu,
+  Dropdown,
+  Loader
+} from "semantic-ui-react";
 import Search from "./Search";
+import { connect } from "react-redux";
 
 const NavigationBar = props => {
-  return (
-    <div>
-      <Grid padded="vertically" stackable>
-        <Grid.Row columns={5}>
-          <Grid.Column>
-            <div>
-              <Icon
-                name="align justify"
-                circular
-                size="large"
-                color="blue"
-                link
-                onClick={() => props.setVisible(true)}
+  if (props.ethUser === undefined) {
+    console.log(props)
+    return <Loader />;
+  } else {
+    return (
+      <div>
+        <Grid padded="vertically" stackable>
+          <Grid.Row columns={5}>
+            <Grid.Column>
+              <div>
+                <Icon
+                  name="align justify"
+                  circular
+                  size="large"
+                  color="blue"
+                  link
+                  onClick={() => props.setVisible(true)}
+                />
+              </div>
+            </Grid.Column>
+            <Grid.Column></Grid.Column>
+            <Grid.Column style={{ textAlign: "center" }}>
+              <Image
+                size="tiny"
+                centered
+                inline
+                src={require("../../images/logo.png")}
               />
-            </div>
-          </Grid.Column>
-          <Grid.Column></Grid.Column>
-          <Grid.Column style={{ textAlign: "center" }}>
-            <Image
-              size="tiny"
-              centered
-              inline
-              src={require("../../images/logo.png")}
-            />
-          </Grid.Column>
-          <Grid.Column>
-            <Search />
-          </Grid.Column>
-          <Grid.Column textAlign="right">
-            <div>
-              <Button as="div" labelPosition="right">
-                <Button basic color="blue">
-                  <Icon name="btc" size="large" />
-                  Money
-                </Button>
-                <Label as="a" basic color="blue" pointing="left">
-                  2,048
-                </Label>
-              </Button>
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    </div>
-  );
+            </Grid.Column>
+            <Grid.Column>
+              <Search />
+            </Grid.Column>
+            <Grid.Column textAlign="right">
+              <div>
+                <Menu borderless compact>
+                  <Dropdown
+                    icon={
+                      <Icon
+                        name="chevron circle down"
+                        size="large"
+                        color="blue"
+                      />
+                    }
+                    trigger={
+                      <Button as="div" labelPosition="right">
+                        <Button basic color="blue">
+                          <Icon name="btc" size="large" />
+                          Money
+                        </Button>
+                        <Label as="a" basic color="blue" pointing="left">
+                          {props.ethUser["balance"]} HRK
+                        </Label>
+                      </Button>
+                    }
+                  >
+                    <Dropdown.Menu>
+                      <Dropdown.Item>
+                        <Icon name="sort amount up" color="orange" />
+                        Upload Money
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Icon name="sort amount down" color="green" />
+                        Withdraw Money
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Menu>
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </div>
+    );
+  }
 };
 
-export default NavigationBar;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    ethUser: state.accounts[ownProps.id]
+  };
+};
+
+export default connect(mapStateToProps, null)(NavigationBar);

@@ -121,14 +121,15 @@ export const Message = styled.div`
 
 export const SBADiv = styled.div`
   position: absolute;
-  left: 5%;
-  right: 5%;
+  left: 2.5%;
+  right: 2.5%;
   top: 0;
   bottom: 0;
   background-color: white;
   box-shadow: -1px -1px 5px -3px rgba(0,0,0,1);;
   opacity: 0.97;
   height: 100vh;
+  overflow: hidden;
 `;
 
 export const SBABackground = styled.div`
@@ -141,6 +142,7 @@ export const SBABackground = styled.div`
   background-repeat: no-repeat;
   background-position: center center;
   height: 100vh;
+  overflow-y: hidden;
 `;
 
 export const SideText = styled.div`

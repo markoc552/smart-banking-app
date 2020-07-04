@@ -24,6 +24,16 @@ export default (state = {}, action) => {
       ...state,
       [action.payload.id]: action.payload
     };
+  } else if (action.type === "ETH_STATUS") {
+    return {
+      ...state,
+      [action.payload.id]: action.payload
+    };
+  } else if (action.type === "GET_NAME") {
+    return {
+      ...state,
+      name: action.payload
+    };
   }
 
   return state;

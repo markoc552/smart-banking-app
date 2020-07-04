@@ -1,86 +1,133 @@
-import React from "react";
-import { Grid, Button, Icon, Label, Image, Container } from "semantic-ui-react";
+import React, { useState, useEffect } from "react";
+import {
+  Grid,
+  Button,
+  Icon,
+  Label,
+  Image,
+  Container,
+  Menu,
+  Dropdown,
+  Loader
+} from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Background from "../../images/home.png";
 import Search from "../utils/Search";
 import { HeaderText, Vector } from "../utils/StyledComponents";
+import { getContract } from "../../ethereum/instances/factory";
+import history from "../../history";
+import { connect } from "react-redux";
 
 const HomeHeader = props => {
-  return (
-    <Vector>
-      <Grid padded="vertically" stackable>
-        <Grid.Row columns={5}>
-          <Grid.Column>
-            <div>
-              <Icon
-                name="align justify"
-                circular
-                size="large"
-                color="blue"
-                link
-                onClick={() => props.setVisible(true)}
+  if (props.ethUser === undefined) {
+    return <Loader />;
+  } else {
+    return (
+      <Vector>
+        <Grid padded="vertically" stackable>
+          <Grid.Row columns={5}>
+            <Grid.Column>
+              <div>
+                <Icon
+                  name="align justify"
+                  circular
+                  size="large"
+                  color="blue"
+                  link
+                  onClick={() => props.setVisible(true)}
+                />
+              </div>
+            </Grid.Column>
+            <Grid.Column></Grid.Column>
+            <Grid.Column textAlign="center">
+              <Image
+                centered
+                src={require("../../images/logo.png")}
+                size="tiny"
               />
-            </div>
-          </Grid.Column>
-          <Grid.Column></Grid.Column>
-          <Grid.Column textAlign="center">
-            <Image
-              centered
-              src={require("../../images/logo.png")}
-              size="tiny"
-            />
-          </Grid.Column>
-          <Grid.Column>
-            <Search />
-          </Grid.Column>
-          <Grid.Column stretched textAlign="right">
-            <div>
-              <Button as="div" labelPosition="right">
+            </Grid.Column>
+            <Grid.Column>
+              <Search />
+            </Grid.Column>
+            <Grid.Column stretched textAlign="right">
+              <div>
+                <Menu borderless compact>
+                  <Dropdown
+                    icon={
+                      <Icon
+                        name="chevron circle down"
+                        size="large"
+                        color="blue"
+                      />
+                    }
+                    trigger={
+                      <Button as="div" labelPosition="right">
+                        <Button basic color="blue">
+                          <Icon name="btc" size="large" />
+                          Money
+                        </Button>
+                        <Label as="a" basic color="blue" pointing="left">
+                          {props.ethUser["balance"]} HRK
+                        </Label>
+                      </Button>
+                    }
+                  >
+                    <Dropdown.Menu>
+                      <Dropdown.Item>
+                        <Icon name="sort amount up" color="orange" />
+                        Upload Money
+                      </Dropdown.Item>
+                      <Dropdown.Item>
+                        <Icon name="sort amount down" color="green" />
+                        Withdraw Money
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Menu>
+              </div>
+            </Grid.Column>
+          </Grid.Row>
+          <Image
+            as="img"
+            size="large"
+            src={Background}
+            style={{ position: "absolute", left: "59%", top: "5%" }}
+          />
+          <Grid.Row textAlign="center">
+            <HeaderText>The next level of banking</HeaderText>
+          </Grid.Row>
+          <Grid.Row columns={2} centered>
+            <Grid.Column width={3} floated="left">
+              <Link to={`/home/transactions/${props.id}`}>
                 <Button basic color="blue">
-                  <Icon name="btc" size="large" />
-                  Money
+                  Proceed to transactions
                 </Button>
-                <Label as="a" basic color="blue" pointing="left">
-                  2,048
-                </Label>
-              </Button>
-            </div>
-          </Grid.Column>
-        </Grid.Row>
-        <Image
-          as="img"
-          size="large"
-          src={Background}
-          style={{ position: "absolute", left: "59%", top: "5%" }}
-        />
-        <Grid.Row textAlign="center">
-          <HeaderText>The next level of banking</HeaderText>
-        </Grid.Row>
-        <Grid.Row columns={2} centered>
-          <Grid.Column width={3} floated="left">
-            <Link to={`/home/transactions/${props.user}`}>
-              <Button basic color="blue">
-                Proceed to transactions
-              </Button>
-            </Link>
-          </Grid.Column>
-          <Grid.Column></Grid.Column>
-          <Container
-            as="div"
-            style={{
-              marginTop: "15%",
-              marginLeft: "auto",
-              marginRight: "auto"
-            }}
-          >
-            <a href="http://www.freepik.com">
-              Designed by Creative_hat / Freepik
-            </a>
-          </Container>
-        </Grid.Row>
-      </Grid>
-    </Vector>
-  );
+              </Link>
+            </Grid.Column>
+            <Grid.Column></Grid.Column>
+            <Container
+              as="div"
+              style={{
+                marginTop: "15%",
+                marginLeft: "auto",
+                marginRight: "auto"
+              }}
+            >
+              <a href="http://www.freepik.com">
+                Designed by Creative_hat / Freepik
+              </a>
+            </Container>
+          </Grid.Row>
+        </Grid>
+      </Vector>
+    );
+  }
 };
 
-export default HomeHeader;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    ethUser: state.accounts[ownProps.id]
+  };
+};
+
+export default connect(mapStateToProps, null)(HomeHeader);

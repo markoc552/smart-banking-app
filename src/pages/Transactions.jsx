@@ -4,15 +4,17 @@ import {
   Segment,
   Container,
   Image,
-  Divider
+  Divider,
+  Loader
 } from "semantic-ui-react";
 import TransactionCard from "../components/transactions/TransactionsCard";
 import Navigation from "../components/utils/NavigationBar";
 import SideNavigation from "../components/utils/SideNavigation";
 import Bottom from "../components/home/HomeBottom";
-import {getAccountName} from "../redux/actions"
+import {getAccountName, getEthStatus} from "../redux/actions"
 import {connect} from "react-redux"
 import {SBABackground, SBADiv} from "../components/utils/StyledComponents"
+
 
 const Transactions = props => {
   const [id, setId] = useState(null);
@@ -22,14 +24,19 @@ const Transactions = props => {
     const id = props.match.params.id;
 
     setId(id);
-    props.getAccountName(id)
+    props.getEthStatus(id);
+    props.getAccountName(id);
   }, []);
+
+  if(props.ethUser === undefined) {
+    return <Loader/>
+  }
 
   return (
     <SBABackground>
       <SBADiv>
-        <SideNavigation visible={visible} setVisible={setVisible} id={id} user={props.user}>
-          <Navigation setVisible={setVisible} />
+        <SideNavigation visible={visible} setVisible={setVisible} id={id} name={props.name}>
+          <Navigation setVisible={setVisible} id={id} />
           <Segment raised color="blue" textAlign="center">
             <div
               style={{ fontFamily: "'Lato', sans-serif", fontWeight: "500" }}
@@ -91,8 +98,11 @@ const Transactions = props => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {user: state.accounts.user}
-}
+const mapStateToProps = (state, ownProps) => {
+  return {
+    ethUser: state.accounts[ownProps.match.params.id],
+    name: state.accounts.name
+  };
+};
 
-export default connect(mapStateToProps, {getAccountName})(Transactions);
+export default connect(mapStateToProps, {getEthStatus, getAccountName})(Transactions);

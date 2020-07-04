@@ -1,7 +1,8 @@
 import axios from "../axios";
 import history from "../../history";
 import _ from "lodash";
-import web3 from "../../ethereum/web3"
+import web3 from "../../ethereum/web3";
+import factory, {getContract} from "../../ethereum/instances/factory";
 
 export const createAccount = formValues => async dispatch => {
   const response = await axios.post("/accounts", {
@@ -29,9 +30,10 @@ export const checkRegister = formValues => async dispatch => {
     status = true;
   } else {
     status = false;
-    dispatch(createAccount(formValues));
 
-    createEthAccount();
+    const address = await createEthAccount(formValues);
+
+    dispatch(createAccount({...formValues, address}));
   }
 
   dispatch({ type: "CHECK_ACCOUNT", payload: status });
@@ -66,7 +68,7 @@ export const getAccountName = username => async dispatch => {
   const name = user[username].firstname;
   const lastname = user[username].lastname;
 
-  dispatch({ type: "GET_ACCOUNT", payload: `${name} ${lastname}` });
+  dispatch({ type: "GET_NAME", payload: `${name} ${lastname}` });
 };
 
 export const getAllAccounts = () => async dispatch => {
@@ -80,7 +82,6 @@ export const getAllAccounts = () => async dispatch => {
 };
 
 export const updateAccount = (username, formValues) => async dispatch => {
-
   const accounts = await axios.get("/accounts");
 
   const mappedId = _.mapKeys(accounts.data, "id");
@@ -91,11 +92,35 @@ export const updateAccount = (username, formValues) => async dispatch => {
 
   const response = await axios.patch(`/accounts/${id}`, formValues);
 
-  console.log(response)
+  console.log(response);
 
-	dispatch({ type: "UPDATE_ACCOUNT", payload: response.data });
+  dispatch({ type: "UPDATE_ACCOUNT", payload: response.data });
 
   history.push(`/home/${username}/profile`);
+};
+
+
+export const getEthStatus = (id) => async dispatch => {
+
+  const accounts = await axios.get("/accounts");
+
+  const mappedId = _.mapKeys(accounts.data, "id");
+
+  const mappedUser = _.mapKeys(mappedId, "username");
+
+  const ethAddress = mappedUser[id].address;
+
+  const contract = getContract(ethAddress);
+
+  const balance = await contract.methods.getMoneyStatus().call();
+
+  const waults = await contract.methods.getWaults().call();
+
+  const transactionCount = await contract.methods.getTransactionCount().call();
+
+  console.log({balance, waults, transactionCount})
+
+  dispatch({ type: "ETH_STATUS", payload: {id, balance, waults, transactionCount} });
 }
 
 //Google OAuth action creators
@@ -107,8 +132,22 @@ export const signOut = () => {
   return { type: "SIGN_OUT" };
 };
 
-const createEthAccount = async () => {
-  const accounts = await web3.eth.getAccounts();
+const createEthAccount = async formValues => {
+  let account = web3.eth.accounts.create(web3.utils.randomHex(32));
+  let wallet = web3.eth.accounts.wallet.add(account);
 
+  const contract = await factory.methods
+    .createAccount(
+      wallet.address,
+      formValues.firstname,
+      formValues.lastname,
+      formValues.email
+    )
+    .send({
+      from: "0xf2C6247bFD3383e044067FC416dC4Cef8D9D8135"
+    });
 
-}
+    const address = await factory.methods.getAccount().call();
+
+    return address;
+};

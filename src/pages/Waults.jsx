@@ -4,13 +4,14 @@ import {
   Segment,
   Container,
   Image,
-  Divider
+  Divider,
+  Loader
 } from "semantic-ui-react";
 import WaultCard from "../components/waults/WaultsCard";
 import Navigation from "../components/utils/NavigationBar";
 import SideNavigation from "../components/utils/SideNavigation";
 import Bottom from "../components/home/HomeBottom";
-import {getAccountName} from "../redux/actions";
+import {getAccountName, getEthStatus} from "../redux/actions";
 import {connect} from "react-redux"
 import {SBADiv, SBABackground} from "../components/utils/StyledComponents"
 
@@ -22,14 +23,17 @@ const Waults = props => {
     const id = props.match.params.id;
 
     setId(id);
-    props.getAccountName(id)
+    props.getEthStatus(id);
   }, []);
 
+  if(props.ethUser === undefined) {
+    return <Loader/>
+  }
   return (
     <SBABackground>
       <SBADiv>
-        <SideNavigation visible={visible} setVisible={setVisible} id={id} user={props.user}>
-          <Navigation setVisible={setVisible} />
+        <SideNavigation visible={visible} setVisible={setVisible} id={id}>
+          <Navigation setVisible={setVisible} id={id}/>
           <Segment raised color="blue" textAlign="center">
             <div
               style={{ fontFamily: "'Lato', sans-serif", fontWeight: "500" }}
@@ -88,8 +92,10 @@ const Waults = props => {
   );
 };
 
-const mapStateToProps = (state) => {
-  return {user: state.accounts.user}
-}
+const mapStateToProps = (state, ownProps) => {
+  return {
+    ethUser: state.accounts[ownProps.match.params.id]
+  };
+};
 
-export default connect(mapStateToProps, {getAccountName})(Waults);
+export default connect(mapStateToProps, {getEthStatus})(Waults);
