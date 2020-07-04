@@ -152,6 +152,22 @@
       "password": "ok",
       "address": "0xa9057eB22026cAd1d2D04826d19C125433B1ad1A",
       "id": 19
+    },
+    {
+      "username": "markoc",
+      "firstname": "Marko",
+      "lastname": "Matic",
+      "email": "marko@gmail.com",
+      "password": "1234",
+      "data": {
+        "address": "0xF32AbEA1Efb02cd58F768858D735c945B0B43E2D",
+        "wallet": {
+          "address": "0xe0322Bc777acEC46327e3f8FdD201812Be6815AE",
+          "privateKey": "0xdb22a7506e21c3ebc28d7d66050d3f4b30e6164dc70d5928041fec747f8a4594",
+          "index": 0
+        }
+      },
+      "id": 20
     }
   ]
 }

@@ -74,12 +74,16 @@ const HomeHeader = props => {
                   >
                     <Dropdown.Menu>
                       <Dropdown.Item>
-                        <Icon name="sort amount up" color="orange" />
-                        Upload Money
+                        <Link to={`/home/upload/${props.id}`}>
+                          <Icon name="sort amount up" color="orange" />
+                          Upload Money
+                        </Link>
                       </Dropdown.Item>
                       <Dropdown.Item>
-                        <Icon name="sort amount down" color="green" />
-                        Withdraw Money
+                        <Link to={`/home/withdraw/${props.id}`}>
+                          <Icon name="sort amount down" color="green" />
+                          Withdraw Money
+                        </Link>
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>

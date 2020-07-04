@@ -11,7 +11,7 @@ export const createAccount = formValues => async dispatch => {
 
   dispatch({ type: "CREATE_ACCOUNT", payload: response.data });
 
-  console.log(formValues.username);
+  console.log(formValues);
 
   if (formValues.username !== undefined) {
     history.push(`/home/${formValues.username}`);
@@ -31,9 +31,9 @@ export const checkRegister = formValues => async dispatch => {
   } else {
     status = false;
 
-    const address = await createEthAccount(formValues);
+    const data = await createEthAccount(formValues);
 
-    dispatch(createAccount({...formValues, address}));
+    dispatch(createAccount({...formValues, data}));
   }
 
   dispatch({ type: "CHECK_ACCOUNT", payload: status });
@@ -108,7 +108,9 @@ export const getEthStatus = (id) => async dispatch => {
 
   const mappedUser = _.mapKeys(mappedId, "username");
 
-  const ethAddress = mappedUser[id].address;
+  const wallet = mappedUser[id].data.wallet;
+
+  const ethAddress = mappedUser[id].data.address;
 
   const contract = getContract(ethAddress);
 
@@ -120,7 +122,7 @@ export const getEthStatus = (id) => async dispatch => {
 
   console.log({balance, waults, transactionCount})
 
-  dispatch({ type: "ETH_STATUS", payload: {id, balance, waults, transactionCount} });
+  dispatch({ type: "ETH_STATUS", payload: {id, balance, waults, transactionCount, ethAddress, wallet} });
 }
 
 //Google OAuth action creators
@@ -149,5 +151,5 @@ const createEthAccount = async formValues => {
 
     const address = await factory.methods.getAccount().call();
 
-    return address;
+    return {address, wallet};
 };
