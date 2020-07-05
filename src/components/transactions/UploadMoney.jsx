@@ -18,17 +18,20 @@ const UploadMoney = props => {
   const Id = props.match.params.id;
 
   const uploadMoney = async () => {
+    const owner = props.ethUser.wallet;
+
+    const mnemonic = props.ethUser.mnemonic;
+
     const contractAddress = props.ethUser["ethAddress"];
 
-    const contract = getContract(contractAddress);
-
-    const owner = props.ethUser.wallet;
+    const contract = getContract(contractAddress, mnemonic);
 
     await contract.methods
       .addMoneyToAccount()
       .send({
         from: String(owner.address),
-        value: String(money)
+        value: String(money),
+        gas: "6721975"
       });
 
     history.push(`/home/${Id}`);

@@ -57,13 +57,13 @@ const NavigationBar = props => {
                       />
                     }
                     trigger={
-                      <Button as="div" labelPosition="right">
-                        <Button basic color="blue">
+                      <Button as="div" labelPosition="right" size="mini">
+                        <Button basic color="blue" size="small">
                           <Icon name="btc" size="large" />
                           Money
                         </Button>
                         <Label as="a" basic color="blue" pointing="left">
-                          {props.ethUser["balance"]} HRK
+                          {props.ethUser["balance"]},00 KN
                         </Label>
                       </Button>
                     }

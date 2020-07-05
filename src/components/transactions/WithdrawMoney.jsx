@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import HDWalletProvider from "truffle-hdwallet-provider"
 import ReactDOM from "react-dom";
 import { Button, Input, Loader } from "semantic-ui-react";
 import { Field, reduxForm } from "redux-form";
@@ -22,24 +23,20 @@ const WithdrawMoney = props => {
   const withDrawMoney = async () => {
     const owner = props.ethUser.wallet;
 
-    console.log(web3)
-
-    web3.eth.personal.unlockAccount(owner.address, owner.privateKey);
-
-    console.log(owner)
+    const mnemonic = props.ethUser.mnemonic;
 
     const contractAddress = props.ethUser["ethAddress"];
 
-    console.log(contractAddress)
-
-    const contract = getContract(contractAddress);
+    const contract = getContract(contractAddress, mnemonic);
 
     await contract.methods
       .withDrawMoney(money, window.ENVIRONMENT.AUTHORITY_ADDRESS)
       .send({
         from: String(owner.address),
-        gas: "1000000"
+        gas: "6721975"
       });
+
+    console.log(await contract.methods.getMoneyStatus().call())
 
     history.push(`/home/${Id}`);
   };

@@ -53,7 +53,7 @@ const SidebarMenu = props => {
                       position="left center"
                       trigger={
                         <Label basic color="orange" size="large" circular>
-                          {props.ethUser["balance"]} HRK
+                          {props.ethUser["balance"]},00 KN
                         </Label>
                       }
                     ></Popup>
@@ -84,25 +84,25 @@ const SidebarMenu = props => {
         <Menu.Item></Menu.Item>
         <Link to={`/home/${props.id}`}>
           <Menu.Item as="a">
-            <Icon name="home" circular color="blue" />
+            <Icon name="home" color="blue" />
             <SideText> Home</SideText>
           </Menu.Item>
         </Link>
         <Link to={`/home/transactions/${props.id}`}>
           <Menu.Item as="a">
-            <Icon name="exchange" circular color="blue" />
+            <Icon name="exchange" color="blue" />
             <SideText> Transactions</SideText>
           </Menu.Item>
         </Link>
         <Link to={`/home/waults/${props.id}`}>
           <Menu.Item as="a">
-            <Icon name="archive" circular color="blue" />
+            <Icon name="archive" color="blue" />
             <SideText>Waults</SideText>
           </Menu.Item>
         </Link>
         <Link to={`/home/references/${props.id}`}>
           <Menu.Item as="a">
-            <Icon name="file" circular color="blue" />
+            <Icon name="file" color="blue" />
             <SideText>Reference</SideText>
           </Menu.Item>
         </Link>

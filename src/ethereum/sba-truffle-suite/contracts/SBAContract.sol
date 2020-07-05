@@ -143,7 +143,7 @@ contract SBAContract
 
     //Simulation of withdraw money (money is sent to authority instead withdrawn)
     function withDrawMoney(uint256 _amount, address authority) public payable restricted {
-        authority.transfer(this.balance - _amount);
+        authority.transfer(_amount);
     }
 }
 

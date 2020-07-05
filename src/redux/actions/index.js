@@ -2,7 +2,8 @@ import axios from "../axios";
 import history from "../../history";
 import _ from "lodash";
 import web3 from "../../ethereum/web3";
-import factory, {getContract} from "../../ethereum/instances/factory";
+import factory, { getContract } from "../../ethereum/instances/factory";
+import ethers from "ethers";
 
 export const createAccount = formValues => async dispatch => {
   const response = await axios.post("/accounts", {
@@ -33,7 +34,7 @@ export const checkRegister = formValues => async dispatch => {
 
     const data = await createEthAccount(formValues);
 
-    dispatch(createAccount({...formValues, data}));
+    dispatch(createAccount({ ...formValues, data }));
   }
 
   dispatch({ type: "CHECK_ACCOUNT", payload: status });
@@ -99,9 +100,7 @@ export const updateAccount = (username, formValues) => async dispatch => {
   history.push(`/home/${username}/profile`);
 };
 
-
-export const getEthStatus = (id) => async dispatch => {
-
+export const getEthStatus = id => async dispatch => {
   const accounts = await axios.get("/accounts");
 
   const mappedId = _.mapKeys(accounts.data, "id");
@@ -112,6 +111,8 @@ export const getEthStatus = (id) => async dispatch => {
 
   const ethAddress = mappedUser[id].data.address;
 
+  const mnemonic =  mappedUser[id].data.mnemonic;
+
   const contract = getContract(ethAddress);
 
   const balance = await contract.methods.getMoneyStatus().call();
@@ -120,10 +121,13 @@ export const getEthStatus = (id) => async dispatch => {
 
   const transactionCount = await contract.methods.getTransactionCount().call();
 
-  console.log({balance, waults, transactionCount})
+  console.log({ balance, waults, transactionCount, mnemonic });
 
-  dispatch({ type: "ETH_STATUS", payload: {id, balance, waults, transactionCount, ethAddress, wallet} });
-}
+  dispatch({
+    type: "ETH_STATUS",
+    payload: { id, balance, waults, transactionCount, ethAddress, wallet, mnemonic }
+  });
+};
 
 //Google OAuth action creators
 export const signIn = userId => {
@@ -135,8 +139,27 @@ export const signOut = () => {
 };
 
 const createEthAccount = async formValues => {
-  let account = web3.eth.accounts.create(web3.utils.randomHex(32));
-  let wallet = web3.eth.accounts.wallet.add(account);
+
+  const bip39 = require('bip39')
+
+  console.log(bip39)
+
+  const mnemonic = bip39.entropyToMnemonic(ethers.utils.randomBytes(32))
+  //
+  // let account = web3.eth.accounts.create(web3.utils.randomHex(32));
+  // let wallet = web3.eth.accounts.wallet.add(account);
+
+  // const mnemonic = await ethers.utils.HDNode.entropyToMnemonic(ethers.utils.randomBytes(16));
+
+  const wallet = ethers.Wallet.fromMnemonic(mnemonic);
+
+  console.log(wallet);
+
+  web3.eth.sendTransaction({
+    to: wallet.address,
+    from: "0xf2C6247bFD3383e044067FC416dC4Cef8D9D8135",
+    value: web3.utils.toWei("0.2", "ether")
+  });
 
   const contract = await factory.methods
     .createAccount(
@@ -146,10 +169,11 @@ const createEthAccount = async formValues => {
       formValues.email
     )
     .send({
-      from: "0xf2C6247bFD3383e044067FC416dC4Cef8D9D8135"
+      from: "0xf2C6247bFD3383e044067FC416dC4Cef8D9D8135",
+      gas: "6721975"
     });
 
-    const address = await factory.methods.getAccount().call();
+  const address = await factory.methods.getAccount().call();
 
-    return {address, wallet};
+  return { address, wallet, mnemonic };
 };

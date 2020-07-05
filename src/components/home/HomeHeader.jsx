@@ -49,7 +49,7 @@ const HomeHeader = props => {
             <Grid.Column>
               <Search />
             </Grid.Column>
-            <Grid.Column stretched textAlign="right">
+            <Grid.Column textAlign="right">
               <div>
                 <Menu borderless compact>
                   <Dropdown
@@ -61,13 +61,13 @@ const HomeHeader = props => {
                       />
                     }
                     trigger={
-                      <Button as="div" labelPosition="right">
-                        <Button basic color="blue">
+                      <Button as="div" size="mini" labelPosition="right">
+                        <Button basic color="blue" size="small">
                           <Icon name="btc" size="large" />
                           Money
                         </Button>
                         <Label as="a" basic color="blue" pointing="left">
-                          {props.ethUser["balance"]} HRK
+                          {props.ethUser["balance"]},00 KN
                         </Label>
                       </Button>
                     }
