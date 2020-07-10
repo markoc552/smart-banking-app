@@ -83,8 +83,8 @@ contract SBAContract
         return waults;
     }
 
-    function sendMoney(address recepient) public payable {
-        recepient.transfer(msg.value);
+    function sendMoney(address recepient, uint256 amount) public payable {
+        recepient.transfer(amount);
 
         Transaction memory newTransaction = Transaction({
             _sender : msg.sender,

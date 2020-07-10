@@ -1,10 +1,21 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ReactDOM from "react-dom";
-import {Button, Form } from "semantic-ui-react";
+import { Button, Form, Loader } from "semantic-ui-react";
 import { Field, reduxForm } from "redux-form";
 import history from "../../history";
+import { getContract } from "../../ethereum/instances/factory";
+import { getEthStatus } from "../../redux/actions";
+import { connect } from "react-redux";
 
 const NewTransaction = props => {
+
+  useEffect(() => {
+    const id = props.match.params.id;
+
+    props.getEthStatus(id);
+  }, []);
+
+
   const renderInput = ({ input, label, meta }) => {
     return (
       <Form.Field>
@@ -16,6 +27,28 @@ const NewTransaction = props => {
 
   const Id = props.match.params.id;
 
+  const sendTransaction = async formValues => {
+    console.log(formValues);
+    const owner = props.ethUser.wallet;
+
+    const mnemonic = props.ethUser.mnemonic;
+
+    const contractAddress = props.ethUser["ethAddress"];
+
+    const contract = getContract(contractAddress, mnemonic);
+
+    await contract.methods.sendMoney(formValues.receiver, formValues.amount).send({
+      from: String(owner.address),
+      gas: "6721975"
+    });
+
+    history.push(`/home/${Id}`);
+  };
+
+  if(props.ethUser === undefined){
+    return <Loader/>
+  }
+
   return ReactDOM.createPortal(
     <div
       onClick={() => history.push(`/home/transactions/${Id}`)}
@@ -23,12 +56,15 @@ const NewTransaction = props => {
     >
       <div
         onClick={event => event.stopPropagation()}
-        className="ui standard modal visible active"
+        className="ui standard modal visible active small"
         style={{ textAlign: "center" }}
       >
-        <div class="header">Create new transaction</div>
+        <div className="header">Create new transaction</div>
         <div className="content">
-          <Form>
+          <form
+            className="ui form error formWidth"
+            onSubmit={props.handleSubmit(sendTransaction)}
+          >
             <Field
               name="receiver"
               type="text"
@@ -41,12 +77,12 @@ const NewTransaction = props => {
               label="Amount of money"
               component={renderInput}
             />
-          </Form>
-        </div>
-        <div className="actions" style={{ textAlign: "center" }}>
-          <Button primary circular>
-            Send transaction
-          </Button>
+            <div className="actions" style={{ textAlign: "center" }}>
+              <Button primary circular>
+                Send transaction
+              </Button>
+            </div>
+          </form>
         </div>
       </div>
     </div>,
@@ -54,4 +90,12 @@ const NewTransaction = props => {
   );
 };
 
-export default reduxForm({ form: "newTransaction" })(NewTransaction);
+const mapStateToProps = (state, ownProps) => {
+  return {
+    ethUser: state.accounts[ownProps.match.params.id]
+  };
+};
+
+const wrap = reduxForm({ form: "newTransaction" })(NewTransaction);
+
+export default connect(mapStateToProps, { getEthStatus })(wrap);

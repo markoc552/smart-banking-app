@@ -36,8 +36,6 @@ const WithdrawMoney = props => {
         gas: "6721975"
       });
 
-    console.log(await contract.methods.getMoneyStatus().call())
-
     history.push(`/home/${Id}`);
   };
 

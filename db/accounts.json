@@ -283,6 +283,40 @@
         "mnemonic": "corn primary brand pupil town friend rude session project rocket decrease scatter hamster rival original return delay swim witness lawn congress garment trophy pear"
       },
       "id": 27
+    },
+    {
+      "firstname": "Marko",
+      "lastname": "Perajica",
+      "username": "markop",
+      "email": "markop@net.hr",
+      "password": "marko",
+      "data": {
+        "address": "0xa210370b9cD85f618482E11b2C64Ed122168D605",
+        "wallet": {
+          "_isSigner": true,
+          "address": "0x36aB78591ecd47b86912C18F89dFa7Dcc39D49e0",
+          "provider": null
+        },
+        "mnemonic": "budget rapid awkward feed mail tooth pill network awkward any photo ugly banana lawn elegant learn wife carry emotion naive arena forward addict hospital"
+      },
+      "id": 28
+    },
+    {
+      "username": "marko2",
+      "firstname": "maod",
+      "lastname": "msod",
+      "email": "mo",
+      "password": "mo",
+      "data": {
+        "address": "0x815bac25D01fd74ed051C150e89E07b4F0F4ce0B",
+        "wallet": {
+          "_isSigner": true,
+          "address": "0x1d968CfBB2a79680824E9BaB0Aee5695eaebbE80",
+          "provider": null
+        },
+        "mnemonic": "rigid amused okay top harsh country feed fish pelican future zoo toward impose target they elevator denial wool swing sand mean cute dream desk"
+      },
+      "id": 29
     }
   ]
 }

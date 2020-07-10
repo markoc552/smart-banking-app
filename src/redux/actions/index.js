@@ -12,8 +12,6 @@ export const createAccount = formValues => async dispatch => {
 
   dispatch({ type: "CREATE_ACCOUNT", payload: response.data });
 
-  console.log(formValues);
-
   if (formValues.username !== undefined) {
     history.push(`/home/${formValues.username}`);
   }
@@ -93,8 +91,6 @@ export const updateAccount = (username, formValues) => async dispatch => {
 
   const response = await axios.patch(`/accounts/${id}`, formValues);
 
-  console.log(response);
-
   dispatch({ type: "UPDATE_ACCOUNT", payload: response.data });
 
   history.push(`/home/${username}/profile`);
@@ -119,13 +115,13 @@ export const getEthStatus = id => async dispatch => {
 
   const waults = await contract.methods.getWaults().call();
 
-  const transactionCount = await contract.methods.getTransactionCount().call();
+  const transactions = await contract.methods.getTransactions(0).call();
 
-  console.log({ balance, waults, transactionCount, mnemonic });
+  const transactionCount = await contract.methods.getTransactionCount().call();
 
   dispatch({
     type: "ETH_STATUS",
-    payload: { id, balance, waults, transactionCount, ethAddress, wallet, mnemonic }
+    payload: { id, balance, waults, transactionCount, ethAddress, wallet, mnemonic, transactions }
   });
 };
 
@@ -142,18 +138,9 @@ const createEthAccount = async formValues => {
 
   const bip39 = require('bip39')
 
-  console.log(bip39)
-
   const mnemonic = bip39.entropyToMnemonic(ethers.utils.randomBytes(32))
-  //
-  // let account = web3.eth.accounts.create(web3.utils.randomHex(32));
-  // let wallet = web3.eth.accounts.wallet.add(account);
-
-  // const mnemonic = await ethers.utils.HDNode.entropyToMnemonic(ethers.utils.randomBytes(16));
 
   const wallet = ethers.Wallet.fromMnemonic(mnemonic);
-
-  console.log(wallet);
 
   web3.eth.sendTransaction({
     to: wallet.address,

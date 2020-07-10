@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Card, List, Button, Icon } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import {connect} from "react-redux"
+import {getEthStatus} from "../../redux/actions"
 
 const Transactions = props => {
   const [transactions, setTransactions] = useState(null);
 
+  useEffect(() => {
+    props.getEthStatus(props.id);
+  }, []);
+
   const renderTransactions = () => {
+
+    console.log(props.ethUser)
+
     if (transactions === null) {
       return (
         <div>
@@ -49,4 +58,10 @@ const Transactions = props => {
   );
 };
 
-export default Transactions;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    ethUser: state.accounts[ownProps.id]
+  };
+};
+
+export default connect(mapStateToProps, {getEthStatus})(Transactions);

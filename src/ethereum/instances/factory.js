@@ -10,7 +10,6 @@ const instance = new web3.eth.Contract(
 );
 
 export const getContract = (address, mnemonic) => {
-  console.log(mnemonic)
   if (mnemonic !== undefined)
   {
     const provider = new HDWalletProvider(mnemonic, "HTTP://127.0.0.1:7545");
