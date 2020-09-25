@@ -3,9 +3,9 @@ import _ from "lodash";
 import { Search, Grid, Loader } from "semantic-ui-react";
 import { connect } from "react-redux";
 import { getAllAccounts } from "../../redux/actions";
-import history from "../../history"
+import history from "../../history";
 
-const SearchForm = props => {
+const SearchForm = (props) => {
   const [isLoading, setLoading] = useState(false);
   const [results, setResults] = useState([]);
   const [selected, setSelected] = useState("");
@@ -35,22 +35,21 @@ const SearchForm = props => {
     const users = _.mapKeys(arr, "username");
 
     const re = new RegExp(_.escapeRegExp(value), "i");
-    const isMatch = result => re.test(result.title);
+    const isMatch = (result) => re.test(result.title);
 
     const filter = _.find(users, { firstname: value });
 
     if (filter !== undefined) {
-      const name =
-        filter.firstname + " " + filter.lastname;
+      const name = filter.firstname + " " + filter.lastname;
 
       const source = _.times(1, () => ({
         title: name,
-        description: filter.email
+        description: filter.email,
       }));
 
       setLoading(false);
       setResults(_.filter(source, isMatch));
-      setSelected(filter.username)
+      setSelected(filter.username);
     }
   };
 
@@ -64,7 +63,7 @@ const SearchForm = props => {
             loading={isLoading}
             onResultSelect={handleResultSelect}
             onSearchChange={_.debounce(handleSearchChange, 1000, {
-              leading: true
+              leading: true,
             })}
             results={results}
             value={value}
@@ -76,7 +75,7 @@ const SearchForm = props => {
   }
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return { users: state.accounts.users };
 };
 

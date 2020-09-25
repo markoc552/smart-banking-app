@@ -3,7 +3,8 @@ import BackgroundVector from "../../images/vector.jpg";
 
 export const Bottom = styled.div`
   margin-top: 15px;
-  height: 35px;
+  height: 250px;
+  background-color: #41556e;
   padding-top: 10px;
   text-align: center;
   margin-left: auto;
@@ -16,13 +17,22 @@ export const Bottom = styled.div`
   bottom: 0;
 `;
 
+export const Reviews = styled.div`
+  margin-top: 15px;
+  height: 250px;
+  background-color: #41556e;
+  padding-top: 10px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  box-shadow: 3px 3px 5px 6px #ccc;
+`;
+
 export const HeaderText = styled.div`
-  position: relative;
-  margin-right: 300px;
-  margin-top: 200px;
-  margin-left: 30px;
-  font-weight: bold;
-  font-size: 50px;
+  font-size: 40px;
   font-family: "Poppins", sans-serif;
   color: rgb(71, 161, 255);
   z-index: 1;
@@ -38,8 +48,8 @@ export const Vector = styled.div`
 
 export const HomeSection = styled.div`
   position: absolute;
-  right: 0.5%;
-  left: 0.5%;
+  right: 0%;
+  left: 0%;
   font-family: "Lato", sans-serif;
   height: 100vh;
 `;
@@ -49,14 +59,14 @@ export const Background = styled.div`
 `;
 
 export const Modal = styled.div`
-  position: relative;
-  height: auto;
-  width: 40%;
   border: 1px gray;
-  border-radius: 20px;
-  margin: 100px auto 0px auto;
+  border-radius: 3px;
   background-color: white;
   z-index: 1;
+  font-family: 'Lato', serif;
+  box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.75);
+  top: 25%;
+  position: relative;
 
   @media only screen and (max-width: 600px) {
     width: 90%;
@@ -64,7 +74,8 @@ export const Modal = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-  background-image: url(${window.ENVIRONMENT.MODAL_IMAGE});
+  /*background-image: url(${window.ENVIRONMENT.MODAL_IMAGE});*/
+  background-color: #41556e;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -86,8 +97,9 @@ export const Image = styled.img`
 `;
 export const Header = styled.div`
   text-align: center;
-  font-size: 20px;
+  font-family: 'Open Sans', sans-serif;
   font-weight: bold;
+  font-size: 20px;
   margin-top: 10px;
 `;
 
@@ -126,7 +138,7 @@ export const SBADiv = styled.div`
   top: 0;
   bottom: 0;
   background-color: white;
-  box-shadow: -1px -1px 5px -3px rgba(0,0,0,1);;
+  box-shadow: -1px -1px 5px -3px rgba(0, 0, 0, 1);
   opacity: 0.97;
   height: 100vh;
   overflow: hidden;
@@ -146,33 +158,33 @@ export const SBABackground = styled.div`
 `;
 
 export const SideText = styled.div`
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: 700;
   font-size: 12px;
   color: #5b89a3;
 `;
 
 export const SideName = styled.div`
-font-family: 'Lato', sans-serif;
-font-weight: 700;
-font-size: 15px;
-margin-top: 7px;
-color: black;
-vertical-align: middle;
-`
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  margin-top: 7px;
+  color: black;
+  vertical-align: middle;
+`;
 
 export const UserDescription = styled.div`
-width: 100vw;
-padding-left: 30px;
-padding-right: 50px;
-padding-top: 10px;
-position: relative;
-margin: 0 auto;
-`
+  width: 100vw;
+  padding-left: 30px;
+  padding-right: 50px;
+  padding-top: 10px;
+  position: relative;
+  margin: 0 auto;
+`;
 
 export const StyledName = styled.div`
-color: #a2acbd;
-font-size: 25px;
-font-family: 'Lato', sans-serif;
-padding-bottom: 25px;
-`
+  color: #a2acbd;
+  font-size: 25px;
+  font-family: "Lato", sans-serif;
+  padding-bottom: 25px;
+`;

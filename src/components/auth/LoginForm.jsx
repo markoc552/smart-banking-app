@@ -8,7 +8,7 @@ import {
   Header,
   Grid
 } from "semantic-ui-react";
-import { renderInput, validate } from "./FormUtils";
+import { renderInput, validate } from "./formUtils";
 import { checkAccount } from "../../redux/actions";
 import OAuth2 from "./OAuth2";
 import styled from "styled-components";
@@ -46,6 +46,7 @@ const LoginForm = props => {
         label="Username"
         component={renderInput}
       />
+      <br/>
       <Field
         name="password"
         type="password"
@@ -55,13 +56,11 @@ const LoginForm = props => {
       <Grid centered padded="vertically" stackable>
         <ButtonForm>
           <Button.Group>
-            <Button color="blue" onClick={() => props.changeForm("register")}>
+            <Button color="google plus" onClick={() => props.changeForm("register")}>
               Register
             </Button>
             <Button.Or />
-            <Button positive>Log in</Button>
-            <Button.Or />
-            <OAuth2/>
+            <Button color="vk">Log in</Button>
           </Button.Group>
         </ButtonForm>
 

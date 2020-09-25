@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import EthereumStack from "../components/home/EthereumStack";
-import MobileBankingStack from "../components/home/MobileBankingStack";
 import HomeBottom from "../components/home/HomeBottom";
 import HomeHeader from "../components/home/HomeHeader";
 import SideNavigation from "../components/utils/SideNavigation";
 import { connect } from "react-redux";
 import { getAccountName, getEthStatus } from "../redux/actions";
-import { HomeSection, Background } from "../components/utils/StyledComponents";
+import { HomeSection, Background, Reviews } from "../components/utils/StyledComponents";
 import { Loader } from "semantic-ui-react";
 
 const Home = props => {
@@ -34,8 +33,8 @@ const Home = props => {
           <HomeHeader setVisible={setVisible} id={id} />
           <Background>
             <EthereumStack />
-            <MobileBankingStack />
           </Background>
+          <Reviews/>
           <HomeBottom />
         </SideNavigation>
       </HomeSection>

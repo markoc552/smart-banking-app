@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Image, Container, Divider } from "semantic-ui-react";
 
-const EthereumStack = props => {
+const EthereumStack = (props) => {
   return (
     <div>
       <Grid padded="vertically" container>

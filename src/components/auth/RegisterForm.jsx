@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { reduxForm, Field } from "redux-form";
 import { connect } from "react-redux";
-import { renderInput, validate } from "./FormUtils";
+import { renderInput, validate } from "./formUtils";
 import {
   Button,
   TransitionablePortal,
   Segment,
-  Header
+  Header,
 } from "semantic-ui-react";
 import OAuth2 from "./OAuth2";
 import styled from "styled-components";
 import { checkRegister, createAccount } from "../../redux/actions";
 import "../../index.css";
 
-
-const RegisterForm = props => {
+const RegisterForm = (props) => {
   const ButtonForm = styled.div`
     margin: 10px auto;
   `;
@@ -32,7 +31,7 @@ const RegisterForm = props => {
     }
   }, [props.status]);
 
-  const onSubmit = async formValues => {
+  const onSubmit = async (formValues) => {
     setOpen(false);
 
     await props.checkRegister(formValues);
@@ -46,9 +45,13 @@ const RegisterForm = props => {
       onSubmit={props.handleSubmit(onSubmit)}
     >
       <Field name="username" label="Username" component={renderInput} />
+      <br />
       <Field name="firstname" label="Firstname" component={renderInput} />
+      <br />
       <Field name="lastname" label="Lastname" component={renderInput} />
+      <br />
       <Field name="email" label="Email" component={renderInput} />
+      <br />
       <Field
         name="password"
         type="password"
@@ -57,9 +60,9 @@ const RegisterForm = props => {
       />
       <ButtonForm>
         <Button.Group>
-          <Button color="blue">Register</Button>
+          <Button color="linkedin" onClick={() => props.changeForm("login")}>Back</Button>
           <Button.Or />
-          <OAuth2 />
+          <Button color="google plus">Register</Button>
         </Button.Group>
       </ButtonForm>
       <TransitionablePortal closeOnTriggerClick openOnTriggerClick open={open}>
@@ -75,7 +78,7 @@ const RegisterForm = props => {
             top: "75%",
             marginTop: "-50px",
             marginLeft: "-100px",
-            zIndex: 1000
+            zIndex: 1000,
           }}
         >
           <Header>Username already exists</Header>
@@ -85,7 +88,7 @@ const RegisterForm = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return { status: state.accounts.status };
 };
 

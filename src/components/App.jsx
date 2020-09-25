@@ -14,7 +14,7 @@ import UpdateProfile from "./profile/UpdateProfile";
 import WithdrawMoney from "./transactions/WithdrawMoney";
 import UploadMoney from "./transactions/UploadMoney";
 
-const App = props => {
+const App = (props) => {
   return (
     <div className="ui container">
       <Router history={history}>
@@ -36,16 +36,8 @@ const App = props => {
             exact
             component={UpdateProfile}
           />
-          <Route
-            path="/home/upload/:id"
-            exact
-            component={UploadMoney}
-          />
-          <Route
-            path="/home/withdraw/:id"
-            exact
-            component={WithdrawMoney}
-          />
+          <Route path="/home/upload/:id" exact component={UploadMoney} />
+          <Route path="/home/withdraw/:id" exact component={WithdrawMoney} />
         </Switch>
       </Router>
     </div>

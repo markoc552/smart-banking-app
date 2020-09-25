@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { Button, Form, Loader } from "semantic-ui-react";
 import { Field, reduxForm } from "redux-form";
@@ -7,14 +7,12 @@ import { getContract } from "../../ethereum/instances/factory";
 import { getEthStatus } from "../../redux/actions";
 import { connect } from "react-redux";
 
-const NewTransaction = props => {
-
+const NewTransaction = (props) => {
   useEffect(() => {
     const id = props.match.params.id;
 
     props.getEthStatus(id);
   }, []);
-
 
   const renderInput = ({ input, label, meta }) => {
     return (
@@ -27,7 +25,7 @@ const NewTransaction = props => {
 
   const Id = props.match.params.id;
 
-  const sendTransaction = async formValues => {
+  const sendTransaction = async (formValues) => {
     console.log(formValues);
     const owner = props.ethUser.wallet;
 
@@ -37,16 +35,18 @@ const NewTransaction = props => {
 
     const contract = getContract(contractAddress, mnemonic);
 
-    await contract.methods.sendMoney(formValues.receiver, formValues.amount).send({
-      from: String(owner.address),
-      gas: "6721975"
-    });
+    await contract.methods
+      .sendMoney(formValues.receiver, formValues.amount)
+      .send({
+        from: String(owner.address),
+        gas: "6721975",
+      });
 
     history.push(`/home/${Id}`);
   };
 
-  if(props.ethUser === undefined){
-    return <Loader/>
+  if (props.ethUser === undefined) {
+    return <Loader />;
   }
 
   return ReactDOM.createPortal(
@@ -55,7 +55,7 @@ const NewTransaction = props => {
       className="ui dimmer modals visible active"
     >
       <div
-        onClick={event => event.stopPropagation()}
+        onClick={(event) => event.stopPropagation()}
         className="ui standard modal visible active small"
         style={{ textAlign: "center" }}
       >
@@ -92,7 +92,7 @@ const NewTransaction = props => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    ethUser: state.accounts[ownProps.match.params.id]
+    ethUser: state.accounts[ownProps.match.params.id],
   };
 };
 

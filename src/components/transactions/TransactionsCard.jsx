@@ -8,7 +8,7 @@ const Transactions = props => {
   const [transactions, setTransactions] = useState(null);
 
   useEffect(() => {
-    props.getEthStatus(props.id);
+  
   }, []);
 
   const renderTransactions = () => {

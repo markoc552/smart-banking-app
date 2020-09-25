@@ -6,8 +6,6 @@ const HomeBottom = props => {
 
   return (
     <Bottom>
-      <Icon name="copyright outline" />
-      SBA ltd. All rights reserved.
     </Bottom>
   );
 };

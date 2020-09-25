@@ -2,8 +2,8 @@ import React from "react";
 import { Item } from "semantic-ui-react";
 import VideoListItem from "./VideoListItem";
 
-const VideoList = props => {
-  const videos = props.videos.map(video => {
+const VideoList = (props) => {
+  const videos = props.videos.map((video) => {
     console.log(video);
     return (
       <VideoListItem

@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import {
-  Button,
-  Form,
-  Loader,
-} from "semantic-ui-react";
+import { Button, Form, Loader } from "semantic-ui-react";
 import { Field, reduxForm } from "redux-form";
 import history from "../../history";
 import { connect } from "react-redux";
 import { getAllAccounts, updateAccount } from "../../redux/actions";
 
 const data = {
-  firstname: 'Your firstname..',
-  lastname: 'Lastname...',
-  email: 'Email...'
-}
+  firstname: "Your firstname..",
+  lastname: "Lastname...",
+  email: "Email...",
+};
 
-const UpdateProfile = props => {
-  const renderInput = formValues => {
-    console.log(formValues)
+const UpdateProfile = (props) => {
+  const renderInput = (formValues) => {
+    console.log(formValues);
     return (
       <Form.Field>
         <label>{formValues.label}</label>
@@ -36,7 +32,7 @@ const UpdateProfile = props => {
     props.getAllAccounts();
   }, []);
 
-  const updateForm = formValues => {
+  const updateForm = (formValues) => {
     console.log(formValues);
     props.updateAccount(id, formValues);
   };
@@ -50,7 +46,7 @@ const UpdateProfile = props => {
         className="ui dimmer modals visible active"
       >
         <div
-          onClick={event => event.stopPropagation()}
+          onClick={(event) => event.stopPropagation()}
           className="ui standard modal visible active"
           style={{ textAlign: "center" }}
         >
@@ -92,13 +88,13 @@ const UpdateProfile = props => {
 const wrap = reduxForm({
   form: "updateProfile",
   initialValues: {
-    firstname: `${data['firstname']}`,
-    lastname: `${data['lastname']}`,
-    email: `${data['email']}`
-  }
+    firstname: `${data["firstname"]}`,
+    lastname: `${data["lastname"]}`,
+    email: `${data["email"]}`,
+  },
 })(UpdateProfile);
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return { usersData: state.accounts.users };
 };
 

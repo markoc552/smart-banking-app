@@ -7,14 +7,14 @@ import {
   Image,
   Menu,
   Dropdown,
-  Loader
+  Loader,
 } from "semantic-ui-react";
 import Search from "./Search";
 import { connect } from "react-redux";
 
-const NavigationBar = props => {
+const NavigationBar = (props) => {
   if (props.ethUser === undefined) {
-    console.log(props)
+    console.log(props);
     return <Loader />;
   } else {
     return (
@@ -91,7 +91,7 @@ const NavigationBar = props => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    ethUser: state.accounts[ownProps.id]
+    ethUser: state.accounts[ownProps.id],
   };
 };
 

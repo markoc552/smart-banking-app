@@ -1,14 +1,14 @@
 import React from 'react';
-import { Label } from "semantic-ui-react"
+import { Label, Input } from "semantic-ui-react"
 
 export const renderInput = ({ input, label, meta }) => {
   const className = `field ${meta.error && meta.touched
     ? "error"
     : ""}`;
+  const icon = label === 'Username' ? "user" : label === 'Email' ? "at" : label === "Firstname" ? "user" : label === "Lastname" ? "user" : "lock";
   const type = label === "Password" ? "password" : "text";
   return (<div className={className} style={{margin: "0 auto"}}>
-    <label>{label}</label>
-    <input {...input} type={type}/>
+    <Input icon={icon} iconPosition="left" input={input} placeholder={label} type={type}/>
     {renderError(meta)}
   </div>);
 };

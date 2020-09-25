@@ -8,7 +8,8 @@ import {
   Container,
   Menu,
   Dropdown,
-  Loader
+  Loader,
+  Card,
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Background from "../../images/home.png";
@@ -17,8 +18,10 @@ import { HeaderText, Vector } from "../utils/StyledComponents";
 import { getContract } from "../../ethereum/instances/factory";
 import history from "../../history";
 import { connect } from "react-redux";
+import TransactionsCard from "../transactions/TransactionsCard";
+import WaultsCard from "../waults/WaultsCard";
 
-const HomeHeader = props => {
+const HomeHeader = (props) => {
   if (props.ethUser === undefined) {
     return <Loader />;
   } else {
@@ -27,7 +30,7 @@ const HomeHeader = props => {
         <Grid padded="vertically" stackable>
           <Grid.Row columns={5}>
             <Grid.Column>
-              <div>
+              <div style={{ marginLeft: "30px" }}>
                 <Icon
                   name="align justify"
                   circular
@@ -91,36 +94,34 @@ const HomeHeader = props => {
               </div>
             </Grid.Column>
           </Grid.Row>
-          <Image
-            as="img"
-            size="large"
-            src={Background}
-            style={{ position: "absolute", left: "59%", top: "5%" }}
-          />
-          <Grid.Row textAlign="center">
-            <HeaderText>The next level of banking</HeaderText>
-          </Grid.Row>
-          <Grid.Row columns={2} centered>
-            <Grid.Column width={3} floated="left">
-              <Link to={`/home/transactions/${props.id}`}>
-                <Button basic color="blue">
-                  Proceed to transactions
-                </Button>
-              </Link>
+          <Grid.Row>
+            <Grid.Column width={5}>
+              <Card centered>
+                <Card.Content>
+                  <Card.Description></Card.Description>
+                </Card.Content>
+              </Card>
+              <Card centered>
+                <Card.Content>
+                  <Card.Header>Currently available money</Card.Header>
+                </Card.Content>
+              </Card>
             </Grid.Column>
-            <Grid.Column></Grid.Column>
-            <Container
-              as="div"
-              style={{
-                marginTop: "15%",
-                marginLeft: "auto",
-                marginRight: "auto"
-              }}
-            >
-              <a href="http://www.freepik.com">
-                Designed by Creative_hat / Freepik
-              </a>
-            </Container>
+            <Grid.Column width={5}>
+              <WaultsCard/>
+              <TransactionsCard/>
+            </Grid.Column>
+            <Grid.Column width={5} textAlign="center">
+              <Image fluid as="img" size="large" src={Background} />
+              <HeaderText>The next level of banking</HeaderText>
+              <Grid.Column textAlign="center">
+                <Link to={`/home/transactions/${props.id}`}>
+                  <Button basic color="blue">
+                    Proceed to transactions
+                  </Button>
+                </Link>
+              </Grid.Column>
+            </Grid.Column>
           </Grid.Row>
         </Grid>
       </Vector>
@@ -130,7 +131,7 @@ const HomeHeader = props => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    ethUser: state.accounts[ownProps.id]
+    ethUser: state.accounts[ownProps.id],
   };
 };
 
