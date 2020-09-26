@@ -4,7 +4,7 @@ import BackgroundVector from "../../images/vector.jpg";
 export const Bottom = styled.div`
   margin-top: 15px;
   height: 250px;
-  background-color: #41556e;
+  background-color: #292c33;
   padding-top: 10px;
   text-align: center;
   margin-left: auto;
@@ -60,7 +60,7 @@ export const Background = styled.div`
 
 export const Modal = styled.div`
   border: 1px gray;
-  border-radius: 3px;
+  border-radius: 5px;
   background-color: white;
   z-index: 1;
   font-family: 'Lato', serif;
@@ -74,8 +74,7 @@ export const Modal = styled.div`
 `;
 
 export const ModalContainer = styled.div`
-  /*background-image: url(${window.ENVIRONMENT.MODAL_IMAGE});*/
-  background-color: #41556e;
+  background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${window.ENVIRONMENT.MODAL_IMAGE});
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -158,10 +157,34 @@ export const SBABackground = styled.div`
 `;
 
 export const SideText = styled.div`
-  font-family: "Lato", sans-serif;
+  font-family: "Open sans", sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: #5b89a3;
+`;
+
+export const BottomText = styled.div`
+  font-family: "Open sans", sans-serif;
   font-weight: 700;
   font-size: 12px;
   color: #5b89a3;
+  margin-top: 10px;
+`;
+
+export const BottomCopyright = styled.div`
+  font-family: "Open sans", sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  color: #5b89a3;
+  margin-top: -50px;
+`;
+
+export const BottomHeader = styled.div`
+  font-family: "Open sans", sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  color: #cfcfcf;
+  margin-top: 25px;
 `;
 
 export const SideName = styled.div`

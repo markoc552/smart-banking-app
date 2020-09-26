@@ -10,6 +10,7 @@ import {
   Dropdown,
   Loader,
   Card,
+  Statistic,
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import Background from "../../images/home.png";
@@ -28,8 +29,8 @@ const HomeHeader = (props) => {
     return (
       <Vector>
         <Grid padded="vertically" stackable>
-          <Grid.Row columns={5}>
-            <Grid.Column>
+          <Grid.Row columns={4}>
+            <Grid.Column width={6}>
               <div style={{ marginLeft: "30px" }}>
                 <Icon
                   name="align justify"
@@ -41,57 +42,26 @@ const HomeHeader = (props) => {
                 />
               </div>
             </Grid.Column>
-            <Grid.Column></Grid.Column>
-            <Grid.Column textAlign="center">
+            <Grid.Column textAlign="center" width={3}>
               <Image
                 centered
                 src={require("../../images/logo.png")}
                 size="tiny"
               />
             </Grid.Column>
-            <Grid.Column>
+            <Grid.Column textAlign="right" width={2}>
               <Search />
             </Grid.Column>
-            <Grid.Column textAlign="right">
-              <div>
-                <Menu borderless compact>
-                  <Dropdown
-                    icon={
-                      <Icon
-                        name="chevron circle down"
-                        size="large"
-                        color="blue"
-                      />
-                    }
-                    trigger={
-                      <Button as="div" size="mini" labelPosition="right">
-                        <Button basic color="blue" size="small">
-                          <Icon name="btc" size="large" />
-                          Money
-                        </Button>
-                        <Label as="a" basic color="blue" pointing="left">
-                          {props.ethUser["balance"]},00 KN
-                        </Label>
-                      </Button>
-                    }
-                  >
-                    <Dropdown.Menu>
-                      <Dropdown.Item>
-                        <Link to={`/home/upload/${props.id}`}>
-                          <Icon name="sort amount up" color="orange" />
-                          Upload Money
-                        </Link>
-                      </Dropdown.Item>
-                      <Dropdown.Item>
-                        <Link to={`/home/withdraw/${props.id}`}>
-                          <Icon name="sort amount down" color="green" />
-                          Withdraw Money
-                        </Link>
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Menu>
-              </div>
+            <Grid.Column textAlign="right" width={4}></Grid.Column>
+            <Grid.Column width={1}>
+              <Button
+                color="red"
+                basic
+                floated="right"
+                onClick={() => history.push("/")}
+              >
+                Logout
+              </Button>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -102,14 +72,82 @@ const HomeHeader = (props) => {
                 </Card.Content>
               </Card>
               <Card centered>
-                <Card.Content>
-                  <Card.Header>Currently available money</Card.Header>
+                <Card.Content><Card.Header>Statistics</Card.Header></Card.Content>
+                <Card.Content textAlign="center">
+                  <Statistic.Group size="mini" widths="four">
+                    <Statistic>
+                      <Statistic.Value>
+                        <Icon name="history" />
+                        22
+                      </Statistic.Value>
+                      <Statistic.Label>Transactions</Statistic.Label>
+                    </Statistic>
+                    <Statistic>
+                      <Statistic.Value>
+                        <Icon name="archive" />
+                        25
+                      </Statistic.Value>
+                      <Statistic.Label>Waults</Statistic.Label>
+                    </Statistic>
+                    <Statistic>
+                      <Statistic.Value>
+                        <Icon name="user plus" />5
+                      </Statistic.Value>
+                      <Statistic.Label>Visits</Statistic.Label>
+                    </Statistic>
+                  </Statistic.Group>
+                </Card.Content>
+                <Card.Content textAlign="center">
+                  <div>
+                    <Button.Group basic color="blue">
+                      <Button circular>{props.ethUser["balance"]},00 KN</Button>
+                      <Menu borderless compact>
+                        <Dropdown
+                          className="button icon"
+                          floating
+                          direction="left"
+                          simple
+                          item
+                          trigger={<></>}
+                        >
+                          <Dropdown.Menu>
+                            <Dropdown.Item
+                              onClick={() =>
+                                history.push(`/home/upload/${props.id}`)
+                              }
+                            >
+                              <Icon
+                                name="sort amount up"
+                                circular
+                                inverted
+                                color="orange"
+                              />
+                              Upload Money
+                            </Dropdown.Item>
+                            <Dropdown.Item
+                              onClick={() =>
+                                history.push(`/home/withdraw/${props.id}`)
+                              }
+                            >
+                              <Icon
+                                name="sort amount down"
+                                circular
+                                inverted
+                                color="green"
+                              />
+                              Withdraw Money
+                            </Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                      </Menu>
+                    </Button.Group>
+                  </div>
                 </Card.Content>
               </Card>
             </Grid.Column>
             <Grid.Column width={5}>
-              <WaultsCard/>
-              <TransactionsCard/>
+              <WaultsCard />
+              <TransactionsCard />
             </Grid.Column>
             <Grid.Column width={5} textAlign="center">
               <Image fluid as="img" size="large" src={Background} />

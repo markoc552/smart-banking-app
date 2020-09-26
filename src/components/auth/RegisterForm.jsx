@@ -39,6 +39,11 @@ const RegisterForm = (props) => {
 
   props.changeName("Register");
 
+  const change = () => {
+    props.changeForm("login");
+    props.changeName("Login");
+  }
+
   return (
     <form
       className="ui form error formWidth"
@@ -60,7 +65,7 @@ const RegisterForm = (props) => {
       />
       <ButtonForm>
         <Button.Group>
-          <Button color="linkedin" onClick={() => props.changeForm("login")}>Back</Button>
+          <Button color="linkedin" onClick={() => change()}>Back</Button>
           <Button.Or />
           <Button color="google plus">Register</Button>
         </Button.Group>
