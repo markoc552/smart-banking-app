@@ -9,26 +9,30 @@ export const Bottom = styled.div`
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  border-top: 1px solid #ccc;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  box-shadow: 3px 3px 5px 6px #ccc;
   position: relative;
   bottom: 0;
+`;
+
+export const UtilsBottom = styled.div`
+  margin-top: 15px;
+  height: 250px;
+  background-color: #292c33;
+  padding-top: 10px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 `;
 
 export const Reviews = styled.div`
   margin-top: 15px;
   height: 250px;
-  background-color: #41556e;
   padding-top: 10px;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-  border-top: 1px solid #ccc;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
-  box-shadow: 3px 3px 5px 6px #ccc;
 `;
 
 export const HeaderText = styled.div`

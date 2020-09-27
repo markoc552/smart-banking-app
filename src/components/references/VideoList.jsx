@@ -15,7 +15,7 @@ const VideoList = (props) => {
   });
 
   return (
-    <Item.Group divided link>
+    <Item.Group style={{marginLeft: "100px"}} divided link>
       {videos}
     </Item.Group>
   );

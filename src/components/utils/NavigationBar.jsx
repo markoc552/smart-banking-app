@@ -11,6 +11,7 @@ import {
 } from "semantic-ui-react";
 import Search from "./Search";
 import { connect } from "react-redux";
+import history from "../../history"
 
 const NavigationBar = (props) => {
   if (props.ethUser === undefined) {
@@ -20,9 +21,9 @@ const NavigationBar = (props) => {
     return (
       <div>
         <Grid padded="vertically" stackable>
-          <Grid.Row columns={5}>
-            <Grid.Column>
-              <div>
+          <Grid.Row columns={4}>
+            <Grid.Column width={6}>
+              <div style={{ marginLeft: "30px" }}>
                 <Icon
                   name="align justify"
                   circular
@@ -33,54 +34,26 @@ const NavigationBar = (props) => {
                 />
               </div>
             </Grid.Column>
-            <Grid.Column></Grid.Column>
-            <Grid.Column style={{ textAlign: "center" }}>
+            <Grid.Column textAlign="center" width={3}>
               <Image
-                size="tiny"
                 centered
-                inline
                 src={require("../../images/logo.png")}
+                size="tiny"
               />
             </Grid.Column>
-            <Grid.Column>
+            <Grid.Column textAlign="right" width={2}>
               <Search />
             </Grid.Column>
-            <Grid.Column textAlign="right">
-              <div>
-                <Menu borderless compact>
-                  <Dropdown
-                    icon={
-                      <Icon
-                        name="chevron circle down"
-                        size="large"
-                        color="blue"
-                      />
-                    }
-                    trigger={
-                      <Button as="div" labelPosition="right" size="mini">
-                        <Button basic color="blue" size="small">
-                          <Icon name="btc" size="large" />
-                          Money
-                        </Button>
-                        <Label as="a" basic color="blue" pointing="left">
-                          {props.ethUser["balance"]},00 KN
-                        </Label>
-                      </Button>
-                    }
-                  >
-                    <Dropdown.Menu>
-                      <Dropdown.Item>
-                        <Icon name="sort amount up" color="orange" />
-                        Upload Money
-                      </Dropdown.Item>
-                      <Dropdown.Item>
-                        <Icon name="sort amount down" color="green" />
-                        Withdraw Money
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Menu>
-              </div>
+            <Grid.Column textAlign="right" width={4}></Grid.Column>
+            <Grid.Column width={1}>
+              <Button
+                color="red"
+                basic
+                floated="right"
+                onClick={() => history.push("/")}
+              >
+                Logout
+              </Button>
             </Grid.Column>
           </Grid.Row>
         </Grid>

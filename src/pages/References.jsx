@@ -10,7 +10,8 @@ import { getAccountName, getEthStatus } from "../redux/actions";
 import {
   ReferencesDiv,
   ReferencesBG,
-  Message
+  Message,
+  HomeSection
 } from "../components/utils/StyledComponents";
 
 const References = props => {
@@ -30,8 +31,7 @@ const References = props => {
   }
 
   return (
-    <ReferencesBG>
-      <ReferencesDiv>
+    <HomeSection>
         <SideNavigation
           visible={visible}
           setVisible={setVisible}
@@ -48,11 +48,10 @@ const References = props => {
               contracts...
             </Message>
           </Segment>
-          <YTPlayer term="ethereum technology" />
+          <YTPlayer term="cryptocurrency" />
           <Bottom />
         </SideNavigation>
-      </ReferencesDiv>
-    </ReferencesBG>
+    </HomeSection>
   );
 };
 

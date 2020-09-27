@@ -21,6 +21,7 @@ import history from "../../history";
 import { connect } from "react-redux";
 import TransactionsCard from "../transactions/TransactionsCard";
 import WaultsCard from "../waults/WaultsCard";
+import DepositGraph from "./DepositGraph"
 
 const HomeHeader = (props) => {
   if (props.ethUser === undefined) {
@@ -66,15 +67,16 @@ const HomeHeader = (props) => {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column width={5}>
-              <Card centered>
+              <Card style={{width: "400px", height:"385px"}} color="blue" centered>
+                <Card.Content><Card.Header>Deposit/Withdraw</Card.Header></Card.Content>
                 <Card.Content>
-                  <Card.Description></Card.Description>
+                  <DepositGraph/>
                 </Card.Content>
               </Card>
-              <Card centered>
+              <Card centered raised color="blue" style={{width: "400px"}}>
                 <Card.Content><Card.Header>Statistics</Card.Header></Card.Content>
                 <Card.Content textAlign="center">
-                  <Statistic.Group size="mini" widths="four">
+                  <Statistic.Group size="mini" widths="four" floated="right">
                     <Statistic>
                       <Statistic.Value>
                         <Icon name="history" />

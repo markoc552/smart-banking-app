@@ -5,18 +5,24 @@ import {
   Container,
   Image,
   Divider,
-  Loader
+  Loader,
+  Tab,
 } from "semantic-ui-react";
 import TransactionCard from "../components/transactions/TransactionsCard";
 import Navigation from "../components/utils/NavigationBar";
 import SideNavigation from "../components/utils/SideNavigation";
 import Bottom from "../components/home/HomeBottom";
-import {getAccountName, getEthStatus} from "../redux/actions"
-import {connect} from "react-redux"
-import {SBABackground, SBADiv} from "../components/utils/StyledComponents"
+import { getAccountName, getEthStatus } from "../redux/actions";
+import { connect } from "react-redux";
+import {
+  SBABackground,
+  SBADiv,
+  HomeSection,
+  UtilsBottom,
+} from "../components/utils/StyledComponents";
+import Information from "../components/transactions/Information";
 
-
-const Transactions = props => {
+const Transactions = (props) => {
   const [id, setId] = useState(null);
   const [visible, setVisible] = useState(false);
 
@@ -28,81 +34,60 @@ const Transactions = props => {
     props.getAccountName(id);
   }, []);
 
-  if(props.ethUser === undefined) {
-    return <Loader/>
+  if (props.ethUser === undefined) {
+    return <Loader />;
   }
 
-  return (
-    <SBABackground>
-      <SBADiv>
-        <SideNavigation visible={visible} setVisible={setVisible} id={id} name={props.name}>
-          <Navigation setVisible={setVisible} id={id} />
-          <Segment raised color="blue" textAlign="center">
-            <div
-              style={{ fontFamily: "'Lato', sans-serif", fontWeight: "500" }}
-            >
-              On this page you can view your recent transactions and sent new
-              ones.
-            </div>
-          </Segment>
-          <div style={{ paddingBottom: "20px" }}>
-            <Grid centered padded>
-              <Grid.Row columns={2}>
-                <Grid.Column>
-                  <Image
-                    size="large"
-                    as="img"
-                    src={window.ENVIRONMENT.TRANSACTIONS_IMAGE}
-                    style={{ borderRadius: "20px", margin: "0 auto" }}
-                  ></Image>
-                </Grid.Column>
-                <Grid.Column
-                  as="div"
-                  style={{
-                    textAlign: "center",
-                    fontFamily: "Roboto Slab, serif"
-                  }}
-                >
-                  <Container
-                    as="div"
-                    style={{ fontWeight: "bold", paddingTop: "30px" }}
-                  >
-                    Ethereum Transactions
-                  </Container>
-                  <Divider />
-                  <Container>
-                    Transaction is the way the external world interacting with
-                    the Ethereum network. Transaction is used when we wish to
-                    modify or update the state stored in the Ethereum network.
-                    Within an Ethereum network circulates a native currency:
-                    ether. Besides a native currency, ether is mainly used as
-                    the transaction fee or service charge (called gas in
-                    Ethereum) when Ethereum network is processing the
-                    transaction.
-                  </Container>
-                  <Divider hidden />
-                  <Container>
-                    Ethereum is an account-based blockchain implementation.
-                    There are two types of account: Externally-Owned Account and
-                    Contract Account. We will introduce them in a logical way.
-                  </Container>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid>
-          </div>
+  const panes = [
+    {
+      menuItem: "Reference",
+      render: () => (
+        <Tab.Pane>
+          <Information />
+        </Tab.Pane>
+      ),
+    },
+    {
+      menuItem: "Transactions",
+      render: () => (
+        <Tab.Pane>
           <TransactionCard id={id} />
+        </Tab.Pane>
+      ),
+    },
+  ];
+
+  return (
+    <HomeSection>
+      <SideNavigation
+        visible={visible}
+        setVisible={setVisible}
+        id={id}
+        name={props.name}
+      >
+        <Navigation setVisible={setVisible} id={id} />
+        <Segment raised color="blue" textAlign="center">
+          <div style={{ fontFamily: "'Lato', sans-serif", fontWeight: "500" }}>
+            On this page you can view your recent transactions and sent new
+            ones.
+          </div>
+        </Segment>
+        <Tab panes={panes} />
+        <UtilsBottom>
           <Bottom />
-        </SideNavigation>
-      </SBADiv>
-    </SBABackground>
+        </UtilsBottom>
+      </SideNavigation>
+    </HomeSection>
   );
 };
 
 const mapStateToProps = (state, ownProps) => {
   return {
     ethUser: state.accounts[ownProps.match.params.id],
-    name: state.accounts.name
+    name: state.accounts.name,
   };
 };
 
-export default connect(mapStateToProps, {getEthStatus, getAccountName})(Transactions);
+export default connect(mapStateToProps, { getEthStatus, getAccountName })(
+  Transactions
+);

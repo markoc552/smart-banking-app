@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { getAccountName, getEthStatus } from "../redux/actions";
 import { HomeSection, Background, Reviews } from "../components/utils/StyledComponents";
 import { Loader } from "semantic-ui-react";
+import ReviewCards from "../components/home/ReviewCards"
 
 const Home = props => {
   const [visible, setVisible] = useState(false);
@@ -34,7 +35,9 @@ const Home = props => {
           <Background>
             <EthereumStack />
           </Background>
-          <Reviews/>
+          <Reviews>
+            <ReviewCards/>
+          </Reviews>
           <HomeBottom />
         </SideNavigation>
       </HomeSection>
