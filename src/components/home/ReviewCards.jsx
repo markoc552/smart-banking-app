@@ -1,114 +1,78 @@
-import React from 'react'
-import { Button, Card, Image } from 'semantic-ui-react'
+import React from "react";
+import { Button, Card, Image } from "semantic-ui-react";
+import _ from "lodash"
+import {motion} from "framer-motion"
 
-const CardExampleGroups = () => (
-  <Card.Group centered>
-    <Card>
-      <Card.Content>
-        <Image
-          floated='left'
-          size='tiny'
-          src='https://www.flaticon.com/svg/static/icons/svg/145/145867.svg'
-        />
-        <Card.Header>John Doe</Card.Header>
-        <Card.Meta>Long time user</Card.Meta>
-        <Card.Description>
-          I am very happy with this app. I can recommend it to anyone!
-        </Card.Description>
-      </Card.Content>
-      <Card.Content extra>
-        <div className='ui two buttons'>
-          <Button basic color='blue'>
-            Was this helpful?
-          </Button>
-        </div>
-      </Card.Content>
-    </Card>
-    <Card>
-      <Card.Content>
-        <Image
-          floated='left'
-          size='tiny'
-          src='https://www.flaticon.com/svg/static/icons/svg/3048/3048176.svg'
-        />
-        <Card.Header>Steve Sanders</Card.Header>
-        <Card.Meta>New user</Card.Meta>
-        <Card.Description>
-          I am new to this kind of apps. But all I can say is that their simplicity made it easier for me to adapt.
-        </Card.Description>
-      </Card.Content>
-      <Card.Content extra>
-        <div className='ui two buttons'>
-          <Button basic color='blue'>
-            Was this helpful?
-          </Button>
-        </div>
-      </Card.Content>
-    </Card>
-    <Card>
-      <Card.Content>
-        <Image
-          floated='left'
-          size='tiny'
-          src='https://www.flaticon.com/svg/static/icons/svg/560/560216.svg'
-        />
-        <Card.Header>Elliot Baker</Card.Header>
-        <Card.Meta>Software developer</Card.Meta>
-        <Card.Description>
-          This app is awesome!
-        </Card.Description>
-      </Card.Content>
-      <Card.Content extra>
-        <div className='ui two buttons'>
-          <Button basic color='blue'>
-            Was this helpful?
-          </Button>
-        </div>
-      </Card.Content>
-    </Card>
-    <Card>
-      <Card.Content>
-        <Image
-          floated='left'
-          size='tiny'
-          src='https://www.flaticon.com/svg/static/icons/svg/949/949635.svg'
-        />
-        <Card.Header>Molly Thomas</Card.Header>
-        <Card.Meta>New User</Card.Meta>
-        <Card.Description>
-          In the first it was not easy to use, but over time it became much easier. Best regards!
-        </Card.Description>
-      </Card.Content>
-      <Card.Content extra>
-        <div className='ui two buttons'>
-          <Button basic color='blue'>
-            Was this helpful?
-          </Button>
-        </div>
-      </Card.Content>
-    </Card>
-    <Card>
-      <Card.Content>
-        <Image
-          floated='left'
-          size='tiny'
-          src='https://www.flaticon.com/svg/static/icons/svg/3463/3463779.svg'
-        />
-      <Card.Header>Jenny Doe</Card.Header>
-        <Card.Meta>Long time user</Card.Meta>
-        <Card.Description>
-          I have few remarks on this app.
-        </Card.Description>
-      </Card.Content>
-      <Card.Content extra>
-        <div className='ui two buttons'>
-          <Button basic color='blue'>
-            Was this helpful?
-          </Button>
-        </div>
-      </Card.Content>
-    </Card>
-  </Card.Group>
-)
+let reviews = [
+  {
+    image: "https://www.flaticon.com/svg/static/icons/svg/168/168904.svg",
+    name: "Julia Richards",
+    meta: "Long time user",
+    description: "I am very happy with this app. I can recommend it to anyone!",
+  },
+  {
+    image: "https://www.flaticon.com/svg/static/icons/svg/3048/3048176.svg",
+    name: "Steve Sanders",
+    meta: "New user",
+    description: "I am new to this kind of apps.",
+  },
+  {
+    image: "https://www.flaticon.com/svg/static/icons/svg/560/560216.svg",
+    name: "Elliot Baker",
+    meta: "Software developer",
+    description: "This app is awesome!",
+  },
+  {
+    image: "https://www.flaticon.com/svg/static/icons/svg/949/949635.svg",
+    name: "Molly Thomas",
+    meta: "New User",
+    description: "In the first it was not easy to use.",
+  },
+  {
+    image: "https://www.flaticon.com/svg/static/icons/svg/3463/3463779.svg",
+    name: "Jenny Doe",
+    meta: "Long time user",
+    description: "I have few remarks on this app.",
+  },
+];
 
-export default CardExampleGroups
+function move(arr, old_index, new_index) {
+  console.log(reviews)
+    if (new_index >= arr.length) {
+        var k = new_index - arr.length + 1;
+        while (k--) {
+            arr.push(undefined);
+        }
+    }
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+    console.log(reviews)
+    return arr;
+};
+
+const CardExampleGroups = () => {
+  return (
+    <Card.Group centered>
+      {reviews.map((index) => {
+        return (
+          <Card>
+            <Card.Content>
+              <Image floated="left" size="tiny" src={index.image} />
+              <Card.Header>{index.name}</Card.Header>
+              <Card.Meta>{index.meta}</Card.Meta>
+              <Card.Description>{index.description}</Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+              <div className="ui two buttons">
+                <Button basic color="blue">
+                  Was this helpful?
+                </Button>
+              </div>
+            </Card.Content>
+          </Card>
+        );
+      })}
+    </Card.Group>
+  );
+};
+
+export default CardExampleGroups;

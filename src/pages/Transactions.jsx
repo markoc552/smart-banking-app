@@ -21,6 +21,12 @@ import {
   UtilsBottom,
 } from "../components/utils/StyledComponents";
 import Information from "../components/transactions/Information";
+import { motion } from "framer-motion";
+
+const variants = {
+  initial: { opacity: 0, scale: 1.2 },
+  final: { opacity: 1, scale: 1 },
+};
 
 const Transactions = (props) => {
   const [id, setId] = useState(null);
@@ -42,17 +48,19 @@ const Transactions = (props) => {
     {
       menuItem: "Reference",
       render: () => (
-        <Tab.Pane>
-          <Information />
-        </Tab.Pane>
+          <Tab.Pane>
+            <Information />
+          </Tab.Pane>
       ),
     },
     {
       menuItem: "Transactions",
       render: () => (
-        <Tab.Pane>
-          <TransactionCard id={id} />
-        </Tab.Pane>
+        <motion.div initial="initial" animate="final" variants={variants}>
+          <Tab.Pane>
+            <TransactionCard id={id} />
+          </Tab.Pane>
+        </motion.div>
       ),
     },
   ];

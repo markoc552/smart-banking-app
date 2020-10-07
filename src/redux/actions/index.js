@@ -17,6 +17,12 @@ export const createAccount = formValues => async dispatch => {
   }
 };
 
+export const chooseProfilePicture = src => async dispatch => {
+
+  console.log(src)
+  dispatch({type: "CHOOSE_PROFILE", payload: src})
+}
+
 export const checkRegister = formValues => async dispatch => {
   const response = await axios.get("/accounts");
 

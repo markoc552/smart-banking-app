@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { reduxForm, Field } from "redux-form";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { renderInput, validate } from "./formUtils";
 import {
   Button,
   TransitionablePortal,
   Segment,
   Header,
+  Image,
 } from "semantic-ui-react";
 import OAuth2 from "./OAuth2";
 import styled from "styled-components";
-import { checkRegister, createAccount } from "../../redux/actions";
+import { checkRegister, createAccount, chooseProfilePicture } from "../../redux/actions";
 import "../../index.css";
+import ProfilePictureChooser from "./ProfilePictureChooser";
 
 const RegisterForm = (props) => {
   const ButtonForm = styled.div`
@@ -19,6 +21,9 @@ const RegisterForm = (props) => {
   `;
 
   const [open, setOpen] = useState(false);
+  const [openProfile, setOpenProfile] = useState(false);
+  const profile = useSelector(state => state.accounts.profile)
+
 
   useEffect(() => {
     if (props.status !== undefined) {
@@ -42,13 +47,30 @@ const RegisterForm = (props) => {
   const change = () => {
     props.changeForm("login");
     props.changeName("Login");
-  }
+  };
 
   return (
     <form
       className="ui form error formWidth"
       onSubmit={props.handleSubmit(onSubmit)}
     >
+      <div style={{display: "flex", flexDirection: "row"}}>
+        <Image
+          centered
+          size="tiny"
+          src={profile}
+          style={{ paddingBottom: "10px", marginTop: "-10px" }}
+          label={{
+            color: "blue",
+            corner: "right",
+            icon: "user plus",
+            size: "mini",
+            as: "a",
+            onClick: ()=>{openProfile === true ? setOpenProfile(false) : setOpenProfile(true)}
+          }}
+        />
+      <ProfilePictureChooser setOpen={setOpenProfile} open={openProfile}/>
+      </div>
       <Field name="username" label="Username" component={renderInput} />
       <br />
       <Field name="firstname" label="Firstname" component={renderInput} />
@@ -65,7 +87,9 @@ const RegisterForm = (props) => {
       />
       <ButtonForm>
         <Button.Group>
-          <Button color="linkedin" onClick={() => change()}>Back</Button>
+          <Button color="linkedin" onClick={() => change()}>
+            Back
+          </Button>
           <Button.Or />
           <Button color="google plus">Register</Button>
         </Button.Group>
@@ -99,4 +123,4 @@ const mapStateToProps = (state) => {
 
 const wrap = reduxForm({ form: "registerForm", validate })(RegisterForm);
 
-export default connect(mapStateToProps, { checkRegister, createAccount })(wrap);
+export default connect(mapStateToProps, { checkRegister, createAccount, chooseProfilePicture })(wrap);

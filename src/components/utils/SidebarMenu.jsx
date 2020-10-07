@@ -9,15 +9,20 @@ import {
   Container,
   Image,
   Loader,
-  Button
+  Button,
 } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { SideText, SideName } from "../utils/StyledComponents";
 import { getContract } from "../../ethereum/instances/factory";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import history from "../../history";
 
 const SidebarMenu = (props) => {
+  const profile = useSelector((state) => {
+    console.log(state.accounts.profile);
+    return state.accounts.profile;
+  });
+
   if (props.ethUser === undefined) {
     return <Loader />;
   } else {
@@ -36,12 +41,8 @@ const SidebarMenu = (props) => {
       >
         <Grid centered padded textAlign="center" verticalAlign="middle">
           <Grid.Row>
-            <Grid.Column >
-              <Image
-                centered
-                size="tiny"
-                src="https://www.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-512.png"
-              />
+            <Grid.Column>
+              <Image centered size="tiny" src={profile} />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -54,7 +55,6 @@ const SidebarMenu = (props) => {
               <Button color="instagram">
                 <Icon name="user" /> View profile
               </Button>
-
             </Grid.Column>
           </Grid.Row>
         </Grid>
