@@ -12,10 +12,20 @@ export const createAccount = formValues => async dispatch => {
 
   dispatch({ type: "CREATE_ACCOUNT", payload: response.data });
 
+  dispatch(login())
+
   if (formValues.username !== undefined) {
     history.push(`/home/${formValues.username}`);
   }
 };
+
+export const login = () => async dispatch => {
+  dispatch({type: "LOG_IN", payload: true})
+}
+
+export const logout = () => async dispatch => {
+  dispatch({type: "LOG_OUT", payload: false})
+}
 
 export const chooseProfilePicture = src => async dispatch => {
 
@@ -55,6 +65,7 @@ export const checkAccount = formValues => async dispatch => {
   if (user[formValues.username] !== undefined) {
     if (user[formValues.username].password === formValues.password) {
       status = true;
+      dispatch(login())
       history.push(`/home/${formValues.username}`);
     }
   } else {

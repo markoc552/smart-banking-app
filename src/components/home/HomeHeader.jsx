@@ -23,6 +23,7 @@ import TransactionsCard from "../transactions/TransactionsCard";
 import WaultsCard from "../waults/WaultsCard";
 import DepositGraph from "./DepositGraph";
 import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion";
+import {logout} from "../../redux/actions"
 import Modal from "../utils/Modal";
 
 const imageVariants = {
@@ -75,7 +76,10 @@ const HomeHeader = (props) => {
                   color="red"
                   basic
                   floated="right"
-                  onClick={() => history.push("/")}
+                  onClick={() => {
+                    history.push("/");
+                    props.logout();
+                  }}
                 >
                   Logout
                 </Button>
@@ -272,4 +276,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, null)(HomeHeader);
+export default connect(mapStateToProps, {logout})(HomeHeader);
