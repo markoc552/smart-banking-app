@@ -13,6 +13,7 @@
     "canvasjs": "^1.8.3",
     "ethers": "^5.0.4",
     "faker": "^4.1.0",
+    "formik": "^2.2.0",
     "framer-motion": "^2.7.8",
     "fs-extra": "^9.0.1",
     "ganache-cli": "^6.9.1",

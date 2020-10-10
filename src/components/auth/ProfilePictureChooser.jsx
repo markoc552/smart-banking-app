@@ -10,18 +10,25 @@ import {
 } from "semantic-ui-react";
 import { connect, useSelector } from "react-redux";
 import { chooseProfilePicture } from "../../redux/actions";
+import {motion} from "framer-motion"
+import "../../index.css"
 
-const profile1 =
-  "https://www.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-512.png";
-const profile2 = "https://www.flaticon.com/svg/static/icons/svg/145/145867.svg";
-const profile3 =
-  "https://www.flaticon.com/svg/static/icons/svg/3048/3048176.svg";
-const profile4 = "https://www.flaticon.com/svg/static/icons/svg/560/560216.svg";
-const profile5 = "https://www.flaticon.com/svg/static/icons/svg/949/949635.svg";
-const profile6 =
-  "https://www.flaticon.com/svg/static/icons/svg/3463/3463779.svg";
-const profile7 = "https://www.flaticon.com/svg/static/icons/svg/147/147144.svg";
-const profile8 = "https://www.flaticon.com/svg/static/icons/svg/168/168734.svg";
+const imageGroup1 = [
+  {
+    url:
+      "https://www.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-512.png",
+  },
+  { url: "https://www.flaticon.com/svg/static/icons/svg/145/145867.svg" },
+  { url: "https://www.flaticon.com/svg/static/icons/svg/3048/3048176.svg" },
+  { url: "https://www.flaticon.com/svg/static/icons/svg/560/560216.svg" },
+];
+
+const imageGroup2 = [
+  { url: "https://www.flaticon.com/svg/static/icons/svg/949/949635.svg" },
+  { url: "https://www.flaticon.com/svg/static/icons/svg/3463/3463779.svg" },
+  { url: "https://www.flaticon.com/svg/static/icons/svg/147/147144.svg" },
+  { url: "https://www.flaticon.com/svg/static/icons/svg/168/168734.svg" },
+];
 
 const ProfilePictureChooser = (props) => {
   return (
@@ -36,76 +43,34 @@ const ProfilePictureChooser = (props) => {
       >
         <Header>Choose your profile picture</Header>
         <Image.Group size="tiny">
-          <Image
-            bordered
-            onClick={() => {
-              props.chooseProfilePicture(profile1);
-              props.setOpen(false);
-            }}
-            src={profile1}
-          />
-          <Image
-            bordered
-            onClick={() => {
-              props.chooseProfilePicture(profile2);
-              props.setOpen(false);
-            }}
-            src={profile2}
-          />
-          <Image
-            bordered
-            onClick={() => {
-              props.chooseProfilePicture(profile3);
-              props.setOpen(false);
-            }}
-            src={profile3}
-          />
-          <Image
-            bordered
-            onClick={() => {
-              props.chooseProfilePicture(profile4);
-              props.setOpen(false);
-            }}
-            src={profile4}
-          />
+          {imageGroup1.map((index) => (
+            <Image
+              className="registerImage"
+              bordered
+              onClick={() => {
+                props.chooseProfilePicture(index.url);
+                props.setOpen(false);
+              }}
+              src={index.url}
+            />
+          ))}
         </Image.Group>
         <Image.Group size="tiny">
-          <Image
-            bordered
-            onClick={() => {
-              props.chooseProfilePicture(profile5);
-              props.setOpen(false);
-            }}
-            src={profile5}
-          />
-          <Image
-            bordered
-            onClick={() => {
-              props.chooseProfilePicture(profile6);
-              props.setOpen(false);
-            }}
-            src={profile6}
-          />
-          <Image
-            bordered
-            onClick={() => {
-              props.chooseProfilePicture(profile7);
-              props.setOpen(false);
-            }}
-            src={profile7}
-          />
-          <Image
-            bordered
-            onClick={() => {
-              props.chooseProfilePicture(profile8);
-              props.setOpen(false);
-            }}
-            src={profile8}
-          />
+          {imageGroup2.map((index) => (
+            <Image
+              className="registerImage"
+              bordered
+              onClick={() => {
+                props.chooseProfilePicture(index.url);
+                props.setOpen(false);
+              }}
+              src={index.url}
+            />
+          ))}
         </Image.Group>
       </Segment>
     </Portal>
   );
 };
 
-export default connect(null, {chooseProfilePicture})(ProfilePictureChooser);
+export default connect(null, { chooseProfilePicture })(ProfilePictureChooser);

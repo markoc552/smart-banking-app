@@ -201,7 +201,7 @@ export const SideName = styled.div`
 `;
 
 export const UserDescription = styled.div`
-  width: 100vw;
+  width: 50vw;
   padding-left: 30px;
   padding-right: 50px;
   padding-top: 10px;

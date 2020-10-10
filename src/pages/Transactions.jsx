@@ -8,6 +8,7 @@ import {
   Loader,
   Tab,
 } from "semantic-ui-react";
+import Spinner from "react-bootstrap/Spinner";
 import TransactionCard from "../components/transactions/TransactionsCard";
 import Navigation from "../components/utils/NavigationBar";
 import SideNavigation from "../components/utils/SideNavigation";
@@ -38,19 +39,25 @@ const Transactions = (props) => {
     setId(id);
     props.getEthStatus(id);
     props.getAccountName(id);
+
+    console.log(props)
   }, []);
 
   if (props.ethUser === undefined) {
-    return <Loader />;
+    return (
+      <Spinner animation="border" role="status">
+        <span className="sr-only">Loading...</span>
+      </Spinner>
+    );
   }
 
   const panes = [
     {
       menuItem: "Reference",
       render: () => (
-          <Tab.Pane>
-            <Information />
-          </Tab.Pane>
+        <Tab.Pane>
+          <Information />
+        </Tab.Pane>
       ),
     },
     {

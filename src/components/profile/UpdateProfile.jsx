@@ -1,103 +1,143 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { Button, Form, Loader } from "semantic-ui-react";
+import { Button, Loader } from "semantic-ui-react";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import { Field, reduxForm } from "redux-form";
 import history from "../../history";
 import { connect } from "react-redux";
 import { getAllAccounts, updateAccount } from "../../redux/actions";
-
-const data = {
-  firstname: "Your firstname..",
-  lastname: "Lastname...",
-  email: "Email...",
-};
+import { Formik } from "formik";
 
 const UpdateProfile = (props) => {
-  const renderInput = (formValues) => {
-    console.log(formValues);
-    return (
-      <Form.Field>
-        <label>{formValues.label}</label>
-        <Form.Input {...formValues.input} />
-      </Form.Field>
-    );
-  };
-
-  const [id, setId] = useState(null);
-
   useEffect(() => {
-    const Id = props.match.params.id;
-
-    setId(Id);
     props.getAllAccounts();
   }, []);
 
   const updateForm = (formValues) => {
     console.log(formValues);
-    props.updateAccount(id, formValues);
+    props.updateAccount(props.id, formValues);
   };
 
-  if (id === null || props.usersData === undefined) {
+  if (props.id === null || props.usersData === undefined) {
     return <Loader />;
   } else {
-    return ReactDOM.createPortal(
-      <div
-        onClick={() => history.push(`/home/${id}/profile`)}
-        className="ui dimmer modals visible active"
+    return (
+      <Formik
+        initialValues={{
+          username: props.usersData[props.id].username,
+          firstname: props.usersData[props.id].firstname,
+          lastname: props.usersData[props.id].lastname,
+          email: props.usersData[props.id].email,
+          password: props.usersData[props.id].password,
+        }}
+        validate={(values) => {
+          const errors = {};
+          if (!values.email) {
+            errors.email = "Required";
+          } else if (
+            !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+          ) {
+            errors.email = "Invalid email address";
+          }
+          return errors;
+        }}
+        onSubmit={(values, { setSubmitting }) => {
+          setTimeout(() => {
+            alert(JSON.stringify(values, null, 2));
+            setSubmitting(false);
+          }, 400);
+        }}
       >
-        <div
-          onClick={(event) => event.stopPropagation()}
-          className="ui standard modal visible active"
-          style={{ textAlign: "center" }}
-        >
-          <div className="header">Update Profile</div>
-          <div className="content">
-            <form className="ui form" onSubmit={props.handleSubmit(updateForm)}>
-              <Field
-                name="firstname"
-                type="text"
-                label="Firstname"
-                component={renderInput}
-              />
-              <Field
-                name="lastname"
-                type="text"
-                label="Lastname"
-                component={renderInput}
-              />
-              <Field
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+        }) => (
+          <Form onSubmit={handleSubmit}>
+            <Row>
+              <Col>
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Label>Username</Form.Label>
+                  <Form.Control
+                    type="username"
+                    name="username"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.username}
+                    disabled
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group controlId="formGridPassword">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.password}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Form.Row>
+              <Col>
+                <Form.Group controlId="formGridLastname">
+                  <Form.Label>Lastname</Form.Label>
+                  <Form.Control
+                    type="lastname"
+                    name="lastname"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.lastname}
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group controlId="formBasicFirstname">
+                  <Form.Label>Firstname</Form.Label>
+                  <Form.Control
+                    type="firstname"
+                    name="firstname"
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.firstname}
+                  />
+                </Form.Group>
+              </Col>
+            </Form.Row>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
                 name="email"
-                type="text"
-                label="Email"
-                component={renderInput}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
               />
-              <div className="actions" style={{ textAlign: "center" }}>
-                <Button primary circular>
-                  Update
-                </Button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>,
-      document.querySelector("#modal")
+            </Form.Group>
+            {errors.password && touched.password && errors.password}
+            <Button type="submit" disabled={isSubmitting}>
+              Submit
+            </Button>
+          </Form>
+        )}
+      </Formik>
     );
   }
 };
-
-const wrap = reduxForm({
-  form: "updateProfile",
-  initialValues: {
-    firstname: `${data["firstname"]}`,
-    lastname: `${data["lastname"]}`,
-    email: `${data["email"]}`,
-  },
-})(UpdateProfile);
 
 const mapStateToProps = (state) => {
   return { usersData: state.accounts.users };
 };
 
 export default connect(mapStateToProps, { getAllAccounts, updateAccount })(
-  wrap
+  UpdateProfile
 );

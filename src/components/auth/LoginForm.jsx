@@ -6,7 +6,8 @@ import {
   TransitionablePortal,
   Segment,
   Header,
-  Grid
+  Grid,
+  Label
 } from "semantic-ui-react";
 import { renderInput, validate } from "./formUtils";
 import { checkAccount } from "../../redux/actions";
@@ -14,7 +15,7 @@ import OAuth2 from "./OAuth2";
 import styled from "styled-components";
 import "../../index.css";
 
-const LoginForm = props => {
+const LoginForm = (props) => {
   const ButtonForm = styled.div`
     margin: 10px auto;
   `;
@@ -25,7 +26,6 @@ const LoginForm = props => {
     if (props.status !== undefined) {
       if (props.status === false) {
         setOpen(true);
-        setTimeout(() => setOpen(false), "2000");
       } else {
         setOpen(false);
       }
@@ -36,7 +36,7 @@ const LoginForm = props => {
     <form
       className="ui form error formWidth"
       size="small"
-      onSubmit={props.handleSubmit(formValues =>
+      onSubmit={props.handleSubmit((formValues) =>
         props.checkAccount(formValues)
       )}
     >
@@ -46,7 +46,7 @@ const LoginForm = props => {
         label="Username"
         component={renderInput}
       />
-      <br/>
+      <br />
       <Field
         name="password"
         type="password"
@@ -54,45 +54,29 @@ const LoginForm = props => {
         component={renderInput}
       />
       <Grid centered padded="vertically" stackable>
+        {open && (
+          <Label basic color="red" style={{marginTop: "10px"}}>
+            Username/Password incorrect
+          </Label>
+        )}
         <ButtonForm>
           <Button.Group>
-            <Button color="google plus" onClick={() => props.changeForm("register")}>
+            <Button
+              color="google plus"
+              onClick={() => props.changeForm("register")}
+            >
               Register
             </Button>
             <Button.Or />
             <Button color="vk">Log in</Button>
           </Button.Group>
         </ButtonForm>
-
-        <TransitionablePortal
-          closeOnTriggerClick
-          openOnTriggerClick
-          open={open}
-        >
-          <Segment
-            color="red"
-            circular
-            compact
-            size="mini"
-            textAlign="center"
-            style={{
-              left: "50%",
-              position: "fixed",
-              marginTop: "-50px",
-              marginLeft: "-112px",
-              top: "65%",
-              zIndex: 1000
-            }}
-          >
-            <Header>Username/password incorrect!</Header>
-          </Segment>
-        </TransitionablePortal>
       </Grid>
     </form>
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return { status: state.accounts.status };
 };
 

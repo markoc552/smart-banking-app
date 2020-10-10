@@ -8,6 +8,7 @@ import {
   Segment,
   Header,
   Image,
+  Label
 } from "semantic-ui-react";
 import OAuth2 from "./OAuth2";
 import styled from "styled-components";
@@ -29,7 +30,6 @@ const RegisterForm = (props) => {
     if (props.status !== undefined) {
       if (props.status === true) {
         setOpen(true);
-        setTimeout(() => setOpen(false), "2000");
       } else {
         setOpen(false);
       }
@@ -85,6 +85,11 @@ const RegisterForm = (props) => {
         label="Password"
         component={renderInput}
       />
+      {open && (
+        <Label basic color="red" style={{marginTop: "10px"}}>
+          Username already exists!
+        </Label>
+      )}
       <ButtonForm>
         <Button.Group>
           <Button color="linkedin" onClick={() => change()}>
@@ -94,25 +99,6 @@ const RegisterForm = (props) => {
           <Button color="google plus">Register</Button>
         </Button.Group>
       </ButtonForm>
-      <TransitionablePortal closeOnTriggerClick openOnTriggerClick open={open}>
-        <Segment
-          color="red"
-          circular
-          compact
-          size="mini"
-          textAlign="center"
-          style={{
-            left: "50%",
-            position: "fixed",
-            top: "75%",
-            marginTop: "-50px",
-            marginLeft: "-100px",
-            zIndex: 1000,
-          }}
-        >
-          <Header>Username already exists</Header>
-        </Segment>
-      </TransitionablePortal>
     </form>
   );
 };

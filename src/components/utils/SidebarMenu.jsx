@@ -52,7 +52,7 @@ const SidebarMenu = (props) => {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column textAlign="center">
-              <Button color="instagram">
+              <Button color="instagram" onClick={() => history.push(`/home/${props.id}/profile`)}>
                 <Icon name="user" /> View profile
               </Button>
             </Grid.Column>
