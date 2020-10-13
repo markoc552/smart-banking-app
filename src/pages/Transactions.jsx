@@ -1,28 +1,14 @@
-import React, { useEffect, useState } from "react";
-import {
-  Grid,
-  Segment,
-  Container,
-  Image,
-  Divider,
-  Loader,
-  Tab,
-} from "semantic-ui-react";
+import React, { useEffect, useState, lazy } from "react";
+import { Grid, Image, Loader } from "semantic-ui-react";
 import Spinner from "react-bootstrap/Spinner";
-import TransactionCard from "../components/transactions/TransactionsCard";
 import Navigation from "../components/utils/NavigationBar";
 import SideNavigation from "../components/utils/SideNavigation";
 import Bottom from "../components/home/HomeBottom";
 import { getAccountName, getEthStatus } from "../redux/actions";
 import { connect } from "react-redux";
-import {
-  SBABackground,
-  SBADiv,
-  HomeSection,
-  UtilsBottom,
-} from "../components/utils/StyledComponents";
-import Information from "../components/transactions/Information";
+import { UtilSection } from "../components/utils/StyledComponents";
 import { motion } from "framer-motion";
+import TransactionDashboard from "../components/transactions/TransactionDashboard";
 
 const variants = {
   initial: { opacity: 0, scale: 1.2 },
@@ -40,7 +26,7 @@ const Transactions = (props) => {
     props.getEthStatus(id);
     props.getAccountName(id);
 
-    console.log(props)
+    console.log(props);
   }, []);
 
   if (props.ethUser === undefined) {
@@ -50,49 +36,14 @@ const Transactions = (props) => {
       </Spinner>
     );
   }
-
-  const panes = [
-    {
-      menuItem: "Reference",
-      render: () => (
-        <Tab.Pane>
-          <Information />
-        </Tab.Pane>
-      ),
-    },
-    {
-      menuItem: "Transactions",
-      render: () => (
-        <motion.div initial="initial" animate="final" variants={variants}>
-          <Tab.Pane>
-            <TransactionCard id={id} />
-          </Tab.Pane>
-        </motion.div>
-      ),
-    },
-  ];
-
   return (
-    <HomeSection>
-      <SideNavigation
-        visible={visible}
-        setVisible={setVisible}
-        id={id}
-        name={props.name}
-      >
-        <Navigation setVisible={setVisible} id={id} />
-        <Segment raised color="blue" textAlign="center">
-          <div style={{ fontFamily: "'Lato', sans-serif", fontWeight: "500" }}>
-            On this page you can view your recent transactions and sent new
-            ones.
-          </div>
-        </Segment>
-        <Tab panes={panes} />
-        <UtilsBottom>
-          <Bottom />
-        </UtilsBottom>
+    <UtilSection>
+      <SideNavigation id={id} name={props.name}>
+        <Navigation id={id} />
+        <TransactionDashboard />
+        <Bottom />
       </SideNavigation>
-    </HomeSection>
+    </UtilSection>
   );
 };
 

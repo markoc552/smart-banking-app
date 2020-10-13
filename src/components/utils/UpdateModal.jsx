@@ -19,20 +19,8 @@ const UpdateModal = (props) => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <UpdateProfile id={props.id}/>
+        <UpdateProfile id={props.id} show={props.setModalShow}/>
       </Modal.Body>
-      <Modal.Footer>
-        <Button
-          basic
-          color={props.action === "Withdraw" ? "red" : "green"}
-          onClick={() => {
-            props.onHide();
-            props.setSelected("");
-          }}
-        >
-          {props.action}
-        </Button>
-      </Modal.Footer>
     </Modal>
   );
 };

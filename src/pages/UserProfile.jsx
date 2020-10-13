@@ -11,7 +11,6 @@ import {
   UtilsBottom,
 } from "../components/utils/StyledComponents";
 import { Card, Image, Divider, Grid, Button, Loader } from "semantic-ui-react";
-import Graph from "../components/profile/Graph";
 import UpdateModal from "../components/utils/UpdateModal";
 
 const UserProfile = (props) => {
@@ -100,13 +99,13 @@ const UserProfile = (props) => {
         <UpdateModal
           show={modalShow}
           onHide={() => setModalShow(false)}
+          setModalShow={setModalShow}
           title="Update profile"
           action="Update"
           id={id}
         />
-        <UtilsBottom>
-          <Bottom />
-        </UtilsBottom>
+
+        <Bottom />
       </SideNavigation>
     );
   }

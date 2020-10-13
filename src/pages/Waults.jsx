@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Grid,
-  Segment,
-  Container,
-  Image,
-  Divider,
-  Loader,
-  Tab,
-} from "semantic-ui-react";
+import { Grid, Image, Loader } from "semantic-ui-react";
 import WaultCard from "../components/waults/WaultsCard";
 import Navigation from "../components/utils/NavigationBar";
 import SideNavigation from "../components/utils/SideNavigation";
@@ -18,10 +10,11 @@ import {
   SBADiv,
   SBABackground,
   UtilsBottom,
-  HomeSection,
+  UtilSection,
 } from "../components/utils/StyledComponents";
 import Information from "../components/waults/Information";
 import { motion } from "framer-motion";
+import WaultsDashboard from "../components/waults/WaultsDashboard";
 
 const variants = {
   initial: { opacity: 0, scale: 1.2 },
@@ -43,42 +36,14 @@ const Waults = (props) => {
     return <Loader />;
   }
 
-  const panes = [
-    {
-      menuItem: "Reference",
-      render: () => (
-        <Tab.Pane>
-          <Information />
-        </Tab.Pane>
-      ),
-    },
-    {
-      menuItem: "Waults",
-      render: () => (
-        <motion.div initial="initial" animate="final" variants={variants}>
-          <Tab.Pane>
-            <WaultCard id={id} />
-          </Tab.Pane>
-        </motion.div>
-      ),
-    },
-  ];
-
   return (
-    <HomeSection>
-      <SideNavigation visible={visible} setVisible={setVisible} id={id}>
-        <Navigation setVisible={setVisible} id={id} />
-        <Segment raised color="blue" textAlign="center">
-          <div style={{ fontFamily: "'Lato', sans-serif", fontWeight: "500" }}>
-            On this page you can view and manage your waults.
-          </div>
-        </Segment>
-        <Tab panes={panes} />
-        <UtilsBottom>
-          <Bottom />
-        </UtilsBottom>
+    <UtilSection>
+      <SideNavigation id={id} name={props.name}>
+        <Navigation id={id} />
+        <WaultsDashboard />
+        <Bottom />
       </SideNavigation>
-    </HomeSection>
+    </UtilSection>
   );
 };
 

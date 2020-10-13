@@ -12,6 +12,7 @@ import {
 import Search from "./Search";
 import { connect } from "react-redux";
 import history from "../../history"
+import {logout} from "../../redux/actions"
 
 const NavigationBar = (props) => {
   if (props.ethUser === undefined) {
@@ -20,37 +21,28 @@ const NavigationBar = (props) => {
   } else {
     return (
       <div>
-        <Grid padded="vertically" stackable>
+        <Grid centered padded stackable>
           <Grid.Row columns={4}>
-            <Grid.Column width={6}>
-              <div style={{ marginLeft: "30px" }}>
-                <Icon
-                  name="align justify"
-                  circular
-                  size="large"
-                  color="blue"
-                  link
-                  onClick={() => props.setVisible(true)}
-                />
-              </div>
-            </Grid.Column>
-            <Grid.Column textAlign="center" width={3}>
+            <Grid.Column width={6}></Grid.Column>
+            <Grid.Column textAlign="center" width={4}>
               <Image
                 centered
                 src={require("../../images/logo.png")}
                 size="tiny"
               />
             </Grid.Column>
-            <Grid.Column textAlign="right" width={2}>
+            <Grid.Column textAlign="right" floated="right" width={2}>
               <Search />
             </Grid.Column>
-            <Grid.Column textAlign="right" width={4}></Grid.Column>
-            <Grid.Column width={1}>
+            <Grid.Column width={1} floated="right">
               <Button
                 color="red"
                 basic
                 floated="right"
-                onClick={() => history.push("/")}
+                onClick={() => {
+                  history.push("/");
+                  props.logout();
+                }}
               >
                 Logout
               </Button>
@@ -68,4 +60,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, null)(NavigationBar);
+export default connect(mapStateToProps, {logout})(NavigationBar);

@@ -1,66 +1,63 @@
 import styled from "styled-components";
 import BackgroundVector from "../../images/vector.jpg";
+import Background from "../../images/background.jpg"
+import UtilBackground from "../../images/utilbackground.jpg"
 
 export const Bottom = styled.div`
-  margin-top: 15px;
-  height: 250px;
+  height: 100px;
+  width: 85vw;
   background-color: #292c33;
-  padding-top: 10px;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  position: relative;
-  bottom: 0;
-`;
-
-export const UtilsBottom = styled.div`
-  margin-top: 15px;
-  height: 250px;
-  background-color: #292c33;
-  padding-top: 10px;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
   position: fixed;
   bottom: 0;
-  width: 100%;
 `;
 
-export const Reviews = styled.div`
-  margin-top: 15px;
-  height: 250px;
-  padding-top: 10px;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-`;
+export const SideItem = styled.div`
+position: relative;
+width: 100%;
+margin: "0 auto";
+backgroundColor: "blue";
+text-align: center;
+padding: 10px;
+cursor: auto;
+color: #9c9c9c;
 
-export const HeaderText = styled.div`
-  font-size: 40px;
-  font-family: "Poppins", sans-serif;
-  color: rgb(71, 161, 255);
-  z-index: 1;
-`;
+&:hover {
+  background-color: #dbdbdb;
+  cursor: pointer;
+}
 
-export const Vector = styled.div`
-  background-image: url(${BackgroundVector});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  height: 110vh;
-`;
+&:target {
+  border-left: 5px solid blue;
+}
+`
 
 export const HomeSection = styled.div`
+  background-image: url(${Background});
+  background-size: 115% 90%;
+  background-repeat: no-repeat;
   position: absolute;
   right: 0%;
   left: 0%;
   font-family: "Lato", sans-serif;
   height: 100vh;
+  overflow: auto;
 `;
 
-export const Background = styled.div`
-  background-position: 17% 50%;
+export const UtilSection = styled.div`
+  background-image: url(${UtilBackground});
+  background-size: 115% 90%;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: 0%;
+  left: 0%;
+  font-family: "Lato", sans-serif;
+  height: 100vh;
+  overflow: auto;
 `;
+
 
 export const Modal = styled.div`
   border: 1px gray;
@@ -106,65 +103,64 @@ export const Header = styled.div`
   margin-top: 10px;
 `;
 
-export const ReferencesDiv = styled.div`
-  position: absolute;
-  height: 100vh;
-  left: 2%;
-  right: 2%;
-  top: 0;
-  bottom: 0;
-  background-color: white;
-  opacity: 0.97;
-`;
+export const WelcomeDialog = styled.div`
+  font-family: 'Bree Serif', serif;
+  font-size: 30px;
+  color: #4d4d4d;
+`
 
-export const ReferencesBG = styled.div`
-  position: absolute;
-  height: 100vh;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-`;
+export const BenefitsDialog = styled.div`
+  width: 50vw;
+  height: 30vh;
+  positon: relative;
+  margin: 0 auto;
+  border: 2px solid #5c27d5;
+  border-radius: 10px;
+  background-image: url(${Background});
+  box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
+`
+
+export const MoneyDialog = styled.div`
+  font-family: 'Bree Serif', serif;
+  font-size: 20px;
+  color: #4d4d4d;
+`
+
+export const BenefitsTitle = styled.div`
+  font-family: 'Bree Serif', serif;
+  font-size: 20px;
+  color: white;
+  margin-left: 55px;
+  margin-top: 10px;
+`
+export const BenefitsDescription = styled.div`
+  font-family: 'Bree Serif', serif;
+  font-size: 15px;
+  color: #5c27d5;
+  margin-left: 55px;
+  margin-top: 10px;
+`
+
+
+export const InovativeDialog = styled.div`
+font-family: 'Bree Serif', serif;
+font-size: 10px;
+color: #bdbdbd;
+margin-right: 25%;
+margin-top: 10%;
+`
+
 
 export const Message = styled.div`
   font-family: "Lato", sans-serif;
   font-weight: 500;
 `;
 
-export const SBADiv = styled.div`
-  position: absolute;
-  left: 2.5%;
-  right: 2.5%;
-  top: 0;
-  bottom: 0;
-  background-color: white;
-  box-shadow: -1px -1px 5px -3px rgba(0, 0, 0, 1);
-  opacity: 0.97;
-  height: 100vh;
-  overflow: hidden;
-`;
-
-export const SBABackground = styled.div`
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  height: 100vh;
-  overflow-y: hidden;
-`;
-
 export const SideText = styled.div`
   font-family: "Open sans", sans-serif;
-  font-weight: 700;
-  font-size: 17px;
-  color: #5b89a3;
+  font-weight: bold;
+  font-size: 14px;
+  color: #9c9c9c;
 `;
 
 export const BottomText = styled.div`
@@ -180,7 +176,6 @@ export const BottomCopyright = styled.div`
   font-weight: 700;
   font-size: 12px;
   color: #5b89a3;
-  margin-top: -50px;
 `;
 
 export const BottomHeader = styled.div`

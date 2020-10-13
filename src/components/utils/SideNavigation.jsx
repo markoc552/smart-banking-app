@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Sidebar, Loader } from "semantic-ui-react";
+import { Sidebar, Loader, Grid } from "semantic-ui-react";
 import SidebarMenu from "./SidebarMenu";
 import { HomeSection } from "../utils/StyledComponents";
 import { getContract } from "../../ethereum/instances/factory";
 
 const SideNavigation = (props) => {
   return (
-    <HomeSection>
-      <Sidebar.Pushable as="div">
-        <SidebarMenu
-          setVisible={props.setVisible}
-          id={props.id}
-          visible={props.visible}
-        />
-        <Sidebar.Pusher as="div">{props.children}</Sidebar.Pusher>
-      </Sidebar.Pushable>
-    </HomeSection>
+    <Grid>
+      <Grid.Row columns={2}>
+        <Grid.Column width={3} fluid>
+          <SidebarMenu id={props.id} />
+        </Grid.Column>
+        <Grid.Column width={12} fluid>
+          {props.children}
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
   );
 };
 

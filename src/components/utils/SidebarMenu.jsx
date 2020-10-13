@@ -1,43 +1,59 @@
 import React, { useState, useEffect } from "react";
-import {
-  Sidebar,
-  Menu,
-  Icon,
-  Grid,
-  Label,
-  Popup,
-  Container,
-  Image,
-  Loader,
-  Button,
-} from "semantic-ui-react";
+import { Grid, Image, Button, Icon, Loader } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import { SideText, SideName } from "../utils/StyledComponents";
+import { SideText, SideName, SideItem } from "../utils/StyledComponents";
 import { getContract } from "../../ethereum/instances/factory";
 import { connect, useSelector } from "react-redux";
 import history from "../../history";
+import Switch from "@material-ui/core/Switch";
+import { withStyles } from "@material-ui/core/styles";
+import { blue, purple } from "@material-ui/core/colors";
+import "../../index.css";
 
 const SidebarMenu = (props) => {
+  const styled = {
+    borderLeft: "5px solid black",
+  };
+
   const profile = useSelector((state) => {
     console.log(state.accounts.profile);
     return state.accounts.profile;
   });
 
+  const [selected, setSelected] = useState("home");
+
+  const PurpleSwitch = withStyles({
+    switchBase: {
+      color: blue[300],
+      "&$checked": {
+        color: blue[700],
+      },
+      "&$checked + $track": {
+        backgroundColor: blue[400],
+      },
+    },
+    checked: {},
+    track: {},
+  })(Switch);
+
+  const [checked, setChecked] = useState({
+    checkedA: true,
+    checkedB: true,
+  });
+  const [inverted, setInverted] = useState(true);
+
+  const handleChange = (event) => {
+    setChecked({ ...checked, [event.target.name]: event.target.checked });
+
+    event.target.checked ? setInverted(true) : setInverted(false);
+  };
+
   if (props.ethUser === undefined) {
     return <Loader />;
   } else {
     return (
-      <Sidebar
-        as={Menu}
-        animation="slide along"
-        onHide={() => props.setVisible(false)}
-        vertical
-        visible={props.visible}
-        width="wide"
-        inverted
-        className="container"
-        borderless
-        style={{ height: "100vh" }}
+      <div
+        style={{ height: "100vh", width: "19vw", backgroundColor: "#f5f5f5" }}
       >
         <Grid centered padded textAlign="center" verticalAlign="middle">
           <Grid.Row>
@@ -52,40 +68,61 @@ const SidebarMenu = (props) => {
           </Grid.Row>
           <Grid.Row>
             <Grid.Column textAlign="center">
-              <Button color="instagram" onClick={() => history.push(`/home/${props.id}/profile`)}>
+              <Button
+                color="instagram"
+                onClick={() => history.push(`/home/${props.id}/profile`)}
+                size="small"
+              >
                 <Icon name="user" /> View profile
               </Button>
             </Grid.Column>
           </Grid.Row>
+          <Grid.Row></Grid.Row>
         </Grid>
-        <Menu.Item></Menu.Item>
-        <Menu.Item></Menu.Item>
-        <Menu.Item as="a" onClick={() => history.push(`/home/${props.id}`)}>
-          <Icon name="home" color="blue" size="large" />
+
+        <SideItem
+          onClick={() => {
+            history.push(`/home/${props.id}`);
+            setSelected("home");
+          }}
+        >
+          <Icon name="home" color="black" size="small" />
           <SideText>Home</SideText>
-        </Menu.Item>
-        <Menu.Item
-          as="a"
+        </SideItem>
+
+        <SideItem
           onClick={() => history.push(`/home/transactions/${props.id}`)}
         >
-          <Icon name="exchange" color="blue" size="large" />
+          <Icon name="exchange" color="black" size="small" />
           <SideText>Transactions</SideText>
-        </Menu.Item>
-        <Menu.Item
-          as="a"
-          onClick={() => history.push(`/home/waults/${props.id}`)}
-        >
-          <Icon name="archive" color="blue" />
+        </SideItem>
+
+        <SideItem onClick={() => history.push(`/home/waults/${props.id}`)}>
+          <Icon name="archive" color="black" size="small" />
           <SideText>Waults</SideText>
-        </Menu.Item>
-        <Menu.Item
-          as="a"
-          onClick={() => history.push(`/home/references/${props.id}`)}
-        >
-          <Icon name="file" color="blue" />
+        </SideItem>
+
+        <SideItem onClick={() => history.push(`/home/references/${props.id}`)}>
+          <Icon name="file" color="black" size="small" />
           <SideText>Reference</SideText>
-        </Menu.Item>
-      </Sidebar>
+        </SideItem>
+
+        <div
+          style={{
+            position: "fixed",
+            bottom: "0",
+            marginLeft: "15%",
+            marginBottom: "10px",
+          }}
+        >
+          <PurpleSwitch
+            checked={checked.checkedA}
+            onChange={handleChange}
+            name="checkedA"
+            inputProps={{ "aria-label": "secondary checkbox" }}
+          />
+        </div>
+      </div>
     );
   }
 };

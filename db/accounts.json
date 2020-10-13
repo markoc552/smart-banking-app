@@ -589,6 +589,24 @@
         "mnemonic": "eager kid second side betray monster odor require crouch perfect dumb shadow soccer clarify endorse funny nothing october fly lens lava promote become cattle"
       },
       "id": 45
+    },
+    {
+      "username": "marko",
+      "firstname": "marko",
+      "lastname": "marko",
+      "email": "marko@net.hr",
+      "password": "markoq12312",
+      "data": {
+        "address": "0xD04B3e0817f01fA1C037c5D637D030E9aF61aeB7",
+        "wallet": {
+          "_isSigner": true,
+          "address": "0xCb46Cd2e7bF895E41D3Bd525355d913D3f145589",
+          "provider": null
+        },
+        "mnemonic": "dream uncle unfair grief proof bachelor sense object now eye promote trim elite attract diesel stereo common absorb asthma image identify auto cube melt"
+      },
+      "id": 46,
+      "checkbox": true
     }
   ]
 }

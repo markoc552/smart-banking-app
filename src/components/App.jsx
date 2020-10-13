@@ -5,14 +5,9 @@ import { connect, useSelector } from "react-redux";
 import Login from "../pages/Login";
 import Home from "../pages/Home";
 import Transactions from "../pages/Transactions";
-import NewTransaction from "./transactions/NewTransaction";
 import Waults from "../pages//Waults";
-import NewWault from "./waults/NewWault";
 import References from "../pages/References";
 import UserProfile from "../pages/UserProfile";
-import UpdateProfile from "./profile/UpdateProfile";
-import WithdrawMoney from "./transactions/WithdrawMoney";
-import UploadMoney from "./transactions/UploadMoney";
 import LoggedOut from "./auth/LoggedOut";
 
 const PrivateRoute = ({
@@ -51,24 +46,14 @@ const App = (props) => {
             component={Transactions}
             exact
           />
-          <PrivateRoute
-            registeredOnly
-            path="/home/transactions/:id/new"
-            component={NewTransaction}
-            exact
-          />
+
           <PrivateRoute
             registeredOnly
             path="/home/waults/:id"
             component={Waults}
             exact
           />
-          <PrivateRoute
-            registeredOnly
-            path="/home/waults/:id/new"
-            component={NewWault}
-            exact
-          />
+
           <PrivateRoute
             registeredOnly
             path="/home/references/:id"
@@ -79,24 +64,6 @@ const App = (props) => {
             registeredOnly
             path="/home/:id/profile"
             component={UserProfile}
-            exact
-          />
-          <PrivateRoute
-            registeredOnly
-            path="/home/:id/profile/update"
-            component={UpdateProfile}
-            exact
-          />
-          <PrivateRoute
-            registeredOnly
-            path="/home/upload/:id"
-            component={UploadMoney}
-            exact
-          />
-          <PrivateRoute
-            registeredOnly
-            path="/home/withdraw/:id"
-            component={WithdrawMoney}
             exact
           />
         </Switch>
