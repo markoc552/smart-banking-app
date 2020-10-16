@@ -27,7 +27,7 @@ const NavigationBar = (props) => {
             <Grid.Column textAlign="center" width={4}>
               <Image
                 centered
-                src={require("../../images/logo.png")}
+                src={require("../../assets/images/logo.png")}
                 size="tiny"
               />
             </Grid.Column>

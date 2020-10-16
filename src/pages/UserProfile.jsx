@@ -9,9 +9,13 @@ import {
   UserDescription,
   StyledName,
   UtilsBottom,
+  UtilSection,
 } from "../components/utils/StyledComponents";
 import { Card, Image, Divider, Grid, Button, Loader } from "semantic-ui-react";
 import UpdateModal from "../components/utils/UpdateModal";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { motion } from "framer-motion";
 
 const UserProfile = (props) => {
   const [visible, setVisible] = useState(false);
@@ -33,80 +37,102 @@ const UserProfile = (props) => {
     return <Loader />;
   }
 
+  const variants = {
+    visible: { opacity: 1, scale: 1.05 },
+    hidden: { opacity: 0 },
+  };
+
   if (id === "default" || props.usersData === undefined) {
     return <Loader />;
   } else {
     return (
-      <SideNavigation visible={visible} setVisible={setVisible} id={id}>
-        <NavigationBar setVisible={setVisible} id={id} />
-        <UserDescription>
-          <Card centered raised fluid>
-            <Card.Content>
-              <Grid>
-                <Grid.Row columns={2}>
-                  <Grid.Column width={2}>
-                    <Image
-                      src={imageSrc}
-                      size="large"
-                      style={{ marginLeft: "7px" }}
-                    />
-                  </Grid.Column>
-                  <Grid.Column
-                    textAlign="left"
-                    verticalAlign="middle"
-                    width={8}
-                  >
-                    <Grid.Row>
-                      <StyledName>{props.name}</StyledName>
-                    </Grid.Row>
-                    <Grid.Row verticalAlign="bottom">
-                      <Button
-                        basic
-                        color="blue"
-                        size="small"
-                        onClick={() => setModalShow(true)}
-                      >
-                        Update
-                      </Button>
-                    </Grid.Row>
-                  </Grid.Column>
-                </Grid.Row>
-              </Grid>
-            </Card.Content>
-            <Card.Content extra>
-              <Divider hidden />
-              <Card.Header>Username</Card.Header>
-              <Card.Description>
-                {props.usersData[id].username}
-              </Card.Description>
-              <Divider hidden />
-              <Card.Header>First name</Card.Header>
-              <Card.Description>
-                {props.usersData[id].firstname}
-              </Card.Description>
-              <Divider hidden />
-              <Card.Header>Last name</Card.Header>
-              <Card.Description>
-                {props.usersData[id].lastname}
-              </Card.Description>
-              <Divider hidden />
-              <Card.Header>Email</Card.Header>
-              <Card.Description>{props.usersData[id].email}</Card.Description>
-              <Divider hidden />
-            </Card.Content>
-          </Card>
-        </UserDescription>
-        <UpdateModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-          setModalShow={setModalShow}
-          title="Update profile"
-          action="Update"
-          id={id}
+      <UtilSection>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
         />
+        <SideNavigation visible={visible} setVisible={setVisible} id={id}>
+          <NavigationBar setVisible={setVisible} id={id} />
+          <motion.div initial="hidden" animate="visible" variants={variants}>
+            <UserDescription>
+              <Card centered raised fluid>
+                <Card.Content>
+                  <Grid>
+                    <Grid.Row columns={2}>
+                      <Grid.Column width={2}>
+                        <Image
+                          src={imageSrc}
+                          size="large"
+                          style={{ marginLeft: "7px" }}
+                        />
+                      </Grid.Column>
+                      <Grid.Column
+                        textAlign="left"
+                        verticalAlign="middle"
+                        width={8}
+                      >
+                        <Grid.Row>
+                          <StyledName>{props.name}</StyledName>
+                        </Grid.Row>
+                        <Grid.Row verticalAlign="bottom">
+                          <Button
+                            basic
+                            color="blue"
+                            size="small"
+                            onClick={() => setModalShow(true)}
+                          >
+                            Update
+                          </Button>
+                        </Grid.Row>
+                      </Grid.Column>
+                    </Grid.Row>
+                  </Grid>
+                </Card.Content>
+                <Card.Content extra>
+                  <Divider hidden />
+                  <Card.Header>Username</Card.Header>
+                  <Card.Description>
+                    {props.usersData[id].username}
+                  </Card.Description>
+                  <Divider hidden />
+                  <Card.Header>First name</Card.Header>
+                  <Card.Description>
+                    {props.usersData[id].firstname}
+                  </Card.Description>
+                  <Divider hidden />
+                  <Card.Header>Last name</Card.Header>
+                  <Card.Description>
+                    {props.usersData[id].lastname}
+                  </Card.Description>
+                  <Divider hidden />
+                  <Card.Header>Email</Card.Header>
+                  <Card.Description>
+                    {props.usersData[id].email}
+                  </Card.Description>
+                  <Divider hidden />
+                </Card.Content>
+              </Card>
+            </UserDescription>
+          </motion.div>
+          <UpdateModal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            setModalShow={setModalShow}
+            title="Update profile"
+            action="Update"
+            id={id}
+          />
 
-        <Bottom />
-      </SideNavigation>
+          <Bottom />
+        </SideNavigation>
+      </UtilSection>
     );
   }
 };

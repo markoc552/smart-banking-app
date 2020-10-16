@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Modal from "react-bootstrap/Modal";
 import { Input, Button, Icon } from "semantic-ui-react";
-import { SideText } from "../utils/StyledComponents";
+import { Message } from "../utils/StyledComponents";
 import UpdateProfile from "../profile/UpdateProfile"
 
 const UpdateModal = (props) => {
@@ -15,7 +15,7 @@ const UpdateModal = (props) => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          <SideText> {props.title}</SideText>
+          <Message> {props.title}</Message>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

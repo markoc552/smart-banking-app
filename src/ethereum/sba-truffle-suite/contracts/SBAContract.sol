@@ -88,6 +88,7 @@ contract SBAContract
 
         Transaction memory newTransaction = Transaction({
             _sender : msg.sender,
+            _timestamp: now,
             _recepient : recepient,
             amount : msg.value
             });

@@ -20,7 +20,9 @@ const SidebarMenu = (props) => {
     return state.accounts.profile;
   });
 
-  const [selected, setSelected] = useState("home");
+  const location = window.location.href;
+
+  const [selected, setSelected] = useState("");
 
   const PurpleSwitch = withStyles({
     switchBase: {
@@ -81,9 +83,10 @@ const SidebarMenu = (props) => {
         </Grid>
 
         <SideItem
+          className={`${selected == "home" ? "selected" : undefined}`}
           onClick={() => {
-            history.push(`/home/${props.id}`);
             setSelected("home");
+            history.push(`/home/home/${props.id}`);
           }}
         >
           <Icon name="home" color="black" size="small" />
@@ -91,18 +94,35 @@ const SidebarMenu = (props) => {
         </SideItem>
 
         <SideItem
-          onClick={() => history.push(`/home/transactions/${props.id}`)}
+          className={`${selected == "transactions" ? "selected" : undefined}`}
+          onClick={() => {
+            setSelected("transactions");
+            history.push(`/home/transactions/${props.id}`);
+            console.log(selected)
+          }}
         >
           <Icon name="exchange" color="black" size="small" />
           <SideText>Transactions</SideText>
         </SideItem>
 
-        <SideItem onClick={() => history.push(`/home/waults/${props.id}`)}>
+        <SideItem
+          className={`${selected == "waults" ? "selected" : undefined}`}
+          onClick={() => {
+            setSelected("waults");
+            history.push(`/home/waults/${props.id}`);
+          }}
+        >
           <Icon name="archive" color="black" size="small" />
           <SideText>Waults</SideText>
         </SideItem>
 
-        <SideItem onClick={() => history.push(`/home/references/${props.id}`)}>
+        <SideItem
+          className={`${selected == "references" ? "selected" : undefined}`}
+          onClick={() => {
+            setSelected("waults");
+            history.push(`/home/references/${props.id}`);
+          }}
+        >
           <Icon name="file" color="black" size="small" />
           <SideText>Reference</SideText>
         </SideItem>

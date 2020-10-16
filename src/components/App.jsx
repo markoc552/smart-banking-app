@@ -36,7 +36,7 @@ const App = (props) => {
           <Route path="/loggedOut" component={LoggedOut} exact />
           <PrivateRoute
             registeredOnly
-            path="/home/:id"
+            path="/home/home/:id"
             component={Home}
             exact
           />

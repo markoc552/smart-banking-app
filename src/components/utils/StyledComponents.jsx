@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import BackgroundVector from "../../images/vector.jpg";
-import Background from "../../images/background.jpg"
-import UtilBackground from "../../images/utilbackground.jpg"
+import Background from "../../assets/images/background.jpg"
+import UtilBackground from "../../assets/images/utilbackground.jpg"
 
 export const Bottom = styled.div`
   height: 100px;
@@ -17,8 +16,7 @@ export const Bottom = styled.div`
 export const SideItem = styled.div`
 position: relative;
 width: 100%;
-margin: "0 auto";
-backgroundColor: "blue";
+margin: 0 auto;
 text-align: center;
 padding: 10px;
 cursor: auto;
@@ -26,6 +24,7 @@ color: #9c9c9c;
 
 &:hover {
   background-color: #dbdbdb;
+  border-right: 2px solid blue;
   cursor: pointer;
 }
 
@@ -126,6 +125,12 @@ export const MoneyDialog = styled.div`
   color: #4d4d4d;
 `
 
+export const TransactionCountDialog = styled.div`
+  font-family: 'Bree Serif', serif;
+  font-size: 15px;
+  color: #4d4d4d;
+`
+
 export const BenefitsTitle = styled.div`
   font-family: 'Bree Serif', serif;
   font-size: 20px;
@@ -157,9 +162,9 @@ export const Message = styled.div`
 `;
 
 export const SideText = styled.div`
-  font-family: "Open sans", sans-serif;
+  font-family: 'Bree Serif', serif;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 15px;
   color: #9c9c9c;
 `;
 

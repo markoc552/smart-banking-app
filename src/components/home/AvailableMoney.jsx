@@ -13,10 +13,12 @@ const AvailableMoney = (props) => {
       <Card.Content>
         <MoneyDialog>Available money</MoneyDialog>
       </Card.Content>
-      <Card.Content>{props.eth["balance"]},00 KN</Card.Content>
+      <Card.Content>{props.eth["balance"]},00 ETH</Card.Content>
       <Card.Content>
         <Button.Group color="violet">
-          <Button>Money transaction</Button>
+          <Button style={{ fontFamily: "'Lato', serif" }}>
+            Money transaction
+          </Button>
           <Menu borderless compact>
             <Dropdown floating className="button icon" direction="left">
               <Dropdown.Menu>
@@ -26,13 +28,15 @@ const AvailableMoney = (props) => {
                     props.setModalShow(true);
                   }}
                 >
-                  <Icon
-                    name="sort amount up"
-                    circular
-                    inverted
-                    color="orange"
-                  />
-                  Deposit Money
+                  <div style={{ fontFamily: "'Bree Serif', serif" }}>
+                    <Icon
+                      name="sort amount up"
+                      circular
+                      inverted
+                      color="orange"
+                    />
+                    Deposit money
+                  </div>
                 </Dropdown.Item>
                 <Dropdown.Item
                   onClick={() => {
@@ -40,13 +44,16 @@ const AvailableMoney = (props) => {
                     props.setModalShow(true);
                   }}
                 >
-                  <Icon
-                    name="sort amount down"
-                    circular
-                    inverted
-                    color="green"
-                  />
-                  Withdraw Money
+
+                  <div style={{ fontFamily: "'Bree Serif', serif" }}>
+                    <Icon
+                      name="sort amount down"
+                      circular
+                      inverted
+                      color="green"
+                    />
+                  Withdraw money
+                  </div>
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>

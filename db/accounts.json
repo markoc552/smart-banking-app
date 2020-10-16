@@ -507,10 +507,10 @@
     },
     {
       "username": "www",
-      "firstname": "www",
-      "lastname": "www",
-      "email": "www",
-      "password": "www",
+      "firstname": "www11",
+      "lastname": "aaa",
+      "email": "www@www.hr",
+      "password": "wwwqq",
       "data": {
         "address": "0x4E2d3aB3beCD90c1f920f42d256436e556e17f8c",
         "wallet": {
@@ -520,7 +520,8 @@
         },
         "mnemonic": "catch lady pepper muscle print embody float capital cabin find have myself glide mushroom ready also bar scheme drop virtual wisdom pulse civil stumble"
       },
-      "id": 41
+      "id": 41,
+      "checkbox": true
     },
     {
       "username": "testtestqq",

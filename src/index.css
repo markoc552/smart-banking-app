@@ -30,5 +30,8 @@ body {
 }
 
 .selected {
-  border-left: 10px solid black;
+  border-right: 2px solid #5c27d5;
+  background-color: #dbdbdb;
+  transition: 0.2s ease-in;
+  transform: scale(1.05);
 }

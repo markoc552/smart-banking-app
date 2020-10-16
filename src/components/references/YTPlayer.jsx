@@ -28,6 +28,8 @@ const YTPlayer = props => {
   return (
     <div>
       <Grid centered>
+        <Grid.Row></Grid.Row>
+        <Grid.Row></Grid.Row>
         <Grid.Row centered as="div" style={{ marginTop: "10px" }}>
           <Grid.Column width={5}>
             <SearchBar onSearchVideo={searchVideo} />

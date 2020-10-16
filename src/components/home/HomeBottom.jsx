@@ -11,7 +11,7 @@ const HomeBottom = (props) => {
   return (
     <Bottom>
       <div style={{position: "relative", margin: "0 auto"}}>
-        <Image centered src={require("../../images/logo.png")} size="tiny" />
+        <Image centered src={require("../../assets/images/logo.png")} size="tiny" />
         <BottomCopyright>
           © 2020 SBA Banking Inc. All right reserved
         </BottomCopyright>

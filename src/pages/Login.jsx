@@ -43,7 +43,7 @@ const Login = (props) => {
           <Col xs={4} md={4}>
             <motion.div style={{marginTop: "150px"}}initial="hidden" animate="visible" variants={variants}>
               <Modal>
-                <Image src={require("../images/logo.png")} />
+                <Image src={require("../assets/images/logo.png")} />
                 <Header> {formName} </Header>
                 <div>
                   <div> {renderForm()} </div>

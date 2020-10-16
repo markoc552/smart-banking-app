@@ -10,8 +10,11 @@ import { connect } from "react-redux";
 import { getAllAccounts, updateAccount } from "../../redux/actions";
 import { Formik } from "formik";
 import Spinner from "react-bootstrap/Spinner";
+import { ToastContainer, toast } from "react-toastify";
 
 const UpdateProfile = (props) => {
+  const [sending, setSending] = useState(false);
+
   useEffect(() => {
     props.getAllAccounts();
   }, []);
@@ -45,10 +48,26 @@ const UpdateProfile = (props) => {
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
-          props.show(false)
-          props.updateAccount(props.id, values)
-          setSubmitting(false)
+          setSending(true);
+
+          setTimeout(() => {
+            props.show(false);
+            props.updateAccount(props.id, values);
+            setSubmitting(false);
+            setSending(false);
+            toast.success(
+              "Your profile was successfully updated!",
+              {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              }
+            );
+          }, 2000);
         }}
       >
         {({
@@ -60,39 +79,35 @@ const UpdateProfile = (props) => {
           handleSubmit,
           isSubmitting,
         }) =>
-          isSubmitting ? (
+          sending ? (
             <Spinner animation="border" role="status">
               <span className="sr-only">Updating...</span>
             </Spinner>
           ) : (
             <Form onSubmit={handleSubmit}>
-              <Row>
-                <Col>
-                  <Form.Group controlId="formBasicUsername">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control
-                      type="username"
-                      name="username"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.username}
-                      disabled
-                    />
-                  </Form.Group>
-                </Col>
-                <Col>
-                  <Form.Group controlId="formGridPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                      type="password"
-                      name="password"
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.password}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
+              <Form.Group controlId="formBasicUsername">
+                <Form.Label>Username</Form.Label>
+                <Form.Control
+                  type="username"
+                  name="username"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.username}
+                  disabled
+                />
+              </Form.Group>
+
+              <Form.Group controlId="formGridPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.password}
+                />
+              </Form.Group>
+
               <Form.Row>
                 <Col>
                   <Form.Group controlId="formGridLastname">
@@ -142,7 +157,7 @@ const UpdateProfile = (props) => {
                       label="Are you sure you want to update your data?"
                       value={values.checkbox}
                     />
-                  {errors.checkbox && (
+                    {errors.checkbox && (
                       <Label basic color="red" pointing>
                         {errors.checkbox}
                       </Label>
@@ -150,8 +165,14 @@ const UpdateProfile = (props) => {
                   </Form.Group>
                 </Col>
               </Form.Row>
-              <Button floated="right" type="submit" disabled={isSubmitting}>
-                Submit
+              <Button
+                floated="right"
+                color="violet"
+                basic
+                type="submit"
+                disabled={isSubmitting}
+              >
+                Update
               </Button>
             </Form>
           )

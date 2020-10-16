@@ -1,39 +1,40 @@
+import React from "react";
 import axios from "../axios";
 import history from "../../history";
 import _ from "lodash";
 import web3 from "../../ethereum/web3";
 import factory, { getContract } from "../../ethereum/instances/factory";
 import ethers from "ethers";
+import { Icon } from "semantic-ui-react";
 
-export const createAccount = formValues => async dispatch => {
+export const createAccount = (formValues) => async (dispatch) => {
   const response = await axios.post("/accounts", {
-    ...formValues
+    ...formValues,
   });
 
   dispatch({ type: "CREATE_ACCOUNT", payload: response.data });
 
-  dispatch(login())
+  dispatch(login());
 
   if (formValues.username !== undefined) {
-    history.push(`/home/${formValues.username}`);
+    history.push(`/home/home/${formValues.username}`);
   }
 };
 
-export const login = () => async dispatch => {
-  dispatch({type: "LOG_IN", payload: true})
-}
+export const login = () => async (dispatch) => {
+  dispatch({ type: "LOG_IN", payload: true });
+};
 
-export const logout = () => async dispatch => {
-  dispatch({type: "LOG_OUT", payload: false})
-}
+export const logout = () => async (dispatch) => {
+  dispatch({ type: "LOG_OUT", payload: false });
+};
 
-export const chooseProfilePicture = src => async dispatch => {
+export const chooseProfilePicture = (src) => async (dispatch) => {
+  console.log(src);
+  dispatch({ type: "CHOOSE_PROFILE", payload: src });
+};
 
-  console.log(src)
-  dispatch({type: "CHOOSE_PROFILE", payload: src})
-}
-
-export const checkRegister = formValues => async dispatch => {
+export const checkRegister = (formValues) => async (dispatch) => {
   const response = await axios.get("/accounts");
 
   const arr = _.mapKeys(response.data, "id");
@@ -54,7 +55,7 @@ export const checkRegister = formValues => async dispatch => {
   dispatch({ type: "CHECK_ACCOUNT", payload: status });
 };
 
-export const checkAccount = formValues => async dispatch => {
+export const checkAccount = (formValues) => async (dispatch) => {
   const response = await axios.get("/accounts");
 
   const arr = _.mapKeys(response.data, "id");
@@ -65,8 +66,8 @@ export const checkAccount = formValues => async dispatch => {
   if (user[formValues.username] !== undefined) {
     if (user[formValues.username].password === formValues.password) {
       status = true;
-      dispatch(login())
-      history.push(`/home/${formValues.username}`);
+      dispatch(login());
+      history.push(`/home/home/${formValues.username}`);
     }
   } else {
     status = false;
@@ -74,7 +75,7 @@ export const checkAccount = formValues => async dispatch => {
   dispatch({ type: "CHECK_ACCOUNT", payload: status });
 };
 
-export const getAccountName = username => async dispatch => {
+export const getAccountName = (username) => async (dispatch) => {
   const response = await axios.get("/accounts");
 
   const arr = _.mapKeys(response.data, "id");
@@ -87,7 +88,7 @@ export const getAccountName = username => async dispatch => {
   dispatch({ type: "GET_NAME", payload: `${name} ${lastname}` });
 };
 
-export const getAllAccounts = () => async dispatch => {
+export const getAllAccounts = () => async (dispatch) => {
   const response = await axios.get("/accounts");
 
   const mappedId = _.mapKeys(response.data, "id");
@@ -97,7 +98,7 @@ export const getAllAccounts = () => async dispatch => {
   dispatch({ type: "GET_ACCOUNTS", payload: mappedUser });
 };
 
-export const updateAccount = (username, formValues) => async dispatch => {
+export const updateAccount = (username, formValues) => async (dispatch) => {
   const accounts = await axios.get("/accounts");
 
   const mappedId = _.mapKeys(accounts.data, "id");
@@ -113,7 +114,7 @@ export const updateAccount = (username, formValues) => async dispatch => {
   history.push(`/home/${username}/profile`);
 };
 
-export const getEthStatus = id => async dispatch => {
+export const getEthStatus = (id) => async (dispatch) => {
   const accounts = await axios.get("/accounts");
 
   const mappedId = _.mapKeys(accounts.data, "id");
@@ -124,7 +125,7 @@ export const getEthStatus = id => async dispatch => {
 
   const ethAddress = mappedUser[id].data.address;
 
-  const mnemonic =  mappedUser[id].data.mnemonic;
+  const mnemonic = mappedUser[id].data.mnemonic;
 
   const contract = getContract(ethAddress);
 
@@ -132,18 +133,44 @@ export const getEthStatus = id => async dispatch => {
 
   const waults = await contract.methods.getWaults().call();
 
-  const transactions = await contract.methods.getTransactions(0).call();
-
   const transactionCount = await contract.methods.getTransactionCount().call();
+
+  let transactions = {};
+
+  var i;
+  for (i = 0; i < transactionCount; i++) {
+    const transaction = await contract.methods.getTransactions(i).call();
+
+    transactions = {
+      ...transactions,
+      [i]: {
+        sender: transaction[0],
+        recepient: transaction[1],
+        amount: transaction[2],
+        mined: <Icon name="check" color="green" size="large" />,
+      },
+    };
+  }
+
+  console.log(transactions);
 
   dispatch({
     type: "ETH_STATUS",
-    payload: { id, balance, waults, transactionCount, ethAddress, wallet, mnemonic, transactions }
+    payload: {
+      id,
+      balance,
+      waults,
+      transactionCount,
+      ethAddress,
+      wallet,
+      mnemonic,
+      transactions,
+    },
   });
 };
 
 //Google OAuth action creators
-export const signIn = userId => {
+export const signIn = (userId) => {
   return { type: "SIGN_IN", payload: userId };
 };
 
@@ -151,21 +178,20 @@ export const signOut = () => {
   return { type: "SIGN_OUT" };
 };
 
-const createEthAccount = async formValues => {
+const createEthAccount = async (formValues) => {
+  const bip39 = require("bip39");
 
-  const bip39 = require('bip39')
-
-  const mnemonic = bip39.entropyToMnemonic(ethers.utils.randomBytes(32))
+  const mnemonic = bip39.entropyToMnemonic(ethers.utils.randomBytes(32));
 
   const wallet = ethers.Wallet.fromMnemonic(mnemonic);
 
   web3.eth.sendTransaction({
     to: wallet.address,
     from: "0x51c5C2B40dA744E4BC8028Aa9a4ad4143EC9280C",
-    value: web3.utils.toWei("0.2", "ether")
+    value: web3.utils.toWei("0.2", "ether"),
   });
 
-  console.log("Money sent to account: ", wallet.address)
+  console.log("Money sent to account: ", wallet.address);
 
   const contract = await factory.methods
     .createAccount(
@@ -176,7 +202,7 @@ const createEthAccount = async formValues => {
     )
     .send({
       from: "0x51c5C2B40dA744E4BC8028Aa9a4ad4143EC9280C",
-      gas: "6721975"
+      gas: "6721975",
     });
 
   const address = await factory.methods.getAccount().call();

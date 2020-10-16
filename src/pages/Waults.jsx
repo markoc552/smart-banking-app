@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Image, Loader } from "semantic-ui-react";
-import WaultCard from "../components/waults/WaultsCard";
 import Navigation from "../components/utils/NavigationBar";
 import SideNavigation from "../components/utils/SideNavigation";
 import Bottom from "../components/home/HomeBottom";
@@ -12,14 +11,8 @@ import {
   UtilsBottom,
   UtilSection,
 } from "../components/utils/StyledComponents";
-import Information from "../components/waults/Information";
 import { motion } from "framer-motion";
 import WaultsDashboard from "../components/waults/WaultsDashboard";
-
-const variants = {
-  initial: { opacity: 0, scale: 1.2 },
-  final: { opacity: 1, scale: 1 },
-};
 
 const Waults = (props) => {
   const [id, setId] = useState(null);
@@ -32,6 +25,11 @@ const Waults = (props) => {
     props.getEthStatus(id);
   }, []);
 
+  const variants = {
+    visible: { opacity: 1 },
+    hidden: { opacity: 0, scale: 1.05 },
+  };
+
   if (props.ethUser === undefined) {
     return <Loader />;
   }
@@ -40,7 +38,9 @@ const Waults = (props) => {
     <UtilSection>
       <SideNavigation id={id} name={props.name}>
         <Navigation id={id} />
-        <WaultsDashboard />
+        <motion.div initial="hidden" animate="visible" variants={variants}>
+          <WaultsDashboard />
+        </motion.div>
         <Bottom />
       </SideNavigation>
     </UtilSection>

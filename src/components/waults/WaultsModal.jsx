@@ -6,23 +6,19 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Input, Button, Icon, Grid } from "semantic-ui-react";
-import { SideText } from "../utils/StyledComponents";
+import { SideText, MoneyDialog } from "../utils/StyledComponents";
 import { depositMoney, withDrawMoney } from "../transactions/transactionUtils";
-import history from "../../history";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import history from "../../history";
+import { Formik } from "formik";
+import WaultsForm from "./WaultsForm"
 
-const UserModal = (props) => {
-  const [value, setValue] = useState(0);
+const WaultsModal = (props) => {
   const [sending, setSending] = useState(false);
 
   const handleClick = () => {
     setSending(true);
-
-    props.action === "Withdraw"
-      ? withDrawMoney(props.ethUser, value)
-      : depositMoney(props.ethUser, value);
 
     setTimeout(() => {
       toast.success("Your money was succesfully transfered!", {
@@ -35,14 +31,12 @@ const UserModal = (props) => {
         progress: undefined,
       });
       props.onHide();
-      props.setSelected("");
       setSending(false);
-
     }, 2000);
 
     setTimeout(() => {
-      history.go(0)
-    }, 4000)
+      history.go(0);
+    }, 4000);
   };
 
   return (
@@ -73,29 +67,16 @@ const UserModal = (props) => {
         <>
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
-              <SideText> {props.title}</SideText>
+              <MoneyDialog> {props.title}</MoneyDialog>
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Input
-              fluid
-              icon={<Icon name="btc" size="large" />}
-              onChange={(event) => setValue(event.target.value)}
-            />
+            <WaultsForm onHide={props.onHide} />
           </Modal.Body>
-          <Modal.Footer>
-            <Button
-              basic
-              color={props.action === "Withdraw" ? "red" : "green"}
-              onClick={handleClick}
-            >
-              {props.action}
-            </Button>
-          </Modal.Footer>
         </>
       )}
     </Modal>
   );
 };
 
-export default UserModal;
+export default WaultsModal;
