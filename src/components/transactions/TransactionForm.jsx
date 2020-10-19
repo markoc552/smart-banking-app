@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import { Button, Loader, Label, Icon } from "semantic-ui-react";
@@ -15,6 +16,8 @@ import "react-toastify/dist/ReactToastify.css";
 const TransactionForm = (props) => {
   const [sending, setSending] = useState(false);
 
+  const eth = useSelector(state => state.accounts[props.id])
+
   return (
     <Formik
       initialValues={{}}
@@ -26,7 +29,7 @@ const TransactionForm = (props) => {
         console.log(values);
 
         setSending(true);
-        sendTransaction(values, props.eth);
+        sendTransaction(values, eth);
         setTimeout(() => {
           toast.success("Your money was succesfully transfered!", {
             position: "top-right",

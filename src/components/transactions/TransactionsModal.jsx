@@ -72,7 +72,7 @@ const TransactionModal = (props) => {
               <MoneyDialog> {props.title}</MoneyDialog>
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body><TransactionForm onHide={props.onHide}/></Modal.Body>
+          <Modal.Body><TransactionForm onHide={props.onHide} id={props.id}/></Modal.Body>
         </>
       )}
     </Modal>

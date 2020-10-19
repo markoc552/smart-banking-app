@@ -6,6 +6,7 @@ import web3 from "../../ethereum/web3";
 import factory, { getContract } from "../../ethereum/instances/factory";
 import ethers from "ethers";
 import { Icon } from "semantic-ui-react";
+import moment from "moment"
 
 export const createAccount = (formValues) => async (dispatch) => {
   const response = await axios.post("/accounts", {
@@ -135,21 +136,20 @@ export const getEthStatus = (id) => async (dispatch) => {
 
   const transactionCount = await contract.methods.getTransactionCount().call();
 
-  let transactions = {};
+  let transactions = [];
 
   var i;
   for (i = 0; i < transactionCount; i++) {
     const transaction = await contract.methods.getTransactions(i).call();
 
-    transactions = {
-      ...transactions,
-      [i]: {
-        sender: transaction[0],
-        recepient: transaction[1],
-        amount: transaction[2],
-        mined: <Icon name="check" color="green" size="large" />,
-      },
-    };
+    console.log(transaction)
+
+    transactions.push({
+      sender: transaction[0],
+      recepient: transaction[1],
+      time: moment(transactions[2]).format("LLLL"),
+      amount: transaction[3],
+    });
   }
 
   console.log(transactions);

@@ -8,13 +8,19 @@ import {
   Segment,
   Header,
   Image,
-  Label
+  Label,
+  Grid
 } from "semantic-ui-react";
 import OAuth2 from "./OAuth2";
 import styled from "styled-components";
-import { checkRegister, createAccount, chooseProfilePicture } from "../../redux/actions";
+import {
+  checkRegister,
+  createAccount,
+  chooseProfilePicture,
+} from "../../redux/actions";
 import "../../index.css";
 import ProfilePictureChooser from "./ProfilePictureChooser";
+import Spinner from "react-bootstrap/Spinner";
 
 const RegisterForm = (props) => {
   const ButtonForm = styled.div`
@@ -23,8 +29,9 @@ const RegisterForm = (props) => {
 
   const [open, setOpen] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
-  const profile = useSelector(state => state.accounts.profile)
+  const [logging, setLogging] = useState(false);
 
+  const profile = useSelector((state) => state.accounts.profile);
 
   useEffect(() => {
     if (props.status !== undefined) {
@@ -37,9 +44,12 @@ const RegisterForm = (props) => {
   }, [props.status]);
 
   const onSubmit = async (formValues) => {
+    setLogging(true);
     setOpen(false);
 
     await props.checkRegister(formValues);
+
+    setLogging(false);
   };
 
   props.changeName("Register");
@@ -49,12 +59,22 @@ const RegisterForm = (props) => {
     props.changeName("Login");
   };
 
-  return (
+  return logging ? (
+    <Grid padded>
+      <Grid.Row centered columns={1}>
+        <Grid.Column centered textAlign="center">
+          <Spinner animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
+  ) : (
     <form
       className="ui form error formWidth"
       onSubmit={props.handleSubmit(onSubmit)}
     >
-      <div style={{display: "flex", flexDirection: "row"}}>
+      <div style={{ display: "flex", flexDirection: "row" }}>
         <Image
           centered
           size="tiny"
@@ -66,10 +86,14 @@ const RegisterForm = (props) => {
             icon: "user plus",
             size: "mini",
             as: "a",
-            onClick: ()=>{openProfile === true ? setOpenProfile(false) : setOpenProfile(true)}
+            onClick: () => {
+              openProfile === true
+                ? setOpenProfile(false)
+                : setOpenProfile(true);
+            },
           }}
         />
-      <ProfilePictureChooser setOpen={setOpenProfile} open={openProfile}/>
+        <ProfilePictureChooser setOpen={setOpenProfile} open={openProfile} />
       </div>
       <Field name="username" label="Username" component={renderInput} />
       <br />
@@ -86,7 +110,7 @@ const RegisterForm = (props) => {
         component={renderInput}
       />
       {open && (
-        <Label basic color="red" style={{marginTop: "10px"}}>
+        <Label basic color="red" style={{ marginTop: "10px" }}>
           Username already exists!
         </Label>
       )}
@@ -109,4 +133,8 @@ const mapStateToProps = (state) => {
 
 const wrap = reduxForm({ form: "registerForm", validate })(RegisterForm);
 
-export default connect(mapStateToProps, { checkRegister, createAccount, chooseProfilePicture })(wrap);
+export default connect(mapStateToProps, {
+  checkRegister,
+  createAccount,
+  chooseProfilePicture,
+})(wrap);

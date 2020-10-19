@@ -40,7 +40,8 @@ contract SBAContract
     struct Transaction {
         address _sender;
         address _recepient;
-        uint256 amount;
+        uint256 _timestamp;
+        uint256 _amount;
     }
 
     address private _authority;
@@ -88,9 +89,9 @@ contract SBAContract
 
         Transaction memory newTransaction = Transaction({
             _sender : msg.sender,
-            _timestamp: now,
             _recepient : recepient,
-            amount : msg.value
+            _timestamp: now,
+            _amount : amount
             });
 
         transactions[getTransactionCount()] = newTransaction;
@@ -108,7 +109,8 @@ contract SBAContract
         Transaction memory newTransaction = Transaction({
             _sender : msg.sender,
             _recepient : 0,
-            amount : msg.value
+            _timestamp: now,
+            _amount : msg.value
             });
 
         transactions[getTransactionCount()] = newTransaction;
@@ -122,7 +124,8 @@ contract SBAContract
         Transaction memory newTransaction = Transaction({
             _sender : _address,
             _recepient : 0,
-            amount : amount
+            _timestamp: now,
+            _amount : amount
             });
 
         transactions[getTransactionCount()] = newTransaction;
@@ -130,12 +133,13 @@ contract SBAContract
         transactionCount++;
     }
 
-    function getTransactions(uint index) public view returns (address, address, uint256) {
+    function getTransactions(uint index) public view returns (address, address, uint256, uint256) {
         address sender = transactions[index]._sender;
         address recepient = transactions[index]._recepient;
-        uint256 amount = transactions[index].amount;
+        uint256 time = transactions[index]._timestamp;
+        uint256 amount = transactions[index]._amount;
 
-        return (sender, recepient, amount);
+        return (sender, recepient, time, amount);
     }
 
     function getMoneyStatus() public view returns (uint256) {
@@ -144,6 +148,20 @@ contract SBAContract
 
     //Simulation of withdraw money (money is sent to authority instead withdrawn)
     function withDrawMoney(uint256 _amount, address authority) public payable restricted {
+
+      Transaction memory newTransaction = Transaction({
+          _sender : msg.sender,
+          _recepient : 0,
+          _timestamp: now,
+          _amount : _amount
+          });
+
+          transactions[getTransactionCount()] = newTransaction;
+
+          transactionCount++;
+
+          SendTransaction(0, msg.sender, msg.value);
+
         authority.transfer(_amount);
     }
 }

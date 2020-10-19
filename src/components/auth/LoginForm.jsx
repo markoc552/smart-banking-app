@@ -7,13 +7,16 @@ import {
   Segment,
   Header,
   Grid,
-  Label
+  Label,
 } from "semantic-ui-react";
 import { renderInput, validate } from "./formUtils";
 import { checkAccount } from "../../redux/actions";
 import OAuth2 from "./OAuth2";
 import styled from "styled-components";
 import "../../index.css";
+import Spinner from "react-bootstrap/Spinner";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const LoginForm = (props) => {
   const ButtonForm = styled.div`
@@ -21,6 +24,7 @@ const LoginForm = (props) => {
   `;
 
   const [open, setOpen] = useState(false);
+  const [logging, setLogging] = useState(false);
 
   useEffect(() => {
     if (props.status !== undefined) {
@@ -32,13 +36,25 @@ const LoginForm = (props) => {
     }
   }, [props.status]);
 
-  return (
+  return logging ? (
+    <Grid padded>
+      <Grid.Row centered columns={1}>
+        <Grid.Column centered textAlign="center">
+          <Spinner animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+        </Grid.Column>
+      </Grid.Row>
+    </Grid>
+  ) : (
     <form
       className="ui form error formWidth"
       size="small"
-      onSubmit={props.handleSubmit((formValues) =>
-        props.checkAccount(formValues)
-      )}
+      onSubmit={props.handleSubmit((formValues) => {
+        setLogging(true);
+        props.checkAccount(formValues);
+        setLogging(false);
+      })}
     >
       <Field
         name="username"
@@ -55,7 +71,7 @@ const LoginForm = (props) => {
       />
       <Grid centered padded="vertically" stackable>
         {open && (
-          <Label basic color="red" style={{marginTop: "10px"}}>
+          <Label basic color="red" style={{ marginTop: "10px" }}>
             Username/Password incorrect
           </Label>
         )}

@@ -1,77 +1,96 @@
 import React, { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { useTable } from "react-table";
+import { useTable, useFilters } from "react-table";
 import { Icon, Input } from "semantic-ui-react";
 import Spinner from "react-bootstrap/Spinner";
+import { matchSorter } from "match-sorter";
 
 const Table = (props) => {
-  let renderedTransactions = [];
+  const filterByColumn = "recepient";
 
-  // const [filterInput, setFilterInput] = useState("");
-  //
-  // const filterByColumn = "recepient";
-  //
-  // const handleFilterChange = (e) => {
-  //   const value = e.target.value || undefined;
-  //   setFilter(filterByColumn, value);
-  //   setFilterInput(value);
-  // };
+  const filterTypes = React.useMemo(
+    () => ({
+      fuzzyText: fuzzyTextFilterFn,
+
+      text: (rows, id, filterValue) => {
+        return rows.filter((row) => {
+          const rowValue = row.values[id];
+          return rowValue !== undefined
+            ? String(rowValue)
+                .toLowerCase()
+                .startsWith(String(filterValue).toLowerCase())
+            : true;
+        });
+      },
+    }),
+    []
+  );
+
+  const handleFilterChange = (e) => {
+    setFilter(filterByColumn, props.filter);
+  };
 
   const transactions = useSelector((state) => {
     if (state.accounts[props.id] !== undefined) {
       const transactions = state.accounts[props.id].transactions;
 
-      renderedTransactions = [
-        {
-          sender: transactions[0].sender,
-          recepient: transactions[0].recepient,
-          amount: transactions[0].amount,
-          mined: transactions[0].mined,
-        },
-        {
-          sender: transactions[1].sender,
-          recepient: transactions[1].recepient,
-          amount: transactions[1].amount,
-          mined: transactions[1].mined,
-        },
-        {
-          sender: transactions[2].sender,
-          recepient: transactions[2].recepient,
-          amount: transactions[2].amount,
-          mined: transactions[2].mined,
-        },
-        {
-          sender: transactions[3].sender,
-          recepient: transactions[3].recepient,
-          amount: transactions[3].amount,
-          mined: transactions[3].mined,
-        },
-        {
-          sender: transactions[4].sender,
-          recepient: transactions[4].recepient,
-          amount: transactions[4].amount,
-          mined: transactions[4].mined,
-        },
-      ];
-
       return transactions;
     }
   });
 
-  const data = useMemo(() => [...renderedTransactions], [transactions]);
+  let renderedTransactions;
+
+  if (transactions !== undefined) {
+    renderedTransactions = transactions;
+  } else {
+    renderedTransactions = [];
+  }
+
+  const data = useMemo(() => [...renderedTransactions], [renderedTransactions]);
 
   console.log(data);
+
+  function DefaultColumnFilter({
+    column: { filterValue, preFilteredRows, setFilter },
+  }) {
+    const count = preFilteredRows.length;
+
+    return (
+      <Input
+        circular
+        size="small"
+        icon={<Icon name="search"/>}
+        value={filterValue || ""}
+        onChange={(e) => {
+          setFilter(e.target.value || undefined); // Set undefined to remove the filter entirely
+        }}
+        placeholder={`Search...`}
+      />
+    );
+  }
+
+  const defaultColumn = React.useMemo(
+    () => ({
+      // Let's set up our default Filter UI
+      Filter: DefaultColumnFilter,
+    }),
+    []
+  );
+
+  function fuzzyTextFilterFn(rows, id, filterValue) {
+    return matchSorter(rows, filterValue, { keys: [(row) => row.values[id]] });
+  }
 
   const columns = useMemo(
     () => [
       {
-        Header: "Sender",
-        accessor: "sender",
-      },
-      {
         Header: "Recepient",
         accessor: "recepient",
+      },
+      {
+        Header: "Time",
+        accessor: "time",
       },
       {
         Header: "Amount",
@@ -80,6 +99,7 @@ const Table = (props) => {
       {
         Header: "Mined",
         accessor: "mined",
+        Cell: <Icon name="check" size="large" color="green" />,
       },
     ],
     []
@@ -91,9 +111,10 @@ const Table = (props) => {
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({ columns, data });
+    setFilter,
+  } = useTable({ columns, data, defaultColumn, filterTypes }, useFilters);
 
-  return renderedTransactions === undefined ? (
+  return transactions === undefined ? (
     <Spinner animation="border" role="status">
       <span className="sr-only">Loading...</span>
     </Spinner>
@@ -126,6 +147,10 @@ const Table = (props) => {
                         // Render the header
                         column.render("Header")
                       }
+                      <div>
+                        {console.log(column)}
+                        {column.canFilter && column.id !== "time" && column.id !== "mined" && column !== undefined ? column.render("Filter") : null}
+                      </div>
                     </th>
                   ))
                 }
@@ -134,7 +159,10 @@ const Table = (props) => {
           }
         </thead>
         {/* Apply the table body props */}
-        <tbody {...getTableBodyProps()} style={{fontFamily: "'Bree Serif', serif"}}>
+        <tbody
+          {...getTableBodyProps()}
+          style={{ fontFamily: "'Bree Serif', serif" }}
+        >
           {
             // Loop over the table rows
             rows.map((row) => {

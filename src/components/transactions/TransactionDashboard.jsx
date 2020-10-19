@@ -20,7 +20,7 @@ const TransactionDashboard = (props) => {
           <Grid.Column textAlign="justify">
             <TransactionCountDialog>
               Sent transactions
-              <Label circular color="black" style={{marginLeft: "5px"}}>
+              <Label circular color="black" style={{ marginLeft: "5px" }}>
                 {props.eth.transactionCount}
               </Label>
             </TransactionCountDialog>
@@ -31,14 +31,16 @@ const TransactionDashboard = (props) => {
             </Button>
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row>
-          <Input />
-        </Grid.Row>
+        <Grid.Row></Grid.Row>
         <Grid.Row>
           <Table id={props.id} />
         </Grid.Row>
         <Grid.Row>
-          <Button color="violet"  style={{ fontFamily: "'Lato', serif" }} circular>
+          <Button
+            color="violet"
+            style={{ fontFamily: "'Lato', serif" }}
+            circular
+          >
             View all transactions
           </Button>
         </Grid.Row>
@@ -46,7 +48,7 @@ const TransactionDashboard = (props) => {
           <Grid.Column textAlign="center">
             <TransactionCountDialog>
               Failed transactions
-              <Label circular color="black"  style={{marginLeft: "5px"}}>
+              <Label circular color="black" style={{ marginLeft: "5px" }}>
                 2
               </Label>
             </TransactionCountDialog>
@@ -57,13 +59,18 @@ const TransactionDashboard = (props) => {
           <Table />
         </Grid.Row>
         <Grid.Row>
-          <Button color="violet"  style={{ fontFamily: "'Lato', serif" }} circular>
+          <Button
+            color="violet"
+            style={{ fontFamily: "'Lato', serif" }}
+            circular
+          >
             View all transactions
           </Button>
         </Grid.Row>
       </Grid>
       {show && (
         <TransactionModal
+          id={props.id}
           show={show}
           title="Send new transaction"
           onHide={() => setShow(false)}
