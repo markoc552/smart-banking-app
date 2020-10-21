@@ -48,7 +48,6 @@ const WaultsModal = (props) => {
     >
       {sending ? (
         <Modal.Body>
-          {" "}
           <Container>
             <Row></Row>
             <Row>
@@ -71,7 +70,7 @@ const WaultsModal = (props) => {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <WaultsForm onHide={props.onHide} />
+            <WaultsForm id={props.id} onHide={props.onHide} />
           </Modal.Body>
         </>
       )}

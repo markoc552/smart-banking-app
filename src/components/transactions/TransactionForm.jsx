@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
 import { Button, Loader, Label, Icon } from "semantic-ui-react";
@@ -12,11 +12,14 @@ import { sendTransaction } from "../transactions/transactionUtils";
 import { ToastContainer, toast } from "react-toastify";
 import Container from "react-bootstrap/Container";
 import "react-toastify/dist/ReactToastify.css";
+import { getContract } from "../../ethereum/instances/factory";
+import moment from "moment";
+import { addFailedTransaction } from "../../redux/actions";
 
 const TransactionForm = (props) => {
   const [sending, setSending] = useState(false);
 
-  const eth = useSelector(state => state.accounts[props.id])
+  const eth = useSelector((state) => state.accounts[props.id]);
 
   return (
     <Formik
@@ -29,21 +32,55 @@ const TransactionForm = (props) => {
         console.log(values);
 
         setSending(true);
-        sendTransaction(values, eth);
-        setTimeout(() => {
-          toast.success("Your money was succesfully transfered!", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
+
+        const owner = eth.wallet;
+
+        const mnemonic = eth.mnemonic;
+
+        const contractAddress = eth["ethAddress"];
+
+        const contract = getContract(contractAddress, mnemonic);
+
+        contract.methods
+          .sendMoney(values.recepient, values.amount)
+          .send({
+            from: String(owner.address),
+            gas: "6721975",
+          })
+          .then(() => {
+            setTimeout(() => {
+              toast.success("Your money was succesfully transfered!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              setSubmitting(false);
+              setSending(false);
+              props.onHide();
+            }, 2000);
+          })
+          .catch((err) => {
+            props.addFailedTransaction(values);
+
+            setTimeout(() => {
+              toast.error("Your money failed to be transfered!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              setSubmitting(false);
+              setSending(false);
+              props.onHide();
+            }, 2000);
           });
-          setSubmitting(false);
-          setSending(false);
-          props.onHide();
-        }, 2000);
       }}
     >
       {({
@@ -97,13 +134,19 @@ const TransactionForm = (props) => {
               </Col>
             </Form.Row>
             <Button
+              animated
               floated="right"
               color="violet"
+              circular
               basic
               type="submit"
               disabled={isSubmitting}
             >
-              Send
+            <Button.Content visible>Send</Button.Content>
+            <Button.Content hidden>
+              <Icon name="arrow right" />
+            </Button.Content>
+
             </Button>
           </Form>
         )
@@ -112,4 +155,4 @@ const TransactionForm = (props) => {
   );
 };
 
-export default TransactionForm;
+export default connect(null, { addFailedTransaction })(TransactionForm);

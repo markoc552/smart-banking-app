@@ -11,7 +11,7 @@ import {
   UtilsBottom,
   UtilSection,
 } from "../components/utils/StyledComponents";
-import { Card, Image, Divider, Grid, Button, Loader } from "semantic-ui-react";
+import { Card, Image, Divider, Grid, Button, Loader, Icon } from "semantic-ui-react";
 import UpdateModal from "../components/utils/UpdateModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -38,7 +38,7 @@ const UserProfile = (props) => {
   }
 
   const variants = {
-    visible: { opacity: 1, scale: 1.05 },
+    visible: { opacity: 1, scale: 1.05, transition: { duration: 0.35 } },
     hidden: { opacity: 0 },
   };
 
@@ -83,12 +83,17 @@ const UserProfile = (props) => {
                         </Grid.Row>
                         <Grid.Row verticalAlign="bottom">
                           <Button
+                            animated
                             basic
+                            circular
                             color="blue"
                             size="small"
                             onClick={() => setModalShow(true)}
                           >
-                            Update
+                            <Button.Content visible>Update</Button.Content>
+                            <Button.Content hidden>
+                              <Icon name="user plus" />
+                            </Button.Content>
                           </Button>
                         </Grid.Row>
                       </Grid.Column>

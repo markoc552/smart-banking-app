@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Modal from "react-bootstrap/Modal";
 import Spinner from "react-bootstrap/Spinner";
@@ -12,11 +12,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import history from "../../history";
 import { Formik } from "formik";
-import TransactionForm from "./TransactionForm"
-
+import TransactionForm from "./TransactionForm";
 
 const TransactionModal = (props) => {
-
   const [sending, setSending] = useState(false);
 
   const handleClick = () => {
@@ -72,7 +70,9 @@ const TransactionModal = (props) => {
               <MoneyDialog> {props.title}</MoneyDialog>
             </Modal.Title>
           </Modal.Header>
-          <Modal.Body><TransactionForm onHide={props.onHide} id={props.id}/></Modal.Body>
+          <Modal.Body>
+            <TransactionForm onHide={props.onHide} id={props.id} />
+          </Modal.Body>
         </>
       )}
     </Modal>

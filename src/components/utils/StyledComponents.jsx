@@ -42,7 +42,7 @@ export const HomeSection = styled.div`
   left: 0%;
   font-family: "Lato", sans-serif;
   height: 100vh;
-  overflow: auto;
+  overflow: hidden;
 `;
 
 export const UtilSection = styled.div`
@@ -54,7 +54,7 @@ export const UtilSection = styled.div`
   left: 0%;
   font-family: "Lato", sans-serif;
   height: 100vh;
-  overflow: auto;
+  overflow: hidden;
 `;
 
 

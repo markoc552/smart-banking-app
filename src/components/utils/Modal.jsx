@@ -37,12 +37,11 @@ const UserModal = (props) => {
       props.onHide();
       props.setSelected("");
       setSending(false);
-
     }, 2000);
 
     setTimeout(() => {
-      history.go(0)
-    }, 4000)
+      history.go(0);
+    }, 4000);
   };
 
   return (
@@ -85,11 +84,16 @@ const UserModal = (props) => {
           </Modal.Body>
           <Modal.Footer>
             <Button
+              animated='vertical'
+              circular
               basic
               color={props.action === "Withdraw" ? "red" : "green"}
               onClick={handleClick}
             >
-              {props.action}
+              <Button.Content visible>{props.action}</Button.Content>
+              <Button.Content hidden>
+                <Icon size="large" fitted name="check circle outline" />
+              </Button.Content>
             </Button>
           </Modal.Footer>
         </>

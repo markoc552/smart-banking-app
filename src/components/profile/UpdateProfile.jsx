@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { Button, Loader, Label } from "semantic-ui-react";
+import { Button, Loader, Label, Icon } from "semantic-ui-react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -55,18 +55,15 @@ const UpdateProfile = (props) => {
             props.updateAccount(props.id, values);
             setSubmitting(false);
             setSending(false);
-            toast.success(
-              "Your profile was successfully updated!",
-              {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              }
-            );
+            toast.success("Your profile was successfully updated!", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
           }, 2000);
         }}
       >
@@ -165,14 +162,20 @@ const UpdateProfile = (props) => {
                   </Form.Group>
                 </Col>
               </Form.Row>
+
               <Button
+                animated
                 floated="right"
                 color="violet"
                 basic
                 type="submit"
+                circular
                 disabled={isSubmitting}
               >
-                Update
+                <Button.Content visible>Update</Button.Content>
+                <Button.Content hidden>
+                  <Icon name="arrow right" />
+                </Button.Content>
               </Button>
             </Form>
           )

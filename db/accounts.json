@@ -118,6 +118,23 @@
         "mnemonic": "waste net bitter access garage pride annual grant target entry pottery improve stock pull cannon buddy december win system cement foster basket tennis uniform"
       },
       "id": 7
+    },
+    {
+      "username": "sdvsd",
+      "firstname": "sdvsdv",
+      "lastname": "sdvs",
+      "email": "sdvsv",
+      "password": "sdvsdv",
+      "data": {
+        "address": "0x3aa7d0eeDCFD1b34B9d39aD095412534094B16f4",
+        "wallet": {
+          "_isSigner": true,
+          "address": "0x7C2F3391E7Aaf5A3A4cdE798A42372A33a30BA68",
+          "provider": null
+        },
+        "mnemonic": "frog execute else buyer whisper update pool one hip crawl corn artefact liberty program zero seat bomb silly cube anchor motion spirit regular section"
+      },
+      "id": 8
     }
   ]
 }

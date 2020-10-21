@@ -23,7 +23,7 @@ const Transactions = (props) => {
   }, []);
 
   const variants = {
-    visible: { opacity: 1, scale: 1.05 },
+    visible: { opacity: 1, scale: 1.05, transition: { duration: 0.35 } },
     hidden: { opacity: 0 },
   };
 

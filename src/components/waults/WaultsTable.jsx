@@ -1,12 +1,20 @@
 import React, { useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, connect } from "react-redux";
 import PropTypes from "prop-types";
 import { useTable, useFilters } from "react-table";
-import { Icon, Input } from "semantic-ui-react";
+import { Icon, Input, Button } from "semantic-ui-react";
 import Spinner from "react-bootstrap/Spinner";
 import { matchSorter } from "match-sorter";
+import { getWaultStatus } from "../../redux/actions";
 
 const Table = (props) => {
+  const address = useSelector((state) => state.waults.active);
+  const waults = useSelector((state) => state.waults.status);
+
+  useState(() => {
+    props.getWaultStatus(address);
+  }, []);
+
   const filterByColumn = "recepient";
 
   const filterTypes = React.useMemo(
@@ -31,23 +39,15 @@ const Table = (props) => {
     setFilter(filterByColumn, props.filter);
   };
 
-  const transactions = useSelector((state) => {
-    if (state.accounts[props.id] !== undefined) {
-      const transactions = state.accounts[props.id].transactions;
+  let renderedWaults;
 
-      return transactions;
-    }
-  });
-
-  let renderedTransactions;
-
-  if (transactions !== undefined) {
-    renderedTransactions = transactions;
+  if (waults !== undefined) {
+    renderedWaults = waults;
   } else {
-    renderedTransactions = [];
+    renderedWaults = [];
   }
 
-  const data = useMemo(() => [...renderedTransactions], [renderedTransactions]);
+  const data = useMemo(() => [...renderedWaults], []);
 
   console.log(data);
 
@@ -85,8 +85,8 @@ const Table = (props) => {
   const columns = useMemo(
     () => [
       {
-        Header: "Recepient",
-        accessor: "recepient",
+        Header: "Reason",
+        accessor: "reason",
       },
       {
         Header: "Time",
@@ -97,9 +97,27 @@ const Table = (props) => {
         accessor: "amount",
       },
       {
-        Header: "Mined",
-        accessor: "mined",
+        Header: "Saved",
+        accessor: "saved",
+      },
+      {
+        Header: "Created",
+        accessor: "created",
         Cell: <Icon name="check" size="large" color="green" />,
+      },
+      {
+        Header: "Actions",
+        accessor: "actions",
+        Cell: (
+          <div>
+            <Button basic color="green" size="mini">
+              <Icon name="cloud upload" size="large" />
+            </Button>
+            <Button basic color="red" size="mini">
+              <Icon name="cloud download" size="large" />
+            </Button>
+          </div>
+        ),
       },
     ],
     []
@@ -114,7 +132,7 @@ const Table = (props) => {
     setFilter,
   } = useTable({ columns, data, defaultColumn, filterTypes }, useFilters);
 
-  return renderedTransactions === undefined ? (
+  return waults === undefined ? (
     <Spinner animation="border" role="status">
       <span className="sr-only">Loading...</span>
     </Spinner>
@@ -150,7 +168,10 @@ const Table = (props) => {
                       <div>
                         {column.canFilter &&
                         column.id !== "time" &&
-                        column.id !== "mined"
+                        column.id !== "created" &&
+                        column.id !== "saved" &&
+                        column.id !== "amount" &&
+                        column.id !== "actions"
                           ? column.render("Filter")
                           : console.log(column)}
                       </div>
@@ -200,4 +221,4 @@ const Table = (props) => {
   );
 };
 
-export default Table;
+export default connect(null, { getWaultStatus })(Table);

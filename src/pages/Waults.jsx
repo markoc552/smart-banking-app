@@ -3,8 +3,8 @@ import { Grid, Image, Loader } from "semantic-ui-react";
 import Navigation from "../components/utils/NavigationBar";
 import SideNavigation from "../components/utils/SideNavigation";
 import Bottom from "../components/home/HomeBottom";
-import { getAccountName, getEthStatus } from "../redux/actions";
-import { connect } from "react-redux";
+import { getAccountName, getEthStatus, getWaults } from "../redux/actions";
+import { connect, useSelector } from "react-redux";
 import {
   SBADiv,
   SBABackground,
@@ -23,10 +23,11 @@ const Waults = (props) => {
 
     setId(id);
     props.getEthStatus(id);
+    props.getWaults(id);
   }, []);
 
   const variants = {
-    visible: { opacity: 1 },
+    visible: { opacity: 1, transition: { duration: 0.35 } },
     hidden: { opacity: 0, scale: 1.05 },
   };
 
@@ -39,7 +40,7 @@ const Waults = (props) => {
       <SideNavigation id={id} name={props.name}>
         <Navigation id={id} />
         <motion.div initial="hidden" animate="visible" variants={variants}>
-          <WaultsDashboard />
+          <WaultsDashboard id={id} />
         </motion.div>
         <Bottom />
       </SideNavigation>
@@ -53,4 +54,7 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { getEthStatus })(Waults);
+export default connect(mapStateToProps, {
+  getEthStatus,
+  getWaults,
+})(Waults);

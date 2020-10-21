@@ -37,7 +37,8 @@ const NavigationBar = (props) => {
             <Grid.Column width={1} floated="right">
               <Button
                 color="red"
-                basic
+                inverted
+                circular
                 floated="right"
                 onClick={() => {
                   history.push("/");

@@ -3,10 +3,69 @@ import axios from "../axios";
 import history from "../../history";
 import _ from "lodash";
 import web3 from "../../ethereum/web3";
-import factory, { getContract } from "../../ethereum/instances/factory";
+import factory, {
+  getWaultContract,
+  getContract,
+} from "../../ethereum/instances/factory";
 import ethers from "ethers";
 import { Icon } from "semantic-ui-react";
-import moment from "moment"
+import moment from "moment";
+
+export const addFailedTransaction = (formValues) => async (dispatch) => {
+  const failed = {
+    recepient: formValues.recepient,
+    time: moment().format("LLLL"),
+    amount: formValues.amount,
+  };
+
+  dispatch({ type: "ADD_FAILED", payload: failed });
+};
+
+export const getWaultStatus = (address) => async (dispatch) => {
+  let waultArr = [];
+  let count = 0;
+
+  address.map(async (i) => {
+    const contract = getWaultContract(i);
+
+    const wault = await contract.methods.getWaultStatus().call();
+
+    waultArr.push({
+      reason: wault[3],
+      amount: wault[1],
+      owner: wault[0],
+      time: wault[2],
+    });
+    count++;
+  });
+
+  console.log(waultArr);
+
+  dispatch({
+    type: "GET_WAULT_STATUS",
+    payload: { waults: waultArr, count: count },
+  });
+};
+
+export const getWaults = (id) => async (dispatch) => {
+  const accounts = await axios.get("/accounts");
+
+  const mappedId = _.mapKeys(accounts.data, "id");
+
+  const mappedUser = _.mapKeys(mappedId, "username");
+
+  const wallet = mappedUser[id].data.wallet;
+
+  const ethAddress = mappedUser[id].data.address;
+
+  const mnemonic = mappedUser[id].data.mnemonic;
+
+  const contract = getContract(ethAddress);
+
+  const waults = await contract.methods.getWaults().call();
+
+  dispatch({ type: "GET_WAULTS", payload: waults });
+};
 
 export const createAccount = (formValues) => async (dispatch) => {
   const response = await axios.post("/accounts", {
@@ -142,7 +201,7 @@ export const getEthStatus = (id) => async (dispatch) => {
   for (i = 0; i < transactionCount; i++) {
     const transaction = await contract.methods.getTransactions(i).call();
 
-    console.log(transaction)
+    console.log(transaction);
 
     transactions.push({
       sender: transaction[0],

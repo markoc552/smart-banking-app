@@ -1,6 +1,6 @@
 import { getContract } from "../../ethereum/instances/factory";
 
-export const sendTransaction = async (formValues, ethUser) => {
+export const sendTransaction = (formValues, ethUser) => {
   console.log(ethUser);
   const owner = ethUser.wallet;
 
@@ -10,12 +10,21 @@ export const sendTransaction = async (formValues, ethUser) => {
 
   const contract = getContract(contractAddress, mnemonic);
 
-  await contract.methods
+  let error;
+
+  contract.methods
     .sendMoney(formValues.recepient, formValues.amount)
     .send({
       from: String(owner.address),
       gas: "6721975",
+    })
+    .then(() => console.log("sent succesfully"))
+    .catch((err) => {
+      console.log(err);
+      error = err;
     });
+
+  return error;
 };
 
 export const depositMoney = async (ethUser, money) => {

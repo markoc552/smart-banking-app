@@ -7,15 +7,19 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 import InputGroup from "react-bootstrap/InputGroup";
-import { sendTransaction } from "../transactions/transactionUtils";
 import { ToastContainer, toast } from "react-toastify";
 import Container from "react-bootstrap/Container";
 import "react-toastify/dist/ReactToastify.css";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import "react-day-picker/lib/style.css";
+import {useSelector} from "react-redux"
+import {getContract} from "../../ethereum/instances/factory"
+import moment from "moment"
 
 const WaultsForm = (props) => {
   const [sending, setSending] = useState(false);
+
+  const eth = useSelector(state => state.accounts[props.id])
 
   return (
     <Formik
@@ -25,24 +29,57 @@ const WaultsForm = (props) => {
         return errors;
       }}
       onSubmit={(values, { setSubmitting }) => {
-        console.log(values);
 
         setSending(true);
-        sendTransaction(values, props.eth);
-        setTimeout(() => {
-          toast.success("Your money was succesfully transfered!", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
+
+        const owner = eth.wallet;
+
+        const mnemonic = eth.mnemonic;
+
+        const contractAddress = eth["ethAddress"];
+
+        const contract = getContract(contractAddress, mnemonic);
+
+        console.log(values.money, values.reason, values.date)
+
+        contract.methods
+          .createWault(values.money, values.reason, values.date)
+          .send({
+            from: String(owner.address),
+            gas: "6721975",
+          })
+          .then(() => {
+            setTimeout(() => {
+              toast.success("Your wault was succesfully created!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              setSubmitting(false);
+              setSending(false);
+              props.onHide();
+            }, 2000);
+          })
+          .catch((err) => {
+            setTimeout(() => {
+              toast.error("There was a problem while creating your wault!", {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              setSubmitting(false);
+              setSending(false);
+              props.onHide();
+            }, 2000);
           });
-          setSubmitting(false);
-          setSending(false);
-          props.onHide();
-        }, 2000);
       }}
     >
       {({
@@ -70,7 +107,7 @@ const WaultsForm = (props) => {
                     style={{ marginLeft: "10px" }}
                     name="date"
                     value={values.date}
-                    onDayChange={setFieldValue}
+                    onDayChange={(day) => setFieldValue("date", moment(day).unix())}
                   />
                 </Form.Group>
               </Col>

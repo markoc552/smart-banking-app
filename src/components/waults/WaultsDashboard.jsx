@@ -1,12 +1,15 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Grid, Button, Label, Card, Icon } from "semantic-ui-react";
-import Table from "../transactions/Table";
+import WaultsTable from "./WaultsTable";
 import { TransactionCountDialog } from "../utils/StyledComponents";
 import WaultsModal from "./WaultsModal";
+import { useSelector } from "react-redux";
 
 const TransactionDashboard = (props) => {
   const [show, setShow] = useState(false);
+
+  const count = useSelector((state) => state.waults.count);
 
   return (
     <div>
@@ -38,8 +41,16 @@ const TransactionDashboard = (props) => {
                 <Icon name="archive" size="massive" />
               </Card.Content>
               <Card.Content>
-                <Button color="violet" circular onClick={() => setShow(true)}>
-                  New wault
+                <Button
+                  animated='vertical'
+                  color="violet"
+                  circular
+                  onClick={() => setShow(true)}
+                >
+                  <Button.Content visible>New wault</Button.Content>
+                  <Button.Content hidden>
+                    <Icon name="plus" />
+                  </Button.Content>
                 </Button>
               </Card.Content>
             </Card>
@@ -51,14 +62,14 @@ const TransactionDashboard = (props) => {
             <TransactionCountDialog>
               Opened waults
               <Label circular color="black" style={{ marginLeft: "5px" }}>
-                2
+                {count}
               </Label>
             </TransactionCountDialog>
           </Grid.Column>
           <Grid.Column textAlign="justify"></Grid.Column>
         </Grid.Row>
         <Grid.Row>
-          <Table />
+          <WaultsTable />
         </Grid.Row>
         <Grid.Row>
           <Button color="violet" circular>
@@ -68,6 +79,7 @@ const TransactionDashboard = (props) => {
       </Grid>
       {show && (
         <WaultsModal
+          id={props.id}
           show={show}
           title="Create a new wault"
           onHide={() => setShow(false)}

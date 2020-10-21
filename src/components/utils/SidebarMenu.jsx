@@ -23,6 +23,7 @@ const SidebarMenu = (props) => {
   const location = window.location.href;
 
   const [selected, setSelected] = useState("");
+  const [menuColor, setMenuColor] = useState("#f5f5f5")
 
   const PurpleSwitch = withStyles({
     switchBase: {
@@ -47,7 +48,7 @@ const SidebarMenu = (props) => {
   const handleChange = (event) => {
     setChecked({ ...checked, [event.target.name]: event.target.checked });
 
-    event.target.checked ? setInverted(true) : setInverted(false);
+    event.target.checked ? setMenuColor("#f5f5f5") : setMenuColor("#424242");
   };
 
   if (props.ethUser === undefined) {
@@ -55,7 +56,7 @@ const SidebarMenu = (props) => {
   } else {
     return (
       <div
-        style={{ height: "100vh", width: "19vw", backgroundColor: "#f5f5f5" }}
+        style={{ height: "100vh", width: "19vw", backgroundColor: `${menuColor}` }}
       >
         <Grid centered padded textAlign="center" verticalAlign="middle">
           <Grid.Row>
@@ -72,6 +73,7 @@ const SidebarMenu = (props) => {
             <Grid.Column textAlign="center">
               <Button
                 color="instagram"
+                circular
                 onClick={() => history.push(`/home/${props.id}/profile`)}
                 size="small"
               >

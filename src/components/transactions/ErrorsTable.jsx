@@ -31,13 +31,9 @@ const Table = (props) => {
     setFilter(filterByColumn, props.filter);
   };
 
-  const transactions = useSelector((state) => {
-    if (state.accounts[props.id] !== undefined) {
-      const transactions = state.accounts[props.id].transactions;
+  const transactions = useSelector((state) => state.transactions.failed);
 
-      return transactions;
-    }
-  });
+  console.log("Failed transactions: ", transactions);
 
   let renderedTransactions;
 
@@ -47,9 +43,7 @@ const Table = (props) => {
     renderedTransactions = [];
   }
 
-  const data = useMemo(() => [...renderedTransactions], [renderedTransactions]);
-
-  console.log(data);
+  const data = useMemo(() => [...renderedTransactions], []);
 
   function DefaultColumnFilter({
     column: { filterValue, preFilteredRows, setFilter },
@@ -99,7 +93,7 @@ const Table = (props) => {
       {
         Header: "Mined",
         accessor: "mined",
-        Cell: <Icon name="check" size="large" color="green" />,
+        Cell: <Icon name="x" size="large" color="red" />,
       },
     ],
     []
@@ -152,7 +146,7 @@ const Table = (props) => {
                         column.id !== "time" &&
                         column.id !== "mined"
                           ? column.render("Filter")
-                          : console.log(column)}
+                          : null}
                       </div>
                     </th>
                   ))
@@ -162,7 +156,7 @@ const Table = (props) => {
           }
         </thead>
         {/* Apply the table body props */}
-        {
+        {renderedTransactions !== undefined && (
           <tbody
             {...getTableBodyProps()}
             style={{ fontFamily: "'Bree Serif', serif" }}
@@ -194,7 +188,7 @@ const Table = (props) => {
               })
             }
           </tbody>
-        }
+        )}
       </table>
     </>
   );

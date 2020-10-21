@@ -5,9 +5,16 @@ import Table from "./Table";
 import TransactionModal from "./TransactionsModal";
 import Spinner from "react-bootstrap/Spinner";
 import { TransactionCountDialog } from "../utils/StyledComponents";
+import ErrorTable from "./ErrorsTable";
+import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 
 const TransactionDashboard = (props) => {
   const [show, setShow] = useState(false);
+
+  const count = useSelector((state) => state.transactions.count);
+
+  console.log(count);
 
   return props.eth === undefined ? (
     <Spinner animation="border" role="status">
@@ -26,7 +33,7 @@ const TransactionDashboard = (props) => {
             </TransactionCountDialog>
           </Grid.Column>
           <Grid.Column textAlign="justify">
-            <Button circular color="green" onClick={() => setShow(true)}>
+            <Button size="small" inverted circular color="green" onClick={() => setShow(true)}>
               +
             </Button>
           </Grid.Column>
@@ -49,14 +56,14 @@ const TransactionDashboard = (props) => {
             <TransactionCountDialog>
               Failed transactions
               <Label circular color="black" style={{ marginLeft: "5px" }}>
-                2
+                {count !== undefined ? count : 0}
               </Label>
             </TransactionCountDialog>
           </Grid.Column>
           <Grid.Column></Grid.Column>
         </Grid.Row>
         <Grid.Row>
-          <Table />
+          <ErrorTable />
         </Grid.Row>
         <Grid.Row>
           <Button
