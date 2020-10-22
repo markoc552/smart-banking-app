@@ -125,10 +125,25 @@ export const MoneyDialog = styled.div`
   color: #4d4d4d;
 `
 
+export const DropzoneDialog = styled.div`
+  font-family: 'Bree Serif', serif;
+  font-size: 11px;
+  color: #bdbdbd;
+  position: relative;
+  margin-top: 10px;
+`
+
 export const TransactionCountDialog = styled.div`
   font-family: 'Bree Serif', serif;
   font-size: 15px;
   color: #4d4d4d;
+`
+
+export const WarningDialog = styled.div`
+  font-family: 'Bree Serif', serif;
+  font-size: 15px;
+  color: #4d4d4d;
+  text-align: center;
 `
 
 export const BenefitsTitle = styled.div`

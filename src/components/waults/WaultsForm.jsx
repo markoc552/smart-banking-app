@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
-import { Button, Loader, Label, Icon } from "semantic-ui-react";
+import { Button, Loader, Label, Icon, Grid } from "semantic-ui-react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -12,14 +12,15 @@ import Container from "react-bootstrap/Container";
 import "react-toastify/dist/ReactToastify.css";
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import "react-day-picker/lib/style.css";
-import {useSelector} from "react-redux"
-import {getContract} from "../../ethereum/instances/factory"
-import moment from "moment"
+import { useSelector } from "react-redux";
+import { getContract } from "../../ethereum/instances/factory";
+import moment from "moment";
+import history from "../../history"
 
 const WaultsForm = (props) => {
   const [sending, setSending] = useState(false);
 
-  const eth = useSelector(state => state.accounts[props.id])
+  const eth = useSelector((state) => state.accounts[props.id]);
 
   return (
     <Formik
@@ -29,7 +30,6 @@ const WaultsForm = (props) => {
         return errors;
       }}
       onSubmit={(values, { setSubmitting }) => {
-
         setSending(true);
 
         const owner = eth.wallet;
@@ -40,7 +40,7 @@ const WaultsForm = (props) => {
 
         const contract = getContract(contractAddress, mnemonic);
 
-        console.log(values.money, values.reason, values.date)
+        console.log(values.money, values.reason, values.date);
 
         contract.methods
           .createWault(values.money, values.reason, values.date)
@@ -62,23 +62,21 @@ const WaultsForm = (props) => {
               setSubmitting(false);
               setSending(false);
               props.onHide();
-            }, 2000);
+            }, 3000)
           })
           .catch((err) => {
-            setTimeout(() => {
-              toast.error("There was a problem while creating your wault!", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
-              setSubmitting(false);
-              setSending(false);
-              props.onHide();
-            }, 2000);
+            toast.error("There was a problem while creating your wault!", {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+            setSubmitting(false);
+            setSending(false);
+            props.onHide();
           });
       }}
     >
@@ -93,9 +91,13 @@ const WaultsForm = (props) => {
         setFieldValue,
       }) =>
         sending ? (
-          <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
-          </Spinner>
+          <Grid centered>
+            <Grid.Row textAlign="center" centered>
+              <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            </Grid.Row>
+          </Grid>
         ) : (
           <Form onSubmit={handleSubmit}>
             <Form.Row>
@@ -107,7 +109,9 @@ const WaultsForm = (props) => {
                     style={{ marginLeft: "10px" }}
                     name="date"
                     value={values.date}
-                    onDayChange={(day) => setFieldValue("date", moment(day).unix())}
+                    onDayChange={(day) =>
+                      setFieldValue("date", moment(day).unix())
+                    }
                   />
                 </Form.Group>
               </Col>

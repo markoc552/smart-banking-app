@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useSelector, connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Formik } from "formik";
-import { Button, Loader, Label, Icon } from "semantic-ui-react";
+import { Button, Loader, Label, Icon, Grid } from "semantic-ui-react";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -38,6 +38,8 @@ const TransactionForm = (props) => {
         const mnemonic = eth.mnemonic;
 
         const contractAddress = eth["ethAddress"];
+
+        console.log(contractAddress);
 
         const contract = getContract(contractAddress, mnemonic);
 
@@ -93,9 +95,13 @@ const TransactionForm = (props) => {
         isSubmitting,
       }) =>
         sending ? (
-          <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
-          </Spinner>
+          <Grid centered>
+            <Grid.Row textAlign="center" centered>
+              <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+              </Spinner>
+            </Grid.Row>
+          </Grid>
         ) : (
           <Form onSubmit={handleSubmit}>
             <Row>
@@ -142,11 +148,10 @@ const TransactionForm = (props) => {
               type="submit"
               disabled={isSubmitting}
             >
-            <Button.Content visible>Send</Button.Content>
-            <Button.Content hidden>
-              <Icon name="arrow right" />
-            </Button.Content>
-
+              <Button.Content visible>Send</Button.Content>
+              <Button.Content hidden>
+                <Icon name="arrow right" />
+              </Button.Content>
             </Button>
           </Form>
         )

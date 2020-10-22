@@ -9,6 +9,7 @@ import Waults from "../pages//Waults";
 import References from "../pages/References";
 import UserProfile from "../pages/UserProfile";
 import LoggedOut from "./auth/LoggedOut";
+import Storage from "../pages/Storage"
 
 const PrivateRoute = ({
   component: Component,
@@ -54,6 +55,12 @@ const App = (props) => {
             exact
           />
 
+          <PrivateRoute
+            registeredOnly
+            path="/home/storage/:id"
+            component={Storage}
+            exact
+          />
           <PrivateRoute
             registeredOnly
             path="/home/references/:id"

@@ -119,6 +119,17 @@ const SidebarMenu = (props) => {
         </SideItem>
 
         <SideItem
+          className={`${selected == "storage" ? "selected" : undefined}`}
+          onClick={() => {
+            setSelected("storage");
+            history.push(`/home/storage/${props.id}`);
+          }}
+        >
+          <Icon name="database" color="black" size="small" />
+          <SideText>Storage</SideText>
+        </SideItem>
+
+        <SideItem
           className={`${selected == "references" ? "selected" : undefined}`}
           onClick={() => {
             setSelected("waults");

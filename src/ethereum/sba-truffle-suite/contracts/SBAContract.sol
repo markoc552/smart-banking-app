@@ -90,7 +90,7 @@ contract SBAContract
         Transaction memory newTransaction = Transaction({
             _sender : msg.sender,
             _recepient : recepient,
-            _timestamp: now,
+            _timestamp: block.timestamp,
             _amount : amount
             });
 
@@ -109,7 +109,7 @@ contract SBAContract
         Transaction memory newTransaction = Transaction({
             _sender : msg.sender,
             _recepient : 0,
-            _timestamp: now,
+            _timestamp: block.timestamp,
             _amount : msg.value
             });
 
@@ -124,7 +124,7 @@ contract SBAContract
         Transaction memory newTransaction = Transaction({
             _sender : _address,
             _recepient : 0,
-            _timestamp: now,
+            _timestamp: block.timestamp,
             _amount : amount
             });
 
@@ -152,7 +152,7 @@ contract SBAContract
       Transaction memory newTransaction = Transaction({
           _sender : msg.sender,
           _recepient : 0,
-          _timestamp: now,
+          _timestamp: block.timestamp,
           _amount : _amount
           });
 
@@ -175,7 +175,7 @@ contract Wault
 
     address owner;
     uint16 _moneyGoal;
-    uint8 _timeline;
+    uint256 _timeline;
     string _reason;
     Payment[] payments;
 
@@ -184,18 +184,18 @@ contract Wault
         _;
     }
 
-    function Wault(address _address, string reason, uint16 moneyToSave, uint8 timeline) public {
+    function Wault(address _address, string reason, uint16 moneyToSave, uint256 timeline) public {
         owner = _address;
         _moneyGoal = moneyToSave;
         _timeline = timeline;
         _reason = reason;
     }
 
-    function getWaultStatus() public view returns (address, uint16, uint256, string) {
-        return (owner, _moneyGoal, this.balance, _reason);
+    function getWaultStatus() public view returns (uint16, uint256, uint256, string) {
+        return (_moneyGoal, this.balance, _timeline, _reason);
     }
 
-    function sendMoneyToWault() public payable restricted {
+    function sendMoneyToWault() public payable {
         Payment memory newPayment = Payment({
             timestamp : block.timestamp,
             amount : msg.value
@@ -204,10 +204,7 @@ contract Wault
         payments.push(newPayment);
     }
 
-    function withDrawMoney(address authority) public payable restricted {
-        if (_timeline != 0) {
-            require(this.balance >= _moneyGoal);
-        }
+    function withDrawMoney(address authority) public payable {
         authority.transfer(this.balance);
     }
 }

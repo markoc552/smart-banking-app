@@ -8,15 +8,8 @@ import { matchSorter } from "match-sorter";
 import { getWaultStatus } from "../../redux/actions";
 
 const Table = (props) => {
-  const address = useSelector((state) => state.waults.active);
 
-  const waults = useSelector((state) => state.waults.status);
 
-  useState(() => {
-    if (address !== undefined) {
-      props.getWaultStatus(address);
-    }
-  }, [address]);
 
   const filterByColumn = "recepient";
 
@@ -42,13 +35,7 @@ const Table = (props) => {
     setFilter(filterByColumn, props.filter);
   };
 
-  let renderedWaults;
-
-  if (waults !== undefined) {
-    renderedWaults = waults;
-  } else {
-    renderedWaults = [];
-  }
+  let renderedWaults = [];
 
   const data = useMemo(() => [...renderedWaults], []);
 
@@ -113,6 +100,7 @@ const Table = (props) => {
         accessor: "actions",
         Cell: ({ row }) => (
           <div>
+            {console.log(row.getToggleRowSelectedProps())}
             <Button
               basic
               color="green"
@@ -120,8 +108,6 @@ const Table = (props) => {
               onClick={() => {
                 props.setTitle("Deposit money to your wault");
                 props.setActionShow(true);
-                props.setOwner(row)
-                props.setOption("deposit")
               }}
             >
               Deposit
@@ -133,8 +119,6 @@ const Table = (props) => {
               onClick={() => {
                 props.setTitle("Withdraw money from your wault");
                 props.setActionShow(true);
-                props.setOwner(row)
-                props.setOption("withdraw")
               }}
             >
               Withdraw
@@ -146,10 +130,6 @@ const Table = (props) => {
     []
   );
 
-  const getTrProps = (row) => {
-    console.log(row)
-  }
-
   const {
     getTableProps,
     getTableBodyProps,
@@ -160,12 +140,35 @@ const Table = (props) => {
     selectedFlatRows,
     state: { selectedRowIds },
   } = useTable(
-    { columns, data, defaultColumn, filterTypes, getTrProps },
+    { columns, data, defaultColumn, filterTypes },
     useFilters,
-    useRowSelect
+    useRowSelect,
+    (hooks) => {
+      hooks.visibleColumns.push((columns) => [
+        // Let's make a column for selection
+        {
+          id: "selection",
+          // The header can use the table's getToggleAllRowsSelectedProps method
+          // to re a checkboxnder
+          Header: ({ getToggleAllRowsSelectedProps }) => (
+            <div>
+              {console.log(getToggleAllRowsSelectedProps())}
+            </div>
+          ),
+          // The cell can use the individual row's getToggleRowSelectedProps method
+          // to the render a checkbox
+          Cell: ({ row }) => (
+            <div>
+              {console.log(row.getToggleRowSelectedProps())}
+            </div>
+          ),
+        },
+        ...columns,
+      ]);
+    }
   );
   console.log(selectedFlatRows);
-  return waults === undefined ? (
+  return renderedWaults === undefined ? (
     <Spinner animation="border" role="status">
       <span className="sr-only">Loading...</span>
     </Spinner>
@@ -228,7 +231,7 @@ const Table = (props) => {
                 prepareRow(row);
                 return (
                   // Apply the row props
-                  <tr {...getTrProps(row.getRowProps())}>
+                  <tr {...row.getRowProps()}>
                     {
                       // Loop over the rows cells
                       row.cells.map((cell) => {

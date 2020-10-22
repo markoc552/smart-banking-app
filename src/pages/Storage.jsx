@@ -12,8 +12,7 @@ import {
   UtilSection,
 } from "../components/utils/StyledComponents";
 import { motion } from "framer-motion";
-import WaultsDashboard from "../components/waults/WaultsDashboard";
-import { ToastContainer, toast } from "react-toastify";
+import StorageDashboard from "../components/storage/StorageDashboard";
 
 const Waults = (props) => {
   const [id, setId] = useState(null);
@@ -38,21 +37,10 @@ const Waults = (props) => {
 
   return (
     <UtilSection>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
       <SideNavigation id={id} name={props.name}>
         <Navigation id={id} />
         <motion.div initial="hidden" animate="visible" variants={variants}>
-          <WaultsDashboard id={id} />
+          <StorageDashboard id={id} />
         </motion.div>
         <Bottom />
       </SideNavigation>

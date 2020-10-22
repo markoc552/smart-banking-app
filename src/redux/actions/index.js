@@ -10,6 +10,7 @@ import factory, {
 import ethers from "ethers";
 import { Icon } from "semantic-ui-react";
 import moment from "moment";
+import webb3 from "web3"
 
 export const addFailedTransaction = (formValues) => async (dispatch) => {
   const failed = {
@@ -23,27 +24,26 @@ export const addFailedTransaction = (formValues) => async (dispatch) => {
 
 export const getWaultStatus = (address) => async (dispatch) => {
   let waultArr = [];
-  let count = 0;
 
-  address.map(async (i) => {
+  address.map(async (i, index) => {
     const contract = getWaultContract(i);
 
     const wault = await contract.methods.getWaultStatus().call();
 
+    console.log(wault)
+
     waultArr.push({
       reason: wault[3],
-      amount: wault[1],
-      owner: wault[0],
-      time: wault[2],
+      time: moment(wault[2]).format(),
+      amount: parseInt(wault[0]),
+      saved: webb3.utils.fromWei(wault[1], "ether"),
     });
-    count++;
   });
 
-  console.log(waultArr);
-
+  console.log(waultArr)
   dispatch({
     type: "GET_WAULT_STATUS",
-    payload: { waults: waultArr, count: count },
+    payload: { waults: waultArr, count: address.length },
   });
 };
 
@@ -205,7 +205,10 @@ export const getEthStatus = (id) => async (dispatch) => {
 
     transactions.push({
       sender: transaction[0],
-      recepient: transaction[1],
+      recepient:
+        transaction[1] === "0x0000000000000000000000000000000000000000"
+          ? "Deposit"
+          : transaction[1],
       time: moment(transactions[2]).format("LLLL"),
       amount: transaction[3],
     });

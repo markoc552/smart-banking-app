@@ -12,32 +12,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import history from "../../history";
 import { Formik } from "formik";
-import WaultsForm from "./WaultsForm"
+import WaultsForm from "./WaultsForm";
+import WaultsActionForm from "./WaultsActionForm";
 
 const WaultsModal = (props) => {
   const [sending, setSending] = useState(false);
-
-  const handleClick = () => {
-    setSending(true);
-
-    setTimeout(() => {
-      toast.success("Your money was succesfully transfered!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      props.onHide();
-      setSending(false);
-    }, 2000);
-
-    setTimeout(() => {
-      history.go(0);
-    }, 4000);
-  };
 
   return (
     <Modal
@@ -70,7 +49,16 @@ const WaultsModal = (props) => {
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <WaultsForm id={props.id} onHide={props.onHide} />
+            {props.action === "NEW_WAULT" ? (
+              <WaultsForm id={props.id} onHide={props.onHide} />
+            ) : (
+              <WaultsActionForm
+                id={props.id}
+                onHide={props.onHide}
+                owner={props.owner}
+                option={props.option}
+              />
+            )}
           </Modal.Body>
         </>
       )}

@@ -33,10 +33,6 @@ const TransactionModal = (props) => {
       props.onHide();
       setSending(false);
     }, 2000);
-
-    setTimeout(() => {
-      history.go(0);
-    }, 4000);
   };
 
   return (
@@ -47,22 +43,13 @@ const TransactionModal = (props) => {
       centered
     >
       {sending ? (
-        <Modal.Body>
-          {" "}
-          <Container>
-            <Row></Row>
-            <Row>
-              <Col></Col>
-              <Col></Col>
-              <Col>
-                <Spinner animation="border" role="status">
-                  <span className="sr-only">Loading...</span>
-                </Spinner>
-              </Col>
-              <Col></Col>
-            </Row>
-          </Container>
-        </Modal.Body>
+        <Grid centered>
+          <Grid.Row textAlign="center" centered>
+            <Spinner animation="border" role="status">
+              <span className="sr-only">Loading...</span>
+            </Spinner>
+          </Grid.Row>
+        </Grid>
       ) : (
         <>
           <Modal.Header closeButton>

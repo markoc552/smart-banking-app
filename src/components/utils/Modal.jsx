@@ -38,10 +38,6 @@ const UserModal = (props) => {
       props.setSelected("");
       setSending(false);
     }, 2000);
-
-    setTimeout(() => {
-      history.go(0);
-    }, 4000);
   };
 
   return (
