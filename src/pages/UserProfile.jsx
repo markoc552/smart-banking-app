@@ -11,11 +11,20 @@ import {
   UtilsBottom,
   UtilSection,
 } from "../components/utils/StyledComponents";
-import { Card, Image, Divider, Grid, Button, Loader, Icon } from "semantic-ui-react";
+import {
+  Card,
+  Image,
+  Divider,
+  Grid,
+  Button,
+  Loader,
+  Icon,
+} from "semantic-ui-react";
 import UpdateModal from "../components/utils/UpdateModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
+import { FormattedMessage } from "react-intl";
 
 const UserProfile = (props) => {
   const [visible, setVisible] = useState(false);
@@ -59,7 +68,7 @@ const UserProfile = (props) => {
           pauseOnHover
         />
         <SideNavigation visible={visible} setVisible={setVisible} id={id}>
-          <NavigationBar setVisible={setVisible} id={id} />
+          <NavigationBar id={id} onLangChange={props.onLangChange} />
           <motion.div initial="hidden" animate="visible" variants={variants}>
             <UserDescription>
               <Card centered raised fluid>
@@ -90,7 +99,12 @@ const UserProfile = (props) => {
                             size="small"
                             onClick={() => setModalShow(true)}
                           >
-                            <Button.Content visible>Update</Button.Content>
+                            <Button.Content visible>
+                              <FormattedMessage
+                                id="user.update"
+                                defaultMessage="Update"
+                              />
+                            </Button.Content>
                             <Button.Content hidden>
                               <Icon name="user plus" />
                             </Button.Content>
@@ -102,17 +116,32 @@ const UserProfile = (props) => {
                 </Card.Content>
                 <Card.Content extra>
                   <Divider hidden />
-                  <Card.Header>Username</Card.Header>
+                  <Card.Header>
+                    <FormattedMessage
+                      id="user.username"
+                      defaultMessage="Username"
+                    />
+                  </Card.Header>
                   <Card.Description>
                     {props.usersData[id].username}
                   </Card.Description>
                   <Divider hidden />
-                  <Card.Header>First name</Card.Header>
+                  <Card.Header>
+                    <FormattedMessage
+                      id="user.firstname"
+                      defaultMessage="First name"
+                    />
+                  </Card.Header>
                   <Card.Description>
                     {props.usersData[id].firstname}
                   </Card.Description>
                   <Divider hidden />
-                  <Card.Header>Last name</Card.Header>
+                  <Card.Header>
+                    <FormattedMessage
+                      id="user.lastname"
+                      defaultMessage="Last name"
+                    />
+                  </Card.Header>
                   <Card.Description>
                     {props.usersData[id].lastname}
                   </Card.Description>
@@ -130,8 +159,18 @@ const UserProfile = (props) => {
             show={modalShow}
             onHide={() => setModalShow(false)}
             setModalShow={setModalShow}
-            title="Update profile"
-            action="Update"
+            title={
+              <FormattedMessage
+                id="user.update.profile"
+                defaultMessage="Update profile"
+              />
+            }
+            action={
+              <FormattedMessage
+                id="user.action.update"
+                defaultMessage="Update"
+              />
+            }
             id={id}
           />
 

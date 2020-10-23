@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { getContract } from "../../ethereum/instances/factory";
 import moment from "moment";
 import { addFailedTransaction } from "../../redux/actions";
+import { FormattedMessage } from "react-intl";
 
 const TransactionForm = (props) => {
   const [sending, setSending] = useState(false);
@@ -51,15 +52,21 @@ const TransactionForm = (props) => {
           })
           .then(() => {
             setTimeout(() => {
-              toast.success("Your money was succesfully transfered!", {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
+              toast.success(
+                <FormattedMessage
+                  id="transactions.succesfully"
+                  defaultMessage="Your money was succesfully transfered!"
+                />,
+                {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                }
+              );
               setSubmitting(false);
               setSending(false);
               props.onHide();
@@ -69,7 +76,10 @@ const TransactionForm = (props) => {
             props.addFailedTransaction(values);
 
             setTimeout(() => {
-              toast.error("Your money failed to be transfered!", {
+              toast.error(<FormattedMessage
+                id="transactions.transfer.failed"
+                defaultMessage="Your money failed to be transfered!"
+              />, {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -107,7 +117,12 @@ const TransactionForm = (props) => {
             <Row>
               <Col>
                 <Form.Group controlId="formBasicRecepient">
-                  <Form.Label>Recepient</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage
+                      id="transactions.recepient"
+                      defaultMessage="Recepient"
+                    />
+                  </Form.Label>
                   <Form.Control
                     type="recepient"
                     name="recepient"
@@ -121,7 +136,12 @@ const TransactionForm = (props) => {
             <Form.Row>
               <Col>
                 <Form.Group controlId="formBasicAmount">
-                  <Form.Label>Amount</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage
+                      id="transactions.amount"
+                      defaultMessage="Amount"
+                    />
+                  </Form.Label>
                   <InputGroup className="mb-2">
                     <InputGroup.Prepend>
                       <InputGroup.Text>
@@ -148,7 +168,12 @@ const TransactionForm = (props) => {
               type="submit"
               disabled={isSubmitting}
             >
-              <Button.Content visible>Send</Button.Content>
+              <Button.Content visible>
+                <FormattedMessage
+                  id="transactions.send"
+                  defaultMessage="Send"
+                />
+              </Button.Content>
               <Button.Content hidden>
                 <Icon name="arrow right" />
               </Button.Content>

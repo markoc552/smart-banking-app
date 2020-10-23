@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { MoneyDialog } from "../utils/StyledComponents";
 import { Grid, Card, Menu, Dropdown, Icon, Button } from "semantic-ui-react";
+import { FormattedMessage } from "react-intl";
 
 const AvailableMoney = (props) => {
   return (
@@ -11,13 +12,21 @@ const AvailableMoney = (props) => {
       style={{ marginTop: "5vh", marginRight: "12vw" }}
     >
       <Card.Content>
-        <MoneyDialog>Available money</MoneyDialog>
+        <MoneyDialog>
+          <FormattedMessage
+            id="home.available"
+            defaultMessage="Available money"
+          />
+        </MoneyDialog>
       </Card.Content>
       <Card.Content>{props.eth["balance"]},00 ETH</Card.Content>
       <Card.Content>
         <Button.Group color="violet">
           <Button style={{ fontFamily: "'Lato', serif" }}>
-            Money transaction
+            <FormattedMessage
+              id="home.transaction"
+              defaultMessage="Money transaction"
+            />
           </Button>
           <Menu borderless compact>
             <Dropdown floating className="button icon" direction="left">
@@ -35,7 +44,10 @@ const AvailableMoney = (props) => {
                       inverted
                       color="orange"
                     />
-                    Deposit money
+                    <FormattedMessage
+                      id="home.deposit"
+                      defaultMessage="Deposit money"
+                    />
                   </div>
                 </Dropdown.Item>
                 <Dropdown.Item
@@ -44,7 +56,6 @@ const AvailableMoney = (props) => {
                     props.setModalShow(true);
                   }}
                 >
-
                   <div style={{ fontFamily: "'Bree Serif', serif" }}>
                     <Icon
                       name="sort amount down"
@@ -52,7 +63,10 @@ const AvailableMoney = (props) => {
                       inverted
                       color="green"
                     />
-                  Withdraw money
+                    <FormattedMessage
+                      id="home.withdraw"
+                      defaultMessage="Withdraw money"
+                    />
                   </div>
                 </Dropdown.Item>
               </Dropdown.Menu>

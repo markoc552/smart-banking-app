@@ -15,7 +15,8 @@ import "react-day-picker/lib/style.css";
 import { useSelector } from "react-redux";
 import { getContract } from "../../ethereum/instances/factory";
 import moment from "moment";
-import history from "../../history"
+import history from "../../history";
+import { FormattedMessage } from "react-intl";
 
 const WaultsForm = (props) => {
   const [sending, setSending] = useState(false);
@@ -50,7 +51,33 @@ const WaultsForm = (props) => {
           })
           .then(() => {
             setTimeout(() => {
-              toast.success("Your wault was succesfully created!", {
+              toast.success(
+                <FormattedMessage
+                  id="wault.create.succesfully"
+                  defaultMessage="Your wault was succesfully created!"
+                />,
+                {
+                  position: "top-right",
+                  autoClose: 5000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                }
+              );
+              setSubmitting(false);
+              setSending(false);
+              props.onHide();
+            }, 3000);
+          })
+          .catch((err) => {
+            toast.error(
+              <FormattedMessage
+                id="wault.create.failed"
+                defaultMessage="Your wault was not created!"
+              />,
+              {
                 position: "top-right",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -58,22 +85,8 @@ const WaultsForm = (props) => {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-              });
-              setSubmitting(false);
-              setSending(false);
-              props.onHide();
-            }, 3000)
-          })
-          .catch((err) => {
-            toast.error("There was a problem while creating your wault!", {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
+              }
+            );
             setSubmitting(false);
             setSending(false);
             props.onHide();
@@ -103,7 +116,12 @@ const WaultsForm = (props) => {
             <Form.Row>
               <Col>
                 <Form.Group controlId="formBasicAmount">
-                  <Form.Label>Timeline</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage
+                      id="wault.timeline"
+                      defaultMessage="Timeline"
+                    />
+                  </Form.Label>
 
                   <DayPickerInput
                     style={{ marginLeft: "10px" }}
@@ -119,7 +137,12 @@ const WaultsForm = (props) => {
             <Form.Row>
               <Col>
                 <Form.Group controlId="formBasicAmount">
-                  <Form.Label>Reason</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage
+                      id="wault.reason"
+                      defaultMessage="Reason"
+                    />
+                  </Form.Label>
                   <Form.Control
                     type="reason"
                     name="reason"
@@ -133,7 +156,12 @@ const WaultsForm = (props) => {
             <Form.Row>
               <Col>
                 <Form.Group controlId="formBasicAmount">
-                  <Form.Label>Money to save</Form.Label>
+                  <Form.Label>
+                    <FormattedMessage
+                      id="wault.save"
+                      defaultMessage="Money to save"
+                    />
+                  </Form.Label>
                   <InputGroup className="mb-2">
                     <InputGroup.Prepend>
                       <InputGroup.Text>
@@ -158,7 +186,7 @@ const WaultsForm = (props) => {
               type="submit"
               disabled={isSubmitting}
             >
-              Create
+              <FormattedMessage id="wault.create" defaultMessage="Create" />
             </Button>
           </Form>
         )

@@ -38,7 +38,7 @@ const References = (props) => {
   return (
     <UtilSection>
       <SideNavigation id={id} user={props.user}>
-        <Navigation setVisible={setVisible} id={id} />
+        <Navigation id={id} onLangChange={props.onLangChange}/>
         <motion.div initial="hidden" animate="visible" variants={variants}>
           <YTPlayer term="cryptocurrency" style={{paddingTop: "700px"}}/>
         </motion.div>

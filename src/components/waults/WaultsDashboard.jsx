@@ -5,6 +5,7 @@ import WaultsTable from "./WaultsTable";
 import { TransactionCountDialog } from "../utils/StyledComponents";
 import WaultsModal from "./WaultsModal";
 import { useSelector } from "react-redux";
+import { FormattedMessage } from "react-intl";
 
 const WaultsDashboard = (props) => {
   const [show, setShow] = useState(false);
@@ -26,16 +27,26 @@ const WaultsDashboard = (props) => {
           <Grid.Column centered textAlign="center">
             <Card centered fluid color="violet" style={{ marginLeft: "100px" }}>
               <Card.Content>
-                A bank vault is a secure space where money, valuables, records,
+                <TransactionCountDialog>
+                  <FormattedMessage
+                    id="wault.dialog.one"
+                    defaultMessage="A bank vault is a secure space where money, valuables, records,
                 and documents are stored. It is intended to protect their
                 contents from theft, unauthorized use, fire, natural disasters,
-                and other threats, much like a safe.
+                and other threats, much like a safe."
+                  />
+                </TransactionCountDialog>
               </Card.Content>
               <Card.Content>
-                Digital Vault is a flexible, scalable, cloud-based platform that
+                <TransactionCountDialog>
+                  <FormattedMessage
+                    id="wault.dialog.two"
+                    defaultMessage="Digital Vault is a flexible, scalable, cloud-based platform that
                 reaches across silos to gather data from disparate sources,
                 stores it securely and standardizes the data. It enables you to
-                have a streamlined, more productive day-to-day experience.
+                have a streamlined, more productive day-to-day experience."
+                  />
+                </TransactionCountDialog>
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -51,7 +62,12 @@ const WaultsDashboard = (props) => {
                   circular
                   onClick={() => setShow(true)}
                 >
-                  <Button.Content visible>New wault</Button.Content>
+                  <Button.Content visible>
+                    <FormattedMessage
+                      id="wault.new"
+                      defaultMessage="New wault"
+                    />
+                  </Button.Content>
                   <Button.Content hidden>
                     <Icon name="plus" />
                   </Button.Content>
@@ -64,7 +80,11 @@ const WaultsDashboard = (props) => {
         <Grid.Row columns={2}>
           <Grid.Column textAlign="justify">
             <TransactionCountDialog>
-              Opened waults
+              <FormattedMessage
+                id="wault.opened"
+                defaultMessage="Opened waults"
+              />
+
               <Label circular color="black" style={{ marginLeft: "5px" }}>
                 {count}
               </Label>
@@ -83,7 +103,10 @@ const WaultsDashboard = (props) => {
         </Grid.Row>
         <Grid.Row>
           <Button color="violet" circular>
-            View all waults
+            <FormattedMessage
+              id="wault.view"
+              defaultMessage="View all waults"
+            />
           </Button>
         </Grid.Row>
       </Grid>
@@ -92,7 +115,12 @@ const WaultsDashboard = (props) => {
           id={props.id}
           action="NEW_WAULT"
           show={show}
-          title="Create a new wault"
+          title={
+            <FormattedMessage
+              id="wault.modal.create"
+              defaultMessage="Create a new wault"
+            />
+          }
           onHide={() => setShow(false)}
         />
       )}

@@ -38,7 +38,7 @@ const Waults = (props) => {
   return (
     <UtilSection>
       <SideNavigation id={id} name={props.name}>
-        <Navigation id={id} />
+        <Navigation id={id} onLangChange={props.onLangChange}/>
         <motion.div initial="hidden" animate="visible" variants={variants}>
           <StorageDashboard id={id} />
         </motion.div>

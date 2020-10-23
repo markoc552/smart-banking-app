@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import { ToastContainer, toast } from "react-toastify";
 import TransactionDashboard from "../components/transactions/TransactionDashboard";
 
+
 const Transactions = (props) => {
   const [id, setId] = useState(null);
   const [visible, setVisible] = useState(false);
@@ -45,7 +46,7 @@ const Transactions = (props) => {
         pauseOnHover
       />
       <SideNavigation id={id} name={props.name}>
-        <Navigation id={id} />
+        <Navigation id={id} onLangChange={props.onLangChange}/>
         <motion.div initial="hidden" animate="visible" variants={variants}>
           <TransactionDashboard eth={props.ethUser} id={id} />
         </motion.div>

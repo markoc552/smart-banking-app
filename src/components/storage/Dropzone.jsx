@@ -2,10 +2,11 @@ import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import { Grid, Icon } from "semantic-ui-react";
 import { DropzoneDialog } from "../utils/StyledComponents";
-import path from "path";
-import fs from "browserify-fs";
+import CryptoJS from "crypto-js";
 
-export default function MyDropzone() {
+const Dropzone = (props) => {
+  const secret = "secret123";
+
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
       const reader = new FileReader();
@@ -15,17 +16,21 @@ export default function MyDropzone() {
       reader.onerror = () => console.log("file reading has failed");
 
       reader.onload = () => {
-
-        const deliveryFolder = path.join(__dirname, "deliveryFolder")
         const selectedFile = reader.result;
-        fs.writeFile(path.resolve(deliveryFolder, "text.txt"), selectedFile, err => console.log(err));
 
-        const data = fs.readFile(path.join(deliveryFolder, "text.txt"))
+        let encrypted = CryptoJS.AES.encrypt(selectedFile, secret).toString();
 
-        console.log(data)
+        props.data.push(encrypted);
 
+        console.log(props.data);
+
+        console.log(
+          CryptoJS.AES.decrypt(props.data[0], secret).toString(
+            CryptoJS.enc.Utf8
+          )
+        );
       };
-      reader.readAsArrayBuffer(file);
+      reader.readAsText(file);
     });
   }, []);
 
@@ -62,4 +67,6 @@ export default function MyDropzone() {
       )}
     </div>
   );
-}
+};
+
+export default Dropzone;

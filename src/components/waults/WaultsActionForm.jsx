@@ -21,6 +21,7 @@ import moment from "moment";
 import history from "../../history";
 import web3 from "../../ethereum/web3";
 import { WarningDialog } from "../utils/StyledComponents";
+import { FormattedMessage } from "react-intl";
 
 const WaultsForm = (props) => {
   const [sending, setSending] = useState(false);
@@ -47,7 +48,10 @@ const WaultsForm = (props) => {
       .then(() => {
         setTimeout(() => {
           toast.success(
-            "Your money was succesfully transfered to your wault!",
+            <FormattedMessage
+              id="wault.succesfully"
+              defaultMessage="Your money was succesfully transfered to your wault!"
+            />,
             {
               position: "top-right",
               autoClose: 5000,
@@ -64,15 +68,21 @@ const WaultsForm = (props) => {
         }, 2000);
       })
       .catch((err) => {
-        toast.error("There was a problem while tranfering money!", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.error(
+          <FormattedMessage
+            id="wault.problem"
+            defaultMessage="There was a problem while tranfering money!"
+          />,
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
         setSubmitting(false);
         setSending(false);
         props.onHide();
@@ -96,7 +106,10 @@ const WaultsForm = (props) => {
         .then(() => {
           setTimeout(() => {
             toast.success(
-              "Your money was succesfully withdrawn from your wault!",
+              <FormattedMessage
+                id="wault.succesfully"
+                defaultMessage="Your money was succesfully withdrawn from your wault!"
+              />,
               {
                 position: "top-right",
                 autoClose: 5000,
@@ -113,15 +126,21 @@ const WaultsForm = (props) => {
           }, 2000);
         })
         .catch((err) => {
-          toast.error("There was a problem while tranfering money!", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
+          toast.error(
+            <FormattedMessage
+              id="wault.problem"
+              defaultMessage="There was a problem while tranfering money!"
+            />,
+            {
+              position: "top-right",
+              autoClose: 5000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            }
+          );
           setSubmitting(false);
           setSending(false);
           props.onHide();
@@ -179,8 +198,11 @@ const WaultsForm = (props) => {
               </Grid.Row>
               <Grid.Row textAlign="center" centered>
                 <WarningDialog>
-                  You can't withdraw money if you did not saved the predefined
-                  amount.
+                  <FormattedMessage
+                    id="wault.withdraw"
+                    defaultMessage="You can't withdraw money if you did not saved the predefined
+                    amount."
+                  />
                 </WarningDialog>
               </Grid.Row>
             </Grid>
@@ -191,7 +213,12 @@ const WaultsForm = (props) => {
               <Form.Row>
                 <Col>
                   <Form.Group controlId="formBasicAmount">
-                    <Form.Label>Amount</Form.Label>
+                    <Form.Label>
+                      <FormattedMessage
+                        id="wault.amount"
+                        defaultMessage="Amount"
+                      />
+                    </Form.Label>
                     <InputGroup className="mb-2">
                       <InputGroup.Prepend>
                         <InputGroup.Text>
@@ -219,7 +246,7 @@ const WaultsForm = (props) => {
               type="submit"
               disabled={isSubmitting}
             >
-              Send
+              <FormattedMessage id="wault.send" defaultMessage="Send" />
             </Button>
           </Form>
         )

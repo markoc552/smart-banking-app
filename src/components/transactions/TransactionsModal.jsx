@@ -12,6 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import history from "../../history";
 import { Formik } from "formik";
+import { FormattedMessage } from "react-intl";
 import TransactionForm from "./TransactionForm";
 
 const TransactionModal = (props) => {
@@ -21,15 +22,21 @@ const TransactionModal = (props) => {
     setSending(true);
 
     setTimeout(() => {
-      toast.success("Your money was succesfully transfered!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.success(
+        <FormattedMessage
+          id="transactions.succesfully"
+          defaultMessage="Your money was succesfully transfered!"
+        />,
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
       props.onHide();
       setSending(false);
     }, 2000);

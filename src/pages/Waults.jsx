@@ -50,7 +50,7 @@ const Waults = (props) => {
         pauseOnHover
       />
       <SideNavigation id={id} name={props.name}>
-        <Navigation id={id} />
+        <Navigation id={id} onLangChange={props.onLangChange}/>
         <motion.div initial="hidden" animate="visible" variants={variants}>
           <WaultsDashboard id={id} />
         </motion.div>

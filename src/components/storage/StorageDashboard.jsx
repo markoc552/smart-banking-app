@@ -10,6 +10,7 @@ const WaultsDashboard = (props) => {
   const [show, setShow] = useState(false);
   const [actionShow, setActionShow] = useState(false);
   const [title, setTitle] = useState("");
+  const [data, addData] = useState([]);
 
   const count = useSelector((state) => state.waults.count);
 
@@ -24,21 +25,25 @@ const WaultsDashboard = (props) => {
           <Grid.Column centered textAlign="center">
             <Card centered fluid color="violet" style={{ marginLeft: "100px" }}>
               <Card.Content>
-                You can use our storage to save your valuable data without any
-                needs for worrying for it's security. Once you store your data
-                it will be encrypted with asymetric encryption which means that
-                only you can access it.
+                <TransactionCountDialog>
+                  You can use our storage to save your valuable data without any
+                  needs for worrying for it's security. Once you store your data
+                  it will be encrypted with asymetric encryption which means
+                  that only you can access it.
+                </TransactionCountDialog>
               </Card.Content>
               <Card.Content>
-                Also for extra safety filename is hashed with Base64 hashing
-                algorithm.
+                <TransactionCountDialog>
+                  Also for extra safety filename is hashed with Base64 hashing
+                  algorithm.
+                </TransactionCountDialog>
               </Card.Content>
             </Card>
           </Grid.Column>
           <Grid.Column textAlign="center">
             <Card centered>
               <Card.Content textAlign="center">
-                <Dropzone />
+                <Dropzone data={data} />
               </Card.Content>
               <Card.Content>
                 <Button

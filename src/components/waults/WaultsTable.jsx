@@ -6,6 +6,7 @@ import { Icon, Input, Button } from "semantic-ui-react";
 import Spinner from "react-bootstrap/Spinner";
 import { matchSorter } from "match-sorter";
 import { getWaultStatus } from "../../redux/actions";
+import { FormattedMessage } from "react-intl";
 
 const Table = (props) => {
   const address = useSelector((state) => state.waults.active);
@@ -88,28 +89,40 @@ const Table = (props) => {
   const columns = useMemo(
     () => [
       {
-        Header: "Reason",
+        Header: (
+          <FormattedMessage id="wault.table.reason" defaultMessage="Reason" />
+        ),
         accessor: "reason",
       },
       {
-        Header: "Time",
+        Header: (
+          <FormattedMessage id="wault.table.time" defaultMessage="Time" />
+        ),
         accessor: "time",
       },
       {
-        Header: "Amount",
+        Header: (
+          <FormattedMessage id="wault.table.amount" defaultMessage="Amount" />
+        ),
         accessor: "amount",
       },
       {
-        Header: "Saved",
+        Header: (
+          <FormattedMessage id="wault.table.saved" defaultMessage="Saved" />
+        ),
         accessor: "saved",
       },
       {
-        Header: "Created",
+        Header: (
+          <FormattedMessage id="wault.table.created" defaultMessage="Created" />
+        ),
         accessor: "created",
         Cell: <Icon name="check" size="large" color="green" />,
       },
       {
-        Header: "Actions",
+        Header: (
+          <FormattedMessage id="wault.actions" defaultMessage="Actions" />
+        ),
         accessor: "actions",
         Cell: ({ row }) => (
           <div>
@@ -118,26 +131,42 @@ const Table = (props) => {
               color="green"
               size="mini"
               onClick={() => {
-                props.setTitle("Deposit money to your wault");
+                props.setTitle(
+                  <FormattedMessage
+                    id="wault.actions.dialog.deposit"
+                    defaultMessage="Deposit money to your wault"
+                  />
+                );
                 props.setActionShow(true);
-                props.setOwner(row)
-                props.setOption("deposit")
+                props.setOwner(row);
+                props.setOption("deposit");
               }}
             >
-              Deposit
+              <FormattedMessage
+                id="wault.actions.deposit"
+                defaultMessage="Deposit"
+              />
             </Button>
             <Button
               basic
               color="red"
               size="mini"
               onClick={() => {
-                props.setTitle("Withdraw money from your wault");
+                props.setTitle(
+                  <FormattedMessage
+                    id="wault.actions.dialog.withdraw"
+                    defaultMessage="Withdraw money from your wault"
+                  />
+                );
                 props.setActionShow(true);
-                props.setOwner(row)
-                props.setOption("withdraw")
+                props.setOwner(row);
+                props.setOption("withdraw");
               }}
             >
-              Withdraw
+              <FormattedMessage
+                id="wault.actions.withdraw"
+                defaultMessage="Withdraw"
+              />
             </Button>
           </div>
         ),
@@ -147,8 +176,8 @@ const Table = (props) => {
   );
 
   const getTrProps = (row) => {
-    console.log(row)
-  }
+    console.log(row);
+  };
 
   const {
     getTableProps,

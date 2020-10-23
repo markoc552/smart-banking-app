@@ -6,14 +6,22 @@ import {
   BottomHeader,
   BottomCopyright,
 } from "../utils/StyledComponents";
+import { FormattedMessage } from "react-intl";
 
 const HomeBottom = (props) => {
   return (
     <Bottom>
-      <div style={{position: "relative", margin: "0 auto"}}>
-        <Image centered src={require("../../assets/images/logo.png")} size="tiny" />
+      <div style={{ position: "relative", margin: "0 auto" }}>
+        <Image
+          centered
+          src={require("../../assets/images/logo.png")}
+          size="tiny"
+        />
         <BottomCopyright>
-          © 2020 SBA Banking Inc. All right reserved
+          <FormattedMessage
+            id="home.bottom"
+            defaultMessage="© 2020 SBA Banking Inc. All right reserved"
+          />
         </BottomCopyright>
       </div>
     </Bottom>

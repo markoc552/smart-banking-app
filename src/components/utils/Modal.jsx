@@ -12,6 +12,7 @@ import history from "../../history";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FormattedMessage } from "react-intl";
 
 const UserModal = (props) => {
   const [value, setValue] = useState(0);
@@ -20,20 +21,32 @@ const UserModal = (props) => {
   const handleClick = () => {
     setSending(true);
 
-    props.action === "Withdraw"
+    props.action ===
+    (
+      <FormattedMessage
+        id="home.dialog.withdraw"
+        defaultMessage="How much money do you want to withdraw?"
+      />
+    )
       ? withDrawMoney(props.ethUser, value)
       : depositMoney(props.ethUser, value);
 
     setTimeout(() => {
-      toast.success("Your money was succesfully transfered!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.success(
+        <FormattedMessage
+          id="transactions.succesfully"
+          defaultMessage="Your money was succesfully transfered!"
+        />,
+        {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
       props.onHide();
       props.setSelected("");
       setSending(false);
@@ -80,7 +93,7 @@ const UserModal = (props) => {
           </Modal.Body>
           <Modal.Footer>
             <Button
-              animated='vertical'
+              animated="vertical"
               circular
               basic
               color={props.action === "Withdraw" ? "red" : "green"}

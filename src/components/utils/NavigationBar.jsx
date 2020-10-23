@@ -8,11 +8,14 @@ import {
   Menu,
   Dropdown,
   Loader,
+  Flag,
 } from "semantic-ui-react";
 import Search from "./Search";
 import { connect } from "react-redux";
-import history from "../../history"
-import {logout} from "../../redux/actions"
+import history from "../../history";
+import { logout } from "../../redux/actions";
+import { WarningDialog } from "../utils/StyledComponents";
+import { FormattedMessage } from "react-intl";
 
 const NavigationBar = (props) => {
   if (props.ethUser === undefined) {
@@ -32,7 +35,33 @@ const NavigationBar = (props) => {
               />
             </Grid.Column>
             <Grid.Column textAlign="right" floated="right" width={2}>
-              <Search />
+              <Button.Group color="green" basic>
+                <Dropdown
+                  text="Language"
+                  icon="globe"
+                  floating
+                  labeled
+                  button
+                  className="icon"
+                >
+                  <Dropdown.Menu>
+                    <Dropdown.Header icon="globe" content="Choose language" />
+                    <Dropdown.Divider />
+                    <Dropdown.Item onClick={() => props.onLangChange("cro")}>
+                      <WarningDialog>
+                        <Flag name="croatia" />
+                        Croatian
+                      </WarningDialog>
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => props.onLangChange("en")}>
+                      <WarningDialog>
+                        <Flag name="england" />
+                        English
+                      </WarningDialog>
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Button.Group>
             </Grid.Column>
             <Grid.Column width={1} floated="right">
               <Button
@@ -45,7 +74,7 @@ const NavigationBar = (props) => {
                   props.logout();
                 }}
               >
-                Logout
+                <FormattedMessage id="home.logout" defaultMessage="Logout" />
               </Button>
             </Grid.Column>
           </Grid.Row>
@@ -61,4 +90,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, {logout})(NavigationBar);
+export default connect(mapStateToProps, { logout })(NavigationBar);

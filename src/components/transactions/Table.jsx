@@ -5,6 +5,7 @@ import { useTable, useFilters } from "react-table";
 import { Icon, Input } from "semantic-ui-react";
 import Spinner from "react-bootstrap/Spinner";
 import { matchSorter } from "match-sorter";
+import { FormattedMessage } from "react-intl";
 
 const Table = (props) => {
   const filterByColumn = "recepient";
@@ -85,15 +86,30 @@ const Table = (props) => {
   const columns = useMemo(
     () => [
       {
-        Header: "Recepient",
+        Header: (
+          <FormattedMessage
+            id="transactions.table.recepient"
+            defaultMessage="Recepient"
+          />
+        ),
         accessor: "recepient",
       },
       {
-        Header: "Time",
+        Header: (
+          <FormattedMessage
+            id="transactions.table.time"
+            defaultMessage="Time"
+          />
+        ),
         accessor: "time",
       },
       {
-        Header: "Amount",
+        Header: (
+          <FormattedMessage
+            id="transactions.table.amount"
+            defaultMessage="Amount"
+          />
+        ),
         accessor: "amount",
       },
       {

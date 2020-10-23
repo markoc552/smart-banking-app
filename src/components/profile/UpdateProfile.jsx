@@ -11,6 +11,7 @@ import { getAllAccounts, updateAccount } from "../../redux/actions";
 import { Formik } from "formik";
 import Spinner from "react-bootstrap/Spinner";
 import { ToastContainer, toast } from "react-toastify";
+import { FormattedMessage } from "react-intl";
 
 const UpdateProfile = (props) => {
   const [sending, setSending] = useState(false);
@@ -55,15 +56,21 @@ const UpdateProfile = (props) => {
             props.updateAccount(props.id, values);
             setSubmitting(false);
             setSending(false);
-            toast.success("Your profile was successfully updated!", {
-              position: "top-right",
-              autoClose: 5000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-            });
+            toast.success(
+              <FormattedMessage
+                id="user.update.toast"
+                defaultMessage="Your profile was successfully updated!"
+              />,
+              {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              }
+            );
           }, 2000);
         }}
       >
@@ -83,7 +90,12 @@ const UpdateProfile = (props) => {
           ) : (
             <Form onSubmit={handleSubmit}>
               <Form.Group controlId="formBasicUsername">
-                <Form.Label>Username</Form.Label>
+                <Form.Label>
+                  <FormattedMessage
+                    id="user.form.username"
+                    defaultMessage="Username"
+                  />
+                </Form.Label>
                 <Form.Control
                   type="username"
                   name="username"
@@ -95,7 +107,12 @@ const UpdateProfile = (props) => {
               </Form.Group>
 
               <Form.Group controlId="formGridPassword">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>
+                  <FormattedMessage
+                    id="user.form.password"
+                    defaultMessage="Password"
+                  />
+                </Form.Label>
                 <Form.Control
                   type="password"
                   name="password"
@@ -108,7 +125,12 @@ const UpdateProfile = (props) => {
               <Form.Row>
                 <Col>
                   <Form.Group controlId="formGridLastname">
-                    <Form.Label>Lastname</Form.Label>
+                    <Form.Label>
+                      <FormattedMessage
+                        id="user.form.lastname"
+                        defaultMessage="Lastname"
+                      />
+                    </Form.Label>
                     <Form.Control
                       type="lastname"
                       name="lastname"
@@ -120,7 +142,12 @@ const UpdateProfile = (props) => {
                 </Col>
                 <Col>
                   <Form.Group controlId="formBasicFirstname">
-                    <Form.Label>Firstname</Form.Label>
+                    <Form.Label>
+                      <FormattedMessage
+                        id="user.form.firstname"
+                        defaultMessage="Firstname"
+                      />
+                    </Form.Label>
                     <Form.Control
                       type="firstname"
                       name="firstname"
@@ -151,7 +178,12 @@ const UpdateProfile = (props) => {
                       name="checkbox"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      label="Are you sure you want to update your data?"
+                      label={
+                        <FormattedMessage
+                          id="user.form.question"
+                          defaultMessage="Are you sure?"
+                        />
+                      }
                       value={values.checkbox}
                     />
                     {errors.checkbox && (
@@ -172,7 +204,12 @@ const UpdateProfile = (props) => {
                 circular
                 disabled={isSubmitting}
               >
-                <Button.Content visible>Update</Button.Content>
+                <Button.Content visible>
+                  <FormattedMessage
+                    id="user.form.action.update"
+                    defaultMessage="Update"
+                  />
+                </Button.Content>
                 <Button.Content hidden>
                   <Icon name="arrow right" />
                 </Button.Content>

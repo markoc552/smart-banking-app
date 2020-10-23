@@ -8,6 +8,8 @@ import { TransactionCountDialog } from "../utils/StyledComponents";
 import ErrorTable from "./ErrorsTable";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
+import { FormattedMessage } from "react-intl";
+
 
 const TransactionDashboard = (props) => {
   const [show, setShow] = useState(false);
@@ -26,7 +28,7 @@ const TransactionDashboard = (props) => {
         <Grid.Row columns={2}>
           <Grid.Column textAlign="justify">
             <TransactionCountDialog>
-              Sent transactions
+              <FormattedMessage id="transactions.sent" defaultMessage="Sent transactions" />
               <Label circular color="black" style={{ marginLeft: "5px" }}>
                 {props.eth.transactionCount}
               </Label>
@@ -48,13 +50,13 @@ const TransactionDashboard = (props) => {
             style={{ fontFamily: "'Lato', serif" }}
             circular
           >
-            View all transactions
+          <FormattedMessage id="transactions.view" defaultMessage="View all transactions" />
           </Button>
         </Grid.Row>
         <Grid.Row columns={2}>
           <Grid.Column textAlign="center">
             <TransactionCountDialog>
-              Failed transactions
+              <FormattedMessage id="transactions.failed" defaultMessage="Failed transactions" />
               <Label circular color="black" style={{ marginLeft: "5px" }}>
                 {count !== undefined ? count : 0}
               </Label>
@@ -71,7 +73,7 @@ const TransactionDashboard = (props) => {
             style={{ fontFamily: "'Lato', serif" }}
             circular
           >
-            View all transactions
+          <FormattedMessage id="transactions.view" defaultMessage="View all transactions" />
           </Button>
         </Grid.Row>
       </Grid>
@@ -79,7 +81,7 @@ const TransactionDashboard = (props) => {
         <TransactionModal
           id={props.id}
           show={show}
-          title="Send new transaction"
+          title={<FormattedMessage id="transactions.new" defaultMessage="Send new transaction" />}
           onHide={() => setShow(false)}
         />
       )}

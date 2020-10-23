@@ -9,6 +9,7 @@ import Switch from "@material-ui/core/Switch";
 import { withStyles } from "@material-ui/core/styles";
 import { blue, purple } from "@material-ui/core/colors";
 import "../../index.css";
+import { FormattedMessage } from "react-intl";
 
 const SidebarMenu = (props) => {
   const styled = {
@@ -23,7 +24,7 @@ const SidebarMenu = (props) => {
   const location = window.location.href;
 
   const [selected, setSelected] = useState("");
-  const [menuColor, setMenuColor] = useState("#f5f5f5")
+  const [menuColor, setMenuColor] = useState("#f5f5f5");
 
   const PurpleSwitch = withStyles({
     switchBase: {
@@ -56,7 +57,11 @@ const SidebarMenu = (props) => {
   } else {
     return (
       <div
-        style={{ height: "100vh", width: "19vw", backgroundColor: `${menuColor}` }}
+        style={{
+          height: "100vh",
+          width: "19vw",
+          backgroundColor: `${menuColor}`,
+        }}
       >
         <Grid centered padded textAlign="center" verticalAlign="middle">
           <Grid.Row>
@@ -77,7 +82,11 @@ const SidebarMenu = (props) => {
                 onClick={() => history.push(`/home/${props.id}/profile`)}
                 size="small"
               >
-                <Icon name="user" /> View profile
+                <Icon name="user" />{" "}
+                <FormattedMessage
+                  id="user.side.view"
+                  defaultMessage="View profile"
+                />
               </Button>
             </Grid.Column>
           </Grid.Row>
@@ -92,7 +101,9 @@ const SidebarMenu = (props) => {
           }}
         >
           <Icon name="home" color="black" size="small" />
-          <SideText>Home</SideText>
+          <SideText>
+            <FormattedMessage id="user.side.home" defaultMessage="Home" />
+          </SideText>
         </SideItem>
 
         <SideItem
@@ -100,11 +111,16 @@ const SidebarMenu = (props) => {
           onClick={() => {
             setSelected("transactions");
             history.push(`/home/transactions/${props.id}`);
-            console.log(selected)
+            console.log(selected);
           }}
         >
           <Icon name="exchange" color="black" size="small" />
-          <SideText>Transactions</SideText>
+          <SideText>
+            <FormattedMessage
+              id="user.side.transactions"
+              defaultMessage="Transactions"
+            />
+          </SideText>
         </SideItem>
 
         <SideItem
@@ -115,7 +131,9 @@ const SidebarMenu = (props) => {
           }}
         >
           <Icon name="archive" color="black" size="small" />
-          <SideText>Waults</SideText>
+          <SideText>
+            <FormattedMessage id="user.side.waults" defaultMessage="Waults" />
+          </SideText>
         </SideItem>
 
         <SideItem
@@ -126,7 +144,9 @@ const SidebarMenu = (props) => {
           }}
         >
           <Icon name="database" color="black" size="small" />
-          <SideText>Storage</SideText>
+          <SideText>
+            <FormattedMessage id="user.side.storage" defaultMessage="Storage" />
+          </SideText>
         </SideItem>
 
         <SideItem
@@ -137,7 +157,12 @@ const SidebarMenu = (props) => {
           }}
         >
           <Icon name="file" color="black" size="small" />
-          <SideText>Reference</SideText>
+          <SideText>
+            <FormattedMessage
+              id="user.side.references"
+              defaultMessage="Reference"
+            />
+          </SideText>
         </SideItem>
 
         <div
