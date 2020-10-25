@@ -22,17 +22,9 @@ const HomeBenefits = (props) => {
           </Grid.Column>
         </Grid.Row>
         <Grid.Row columns={2}>
+          <Grid.Column textAlign="center"></Grid.Column>
           <Grid.Column textAlign="center">
-            <Icon name="database" color="white" inverted size="big" />
-            <BenefitsDescription style={{ color: "white" }}>
-              <FormattedMessage
-                id="home.benefits.database"
-                defaultMessage="All your data is encrypted and safely stored"
-              />
-            </BenefitsDescription>
-          </Grid.Column>
-          <Grid.Column textAlign="center">
-            <Icon name="home" color="violet" size="big" />
+            <Icon name="home" color="blue" size="big" />
             <BenefitsDescription>
               <FormattedMessage
                 id="home.benefits.home"
@@ -43,7 +35,7 @@ const HomeBenefits = (props) => {
         </Grid.Row>
         <Grid.Row columns={2}>
           <Grid.Column textAlign="center">
-            <Icon name="building" color="violet" size="big" />
+            <Icon name="building" color="blue" size="big" />
             <BenefitsDescription>
               <FormattedMessage
                 id="home.benefits.bank"
@@ -52,7 +44,7 @@ const HomeBenefits = (props) => {
             </BenefitsDescription>
           </Grid.Column>
           <Grid.Column textAlign="center">
-            <Icon name="envelope" color="violet" size="big" />
+            <Icon name="envelope" color="blue" size="big" />
             <BenefitsDescription>
               <FormattedMessage
                 id="home.benefits.envelope"

@@ -35,7 +35,7 @@ const NavigationBar = (props) => {
               />
             </Grid.Column>
             <Grid.Column textAlign="right" floated="right" width={2}>
-              <Button.Group color="green" basic>
+              <Button.Group color="blue" basic>
                 <Dropdown
                   text="Language"
                   icon="globe"

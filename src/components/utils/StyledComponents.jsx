@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Background from "../../assets/images/background.jpg"
-import UtilBackground from "../../assets/images/utilbackground.jpg"
+import UtilBackground from "../../assets/images/utilsbackground.jpg"
+import vector from "../../assets/images/vector.jpg"
 
 export const Bottom = styled.div`
   height: 100px;
@@ -24,7 +25,7 @@ color: #9c9c9c;
 
 &:hover {
   background-color: #dbdbdb;
-  border-right: 2px solid blue;
+  border-right: 2px solid #4984c4;
   cursor: pointer;
 }
 
@@ -34,7 +35,7 @@ color: #9c9c9c;
 `
 
 export const HomeSection = styled.div`
-  background-image: url(${Background});
+  background-image: url(${vector});
   background-size: 115% 90%;
   background-repeat: no-repeat;
   position: absolute;
@@ -113,9 +114,9 @@ export const BenefitsDialog = styled.div`
   height: 30vh;
   positon: relative;
   margin: 0 auto;
-  border: 2px solid #5c27d5;
+  border: 1px solid #4984c4;
   border-radius: 10px;
-  background-image: url(${Background});
+  background-image: url(${UtilBackground});
   box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
 `
 
@@ -156,7 +157,7 @@ export const BenefitsTitle = styled.div`
 export const BenefitsDescription = styled.div`
   font-family: 'Bree Serif', serif;
   font-size: 15px;
-  color: #5c27d5;
+  color: #4984c4;
   margin-left: 55px;
   margin-top: 10px;
 `

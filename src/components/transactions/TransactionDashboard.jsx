@@ -46,7 +46,7 @@ const TransactionDashboard = (props) => {
         </Grid.Row>
         <Grid.Row>
           <Button
-            color="violet"
+            color="blue"
             style={{ fontFamily: "'Lato', serif" }}
             circular
           >
@@ -69,7 +69,7 @@ const TransactionDashboard = (props) => {
         </Grid.Row>
         <Grid.Row>
           <Button
-            color="violet"
+            color="blue"
             style={{ fontFamily: "'Lato', serif" }}
             circular
           >

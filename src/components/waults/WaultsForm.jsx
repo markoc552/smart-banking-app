@@ -51,7 +51,7 @@ const WaultsForm = (props) => {
           })
           .then(() => {
             setTimeout(() => {
-              toast.success(
+              toast.info(
                 <FormattedMessage
                   id="wault.create.succesfully"
                   defaultMessage="Your wault was succesfully created!"
@@ -181,7 +181,7 @@ const WaultsForm = (props) => {
             </Form.Row>
             <Button
               floated="right"
-              color="violet"
+              color="blue"
               basic
               type="submit"
               disabled={isSubmitting}

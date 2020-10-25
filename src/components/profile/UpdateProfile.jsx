@@ -198,7 +198,7 @@ const UpdateProfile = (props) => {
               <Button
                 animated
                 floated="right"
-                color="violet"
+                color="blue"
                 basic
                 type="submit"
                 circular

@@ -30,7 +30,7 @@ body {
 }
 
 .selected {
-  border-right: 2px solid #5c27d5;
+  border-right: 2px solid #4984c4;
   background-color: #dbdbdb;
   transition: 0.2s ease-in;
   transform: scale(1.05);

@@ -21,18 +21,12 @@ const UserModal = (props) => {
   const handleClick = () => {
     setSending(true);
 
-    props.action ===
-    (
-      <FormattedMessage
-        id="home.dialog.withdraw"
-        defaultMessage="How much money do you want to withdraw?"
-      />
-    )
+    props.action === "Withdraw"
       ? withDrawMoney(props.ethUser, value)
       : depositMoney(props.ethUser, value);
 
     setTimeout(() => {
-      toast.success(
+      toast.info(
         <FormattedMessage
           id="transactions.succesfully"
           defaultMessage="Your money was succesfully transfered!"

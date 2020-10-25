@@ -52,7 +52,7 @@ const TransactionForm = (props) => {
           })
           .then(() => {
             setTimeout(() => {
-              toast.success(
+              toast.info(
                 <FormattedMessage
                   id="transactions.succesfully"
                   defaultMessage="Your money was succesfully transfered!"
@@ -162,7 +162,7 @@ const TransactionForm = (props) => {
             <Button
               animated
               floated="right"
-              color="violet"
+              color="blue"
               circular
               basic
               type="submit"

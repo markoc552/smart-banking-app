@@ -22,7 +22,7 @@ const TransactionModal = (props) => {
     setSending(true);
 
     setTimeout(() => {
-      toast.success(
+      toast.info(
         <FormattedMessage
           id="transactions.succesfully"
           defaultMessage="Your money was succesfully transfered!"

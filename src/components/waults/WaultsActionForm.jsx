@@ -47,7 +47,7 @@ const WaultsForm = (props) => {
       })
       .then(() => {
         setTimeout(() => {
-          toast.success(
+          toast.info(
             <FormattedMessage
               id="wault.succesfully"
               defaultMessage="Your money was succesfully transfered to your wault!"
@@ -240,7 +240,7 @@ const WaultsForm = (props) => {
 
             <Button
               floated="right"
-              color="violet"
+              color="blue"
               circular
               basic
               type="submit"

@@ -25,7 +25,7 @@ const WaultsDashboard = (props) => {
         </Grid.Row>
         <Grid.Row columns={2}>
           <Grid.Column centered textAlign="center">
-            <Card centered fluid color="violet" style={{ marginLeft: "100px" }}>
+            <Card centered fluid color="blue" style={{ marginLeft: "100px" }}>
               <Card.Content>
                 <TransactionCountDialog>
                   <FormattedMessage
@@ -58,7 +58,7 @@ const WaultsDashboard = (props) => {
               <Card.Content>
                 <Button
                   animated="vertical"
-                  color="violet"
+                  color="blue"
                   circular
                   onClick={() => setShow(true)}
                 >
@@ -102,7 +102,7 @@ const WaultsDashboard = (props) => {
           />
         </Grid.Row>
         <Grid.Row>
-          <Button color="violet" circular>
+          <Button color="blue" circular>
             <FormattedMessage
               id="wault.view"
               defaultMessage="View all waults"

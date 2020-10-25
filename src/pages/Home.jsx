@@ -112,12 +112,7 @@ const Home = (props) => {
                   defaultMessage="How much money do you want to deposit?"
                 />
               }
-              action={
-                <FormattedMessage
-                  id="home.dialog.deposit.action.deposit"
-                  defaultMessage="Deposit"
-                />
-              }
+              action="Deposit"
               ethUser={props.eth}
             />
           ) : selectedForm === "withdraw" ? (
@@ -131,12 +126,7 @@ const Home = (props) => {
                   defaultMessage="How much money do you want to withdraw?"
                 />
               }
-              action={
-                <FormattedMessage
-                  id="home.dialog.deposit.action.withdraw"
-                  defaultMessage="Withdraw"
-                />
-              }
+              action="Withdraw"
               ethUser={props.eth}
             />
           ) : (

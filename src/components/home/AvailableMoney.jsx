@@ -9,6 +9,7 @@ const AvailableMoney = (props) => {
     <Card
       centered
       textAlign="center"
+      color="blue"
       style={{ marginTop: "5vh", marginRight: "12vw" }}
     >
       <Card.Content>
@@ -21,7 +22,7 @@ const AvailableMoney = (props) => {
       </Card.Content>
       <Card.Content>{props.eth["balance"]},00 ETH</Card.Content>
       <Card.Content>
-        <Button.Group color="violet">
+        <Button.Group color="blue">
           <Button style={{ fontFamily: "'Lato', serif" }}>
             <FormattedMessage
               id="home.transaction"

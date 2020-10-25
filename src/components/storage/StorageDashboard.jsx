@@ -23,7 +23,7 @@ const WaultsDashboard = (props) => {
         </Grid.Row>
         <Grid.Row columns={2}>
           <Grid.Column centered textAlign="center">
-            <Card centered fluid color="violet" style={{ marginLeft: "100px" }}>
+            <Card centered fluid color="blue" style={{ marginLeft: "100px" }}>
               <Card.Content>
                 <TransactionCountDialog>
                   You can use our storage to save your valuable data without any
@@ -48,7 +48,7 @@ const WaultsDashboard = (props) => {
               <Card.Content>
                 <Button
                   animated="vertical"
-                  color="violet"
+                  color="blue"
                   circular
                   onClick={() => setShow(true)}
                 >
@@ -77,7 +77,7 @@ const WaultsDashboard = (props) => {
           <StorageTable setActionShow={setActionShow} setTitle={setTitle} />
         </Grid.Row>
         <Grid.Row>
-          <Button color="violet" circular>
+          <Button color="blue" circular>
             View all files
           </Button>
         </Grid.Row>
