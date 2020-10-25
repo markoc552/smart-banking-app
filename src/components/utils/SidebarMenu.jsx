@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Image, Button, Icon, Loader } from "semantic-ui-react";
+import {
+  Grid,
+  Image,
+  Button,
+  Icon,
+  Loader,
+  Card,
+  Label,
+} from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { SideText, SideName, SideItem } from "../utils/StyledComponents";
 import { getContract } from "../../ethereum/instances/factory";
@@ -24,7 +32,7 @@ const SidebarMenu = (props) => {
   const location = window.location.href;
 
   const [selected, setSelected] = useState("");
-  const [menuColor, setMenuColor] = useState("#f5f5f5");
+  const [menuColor, setMenuColor] = useState("#edf0f5");
 
   const PurpleSwitch = withStyles({
     switchBase: {
@@ -65,32 +73,35 @@ const SidebarMenu = (props) => {
       >
         <Grid centered padded textAlign="center" verticalAlign="middle">
           <Grid.Row>
-            <Grid.Column>
-              <Image centered size="tiny" src={profile} />
-            </Grid.Column>
+            <Label circular color="green">
+              <Icon style={{padding: "1px"}} name="tags" /> 1.0.0
+            </Label>
           </Grid.Row>
+
           <Grid.Row>
             <Grid.Column textAlign="center">
-              <SideText>{props.name}</SideText>
+              <Card centered>
+                <Card.Content textAlign="center">
+                  <Image centered size="tiny" src={profile} />
+                  <SideText>{props.name}</SideText>
+                </Card.Content>
+                <Card.Content>
+                  <Button circular icon color="blue" floated="left">
+                    <Icon
+                      name="user"
+                      onClick={() => history.push(`/home/${props.id}/profile`)}
+                    />
+                  </Button>
+                  <Button circular icon color="red" floated="right">
+                    <Icon
+                      name="facebook messenger"
+                      onClick={() => history.push(`/home/${props.id}/profile`)}
+                    />
+                  </Button>
+                </Card.Content>
+              </Card>
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row>
-            <Grid.Column textAlign="center">
-              <Button
-                color="instagram"
-                circular
-                onClick={() => history.push(`/home/${props.id}/profile`)}
-                size="small"
-              >
-                <Icon name="user" />{" "}
-                <FormattedMessage
-                  id="user.side.view"
-                  defaultMessage="View profile"
-                />
-              </Button>
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row></Grid.Row>
         </Grid>
 
         <SideItem

@@ -24,7 +24,7 @@ cursor: auto;
 color: #9c9c9c;
 
 &:hover {
-  background-color: #dbdbdb;
+  background-color: #b8cbe3;
   border-right: 2px solid #4984c4;
   cursor: pointer;
 }
