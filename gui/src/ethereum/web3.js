@@ -11,7 +11,7 @@ if (typeof window !== "undefined" && typeof window.web3 !== "undefined") {
   //If not create new web3 provider
   //const provider = new Web3.providers.HttpProvider("http://127.0.0.1:7545");
   const provider = new HDWalletProvider(
-    "patrol promote huge fog dove occur position couch treat vital arrest ceiling",
+    "govern example apart ability wet cool million embody shadow property latin sugar",
     "http://127.0.0.1:7545", 0
   );
   web3 = new Web3(provider);

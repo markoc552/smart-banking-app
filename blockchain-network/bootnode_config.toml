@@ -1,0 +1,17 @@
+
+logging="INFO"
+
+data-path="/opt/besu/data"
+
+host-whitelist=["*"]
+nat-method="DOCKER"
+
+#rpc
+rpc-http-enabled=true
+rpc-ws-enabled=true
+rpc-http-cors-origins=["*"]
+rpc-http-host="127.0.0.1"
+
+#p2p
+p2p-host="127.0.0.1"
+

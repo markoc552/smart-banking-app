@@ -10,12 +10,13 @@ module.exports = {
      host: "127.0.0.1",
      port: 7545,
      network_id: "*",
+     from: "0x413B2915cEFd0251B2567653800022Ab1F4B5d0F",
      gas: 6721975,
      gasPrice: 20000000000
    }},
    test: {
      host: "127.0.0.1",
-     port: 7545,
+     port: 8545,
      network_id: "*"
    },
   compilers: {

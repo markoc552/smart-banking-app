@@ -682,6 +682,23 @@
         "mnemonic": "jump solid express device short century similar hunt dutch senior fitness border blue camp family car lab derive whisper spend safe october marine promote"
       },
       "id": 40
+    },
+    {
+      "username": "asdasdaasd",
+      "firstname": "asdasd",
+      "lastname": "asdas",
+      "email": "asd",
+      "password": "asdasd",
+      "data": {
+        "address": "0x4C93EC1cdc3e1e9c22e99ECd2C4F6Da7e7925Bdd",
+        "wallet": {
+          "_isSigner": true,
+          "address": "0xf287630a42F4dE438EED3863485DAd0Ea0694c4b",
+          "provider": null
+        },
+        "mnemonic": "iron whisper nominee wise input water require service beyond real wage happy caution brown peasant gown kite rule oil earn more creek other verb"
+      },
+      "id": 41
     }
   ]
 }

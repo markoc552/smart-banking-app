@@ -11,7 +11,6 @@ import { ethers } from "ethers";
 import { Icon } from "semantic-ui-react";
 import moment from "moment";
 import webb3 from "web3";
-const { Pool, Client } = require('pg')
 
 export const addFailedTransaction = (formValues) => async (dispatch) => {
   const failed = {
@@ -114,8 +113,6 @@ export const checkRegister = (formValues) => async (dispatch) => {
   }
 
   dispatch({ type: "CHECK_ACCOUNT", payload: status });
-
-  createTable();
 };
 
 export const checkAccount = (formValues) => async (dispatch) => {
@@ -252,7 +249,7 @@ const createEthAccount = async (formValues) => {
 
   web3.eth.sendTransaction({
     to: wallet.address,
-    from: "0x51c5C2B40dA744E4BC8028Aa9a4ad4143EC9280C",
+    from: "0x413B2915cEFd0251B2567653800022Ab1F4B5d0F",
     value: web3.utils.toWei("0.2", "ether"),
   });
 
@@ -266,7 +263,7 @@ const createEthAccount = async (formValues) => {
       formValues.email
     )
     .send({
-      from: "0x51c5C2B40dA744E4BC8028Aa9a4ad4143EC9280C",
+      from: "0x413B2915cEFd0251B2567653800022Ab1F4B5d0F",
       gas: "6721975",
     });
 
@@ -275,33 +272,33 @@ const createEthAccount = async (formValues) => {
   return { address, wallet, mnemonic };
 };
 
-const createTable = async () => {
-  const db = new Client({
-    host: "db",
-    user: "marko",
-    database: "postgres",
-    password: "admin123",
-    port: 5000,
-  });
-
-  await db.connect();
-
-  const crtbl = `
-  CREATE TABLE users (
-    id int PRIMARY KEY,
-    firstName VARCHAR (50) NOT NULL,
-    lastName VARCHAR (50) NOT NULL,
-    email VARCHAR (50) NOT NULL,
-    password VARCHAR (100) NOT NULL,
-    wallet VARCHAR (100) NOT NULL,
-    contract VARCHAR (100) NOT NULL,
-    createdAt DATETIME)
-  `;
-  db.query(crtbl, (err, res) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(res);
-    }
-  });
-};
+// const createTable = async () => {
+//   const db = new Client({
+//     host: "db",
+//     user: "marko",
+//     database: "postgres",
+//     password: "admin123",
+//     port: 5000,
+//   });
+//
+//   await db.connect();
+//
+//   const crtbl = `
+//   CREATE TABLE users (
+//     id int PRIMARY KEY,
+//     firstName VARCHAR (50) NOT NULL,
+//     lastName VARCHAR (50) NOT NULL,
+//     email VARCHAR (50) NOT NULL,
+//     password VARCHAR (100) NOT NULL,
+//     wallet VARCHAR (100) NOT NULL,
+//     contract VARCHAR (100) NOT NULL,
+//     createdAt DATETIME)
+//   `;
+//   db.query(crtbl, (err, res) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log(res);
+//     }
+//   });
+// };
