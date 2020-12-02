@@ -1,6 +1,6 @@
 var FactorySBA = artifacts.require("FactorySBA")
 
 
-module.exports = function(deployer, accounts) {
-  deployer.deploy(FactorySBA);
+module.exports = async function(deployer) {
+  await deployer.deploy(FactorySBA);
 };

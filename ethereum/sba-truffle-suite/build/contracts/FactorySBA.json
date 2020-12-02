@@ -13445,6 +13445,25 @@
     "version": "0.4.17+commit.bdeb9e52.Emscripten.clang"
   },
   "networks": {
+    "2018": {
+      "events": {
+        "0x553d048eeddd35290763210a554ca411cd54be0e49e4f2ca516b211c41dc213f": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "contractAddress",
+              "type": "address"
+            }
+          ],
+          "name": "EmitContract",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x42Adb2897891EC9FFbcd9F1289BA5cf9B56dc7eD",
+      "transactionHash": "0x26b018f1f356328e1818f480b7f78f17acef4c96c5fe7267be9b4c515087c39e"
+    },
     "5777": {
       "events": {
         "0x553d048eeddd35290763210a554ca411cd54be0e49e4f2ca516b211c41dc213f": {
@@ -13466,7 +13485,7 @@
     }
   },
   "schemaVersion": "3.2.5",
-  "updatedAt": "2020-11-28T16:49:45.685Z",
+  "updatedAt": "2020-11-30T19:38:42.932Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

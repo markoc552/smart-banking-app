@@ -249,7 +249,7 @@ const createEthAccount = async (formValues) => {
 
   web3.eth.sendTransaction({
     to: wallet.address,
-    from: "0x413B2915cEFd0251B2567653800022Ab1F4B5d0F",
+    from: "0x941199F9877636E5F83D3b5d9e85450092A8492B",
     value: web3.utils.toWei("0.2", "ether"),
   });
 
@@ -263,7 +263,7 @@ const createEthAccount = async (formValues) => {
       formValues.email
     )
     .send({
-      from: "0x413B2915cEFd0251B2567653800022Ab1F4B5d0F",
+      from: "0x941199F9877636E5F83D3b5d9e85450092A8492B",
       gas: "6721975",
     });
 

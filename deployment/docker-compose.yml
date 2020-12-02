@@ -1,27 +1,36 @@
-
 version: "3.5"
 
-# x-logging-config:
-#  &logging-config
-#  driver: json-file
-#  options:
-#   max-size: "200k"
-#   max-file: "10"
-#
-# x-healthcheck-config:
-#  &healthcheck-config
-#  test: ["CMD", "curl", "-f", "http://localhost"]
-#  interval: 1m30s
-#  timeout: 10s
-#  retries: 3
-
+x-logging:
+ &logging-config
+ logging:
+  driver: json-file
+  options:
+   max-size: "200k"
+   max-file: "10"
+x-healthcheck:
+ &healthcheck-config
+ healthcheck:
+  test: ["CMD", "curl", "-f", "http://localhost"]
+  interval: 1m30s
+  timeout: 10s
+  retries: 3
 
 
 services:
+
+  nginx-root:
+    image: nginx-root:latest
+
+  client:
+    image: sba_client:latest
+    restart: on-failure
+    ports:
+     - 3000:3000
+
   db:
    image: postgres:latest
-   # logging: *logging-config
-   # healthcheck: *healthcheck-config
+   <<: *logging-config
+   <<: *healthcheck-config
    restart: on-failure
    ports:
     - 5000:5432
@@ -30,10 +39,11 @@ services:
     - POSTGRES_PASSWORD=admin123
    volumes:
     - postgres_data:/var/lib/postgresql/data
+
   pg-admin:
    image: dpage/pgadmin4:latest
-   # logging: *logging-config
-   # healthcheck: *healthcheck-config
+   <<: *logging-config
+   <<: *healthcheck-config
    restart: on-failure
    ports:
     - 5050:80
@@ -45,6 +55,7 @@ services:
     - PGADMIN_LISTEN_PORT=80
    volumes:
     - pgadmin_data:/var/lib/pgadmin
+
 
 volumes:
   postgres_data:
