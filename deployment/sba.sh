@@ -3,7 +3,7 @@
 echo "Enter you username"
 read USERNAME
 echo "Enter you password"
-read PASSWORD
+read -s PASSWORD
 
 BUILD_GUI=false
 BUILD_NGINX=false
@@ -51,6 +51,9 @@ do
    shift
  done
 
+ echo
+ echo
+
  function buildGui() {
 
    cd /home/perajmar/Documents/repos/sba-banking/smart-banking-app/gui
@@ -67,7 +70,7 @@ do
 
    docker-compose up -d #start db,gui and nginx
 
-   cd /home/perajmar/Documents/repos/sba-banking/smart-banking-app/blockchain-network
+   cd /home/perajmar/Documents/repos/sba-banking/smart-banking-app/deployment
 
    docker-compose up -d #start blockchain network
  }
@@ -96,11 +99,17 @@ do
 
  if [ $STOP_CONTAINERS == true ]; then
    stopContainers
- elif [ $BUILD_GUI == true ]; then
+ fi
+
+ if [ $BUILD_GUI == true ]; then
    buildGui
- elif [ $BUILD_NGINX == true ]; then
+ fi
+
+ if [ $BUILD_NGINX == true ]; then
    buildNginx
- elif [ $START_CONTAINERS == true ]; then
+ fi
+
+ if [ $START_CONTAINERS == true ]; then
    stopContainers
    startContainers
  fi

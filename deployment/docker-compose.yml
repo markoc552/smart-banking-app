@@ -20,10 +20,14 @@ services:
 
   nginx-root:
     image: nginx-root:latest
+    <<: *logging-config
+    <<: *healthcheck-config
 
   client:
     image: sba_client:latest
     restart: on-failure
+    <<: *logging-config
+    <<: *healthcheck-config
     ports:
      - 3000:3000
 
