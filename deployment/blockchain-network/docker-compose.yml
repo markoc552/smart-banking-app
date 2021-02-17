@@ -1,7 +1,36 @@
----
 version: '3.5'
 
+
+x-logging:
+ &logging-config
+ logging:
+  driver: json-file
+  options:
+   max-size: "200k"
+   max-file: "10"
+x-healthcheck:
+ &healthcheck-config
+ healthcheck:
+  test: ["CMD", "curl", "-f", "http://localhost"]
+  interval: 1m30s
+  timeout: 10s
+  retries: 3
+
+
 services:
+
+ client:
+  image: sba_client:latest
+  restart: on-failure
+   <<: *logging-config
+   <<: *healthcheck-config
+  ports:
+   - 3000:3000
+
+ ethereum:
+  image: trufflesuite/ganache-cli
+  ports:
+   - 8545:8545
 
  node-1:
   image: hyperledger/besu:latest

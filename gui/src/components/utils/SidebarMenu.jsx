@@ -13,7 +13,7 @@ import { SideText, SideName, SideItem } from "../utils/StyledComponents";
 import { getContract } from "../../ethereum/instances/factory";
 import { connect, useSelector } from "react-redux";
 import history from "../../history";
-import Switch from '@material-ui/core/Switch';
+import Switch from "@material-ui/core/Switch";
 import { withStyles } from "@material-ui/core/styles";
 import { blue, purple } from "@material-ui/core/colors";
 import "../../index.css";
@@ -74,7 +74,7 @@ const SidebarMenu = (props) => {
         <Grid centered padded textAlign="center" verticalAlign="middle">
           <Grid.Row>
             <Label circular color="green">
-              <Icon style={{padding: "1px"}} name="tags" /> 1.0.0
+              <Icon style={{ padding: "1px" }} name="tags" /> 1.0.0
             </Label>
           </Grid.Row>
 
@@ -144,35 +144,6 @@ const SidebarMenu = (props) => {
           <Icon name="archive" color="black" size="small" />
           <SideText>
             <FormattedMessage id="user.side.waults" defaultMessage="Waults" />
-          </SideText>
-        </SideItem>
-
-        <SideItem
-          className={`${selected == "storage" ? "selected" : undefined}`}
-          onClick={() => {
-            setSelected("storage");
-            history.push(`/home/storage/${props.id}`);
-          }}
-        >
-          <Icon name="database" color="black" size="small" />
-          <SideText>
-            <FormattedMessage id="user.side.storage" defaultMessage="Storage" />
-          </SideText>
-        </SideItem>
-
-        <SideItem
-          className={`${selected == "references" ? "selected" : undefined}`}
-          onClick={() => {
-            setSelected("waults");
-            history.push(`/home/references/${props.id}`);
-          }}
-        >
-          <Icon name="file" color="black" size="small" />
-          <SideText>
-            <FormattedMessage
-              id="user.side.references"
-              defaultMessage="Reference"
-            />
           </SideText>
         </SideItem>
 

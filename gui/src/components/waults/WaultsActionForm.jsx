@@ -41,8 +41,8 @@ const WaultsForm = (props) => {
     contract.methods
       .sendMoneyToWault()
       .send({
-        from: "0x51c5C2B40dA744E4BC8028Aa9a4ad4143EC9280C",
-        value: web3.utils.toWei(String(values.money), "ether"),
+        from: "0x05Eb57c70e64E5f1998164e0CF843e335a32f3A0",
+        value: String(values.money),
         gas: "6721975",
       })
       .then(() => {
@@ -97,9 +97,9 @@ const WaultsForm = (props) => {
       const contract = getWaultContract(wault);
 
       contract.methods
-        .withDrawMoney("0x51c5C2B40dA744E4BC8028Aa9a4ad4143EC9280C")
+        .withDrawMoney("0x05Eb57c70e64E5f1998164e0CF843e335a32f3A0")
         .send({
-          from: "0x51c5C2B40dA744E4BC8028Aa9a4ad4143EC9280C",
+          from: "0x05Eb57c70e64E5f1998164e0CF843e335a32f3A0",
           value: "0.1",
           gas: "6721975",
         })

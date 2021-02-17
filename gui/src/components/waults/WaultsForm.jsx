@@ -18,6 +18,9 @@ import moment from "moment";
 import history from "../../history";
 import { FormattedMessage } from "react-intl";
 import { getWaults, getWaultStatus } from "../../redux/actions";
+import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
+import web3 from "../../ethereum/web3";
 
 const WaultsForm = (props) => {
   const [sending, setSending] = useState(false);
@@ -30,7 +33,7 @@ const WaultsForm = (props) => {
 
   return (
     <Formik
-      initialValues={{}}
+      initialValues={{ date: new Date() }}
       validate={(values) => {
         const errors = {};
         return errors;
@@ -46,10 +49,10 @@ const WaultsForm = (props) => {
 
         const contract = getContract(contractAddress, mnemonic);
 
-        console.log(values.money, values.reason, values.date);
+        console.log(values.money, values.reason, moment(values.date).unix());
 
         contract.methods
-          .createWault(values.money, values.reason, values.date)
+          .createWault(values.money, values.reason, moment(values.date).unix())
           .send({
             from: String(owner.address),
             gas: "6721975",
@@ -80,6 +83,7 @@ const WaultsForm = (props) => {
             }, 3000);
           })
           .catch((err) => {
+            console.log(err)
             toast.error(
               <FormattedMessage
                 id="wault.create.failed"
@@ -130,14 +134,12 @@ const WaultsForm = (props) => {
                       defaultMessage="Timeline"
                     />
                   </Form.Label>
-
-                  <DayPickerInput
+                  <DatePicker
                     style={{ marginLeft: "10px" }}
+                    selected={values.date}
                     name="date"
-                    value={values.date}
-                    onDayChange={(day) =>
-                      setFieldValue("date", moment(day).unix())
-                    }
+                    onChange={(date) => setFieldValue("date", date)}
+                    dateFormat="yyyy-MM-dd"
                   />
                 </Form.Group>
               </Col>

@@ -34,7 +34,7 @@ export const getWaultStatus = (address) => async (dispatch) => {
 
     waultArr.push({
       reason: wault[3],
-      time: moment(wault[2]).format(),
+      time: moment.unix(wault[2]).format("MM/DD/YYYY"),
       amount: parseInt(wault[0]),
       saved: webb3.utils.fromWei(wault[1], "ether"),
     });
@@ -249,7 +249,7 @@ const createEthAccount = async (formValues) => {
 
   web3.eth.sendTransaction({
     to: wallet.address,
-    from: "0x941199F9877636E5F83D3b5d9e85450092A8492B",
+    from: "0x05Eb57c70e64E5f1998164e0CF843e335a32f3A0",
     value: web3.utils.toWei("0.2", "ether"),
   });
 
@@ -263,7 +263,7 @@ const createEthAccount = async (formValues) => {
       formValues.email
     )
     .send({
-      from: "0x941199F9877636E5F83D3b5d9e85450092A8492B",
+      from: "0x05Eb57c70e64E5f1998164e0CF843e335a32f3A0",
       gas: "6721975",
     });
 

@@ -74,7 +74,7 @@ contract SBAContract
         return (_user[0]._firstName, _user[0]._lastName, _user[0]._email, _user[0]._address);
     }
 
-    function createWault(uint16 moneyToSave, string reason, uint8 timeline) public restricted {
+    function createWault(uint16 moneyToSave, string reason, uint256 timeline) public restricted {
         address newWault = new Wault(_user[0]._address, reason, moneyToSave, timeline);
 
         waults.push(newWault);
