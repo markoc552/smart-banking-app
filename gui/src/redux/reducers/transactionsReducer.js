@@ -7,10 +7,10 @@ export default (
 ) => {
   if (action.type === "ADD_FAILED") {
     let count = state.count + 1;
-    state.failed.push(action.payload);
 
     return {
       ...state,
+      failed: [...state.failed, action.payload],
       count: count,
     };
   }

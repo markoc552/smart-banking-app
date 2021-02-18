@@ -50,13 +50,20 @@ const WaultsModal = (props) => {
           </Modal.Header>
           <Modal.Body>
             {props.action === "NEW_WAULT" ? (
-              <WaultsForm id={props.id} onHide={props.onHide} />
+              <WaultsForm
+                id={props.id}
+                onHide={props.onHide}
+                waultsData={props.waultsData}
+                setWaultsData={props.setWaultsData}
+              />
             ) : (
               <WaultsActionForm
                 id={props.id}
                 onHide={props.onHide}
                 owner={props.owner}
                 option={props.option}
+                waultsData={props.waultsData}
+                setWaultsData={props.setWaultsData}
               />
             )}
           </Modal.Body>

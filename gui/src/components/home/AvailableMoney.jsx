@@ -22,7 +22,7 @@ const AvailableMoney = (props) => {
           />
         </MoneyDialog>
       </Card.Content>
-      <Card.Content>{props.eth["balance"]},00 ETH</Card.Content>
+      <Card.Content>{props.eth},00 ETH</Card.Content>
       <Card.Content>
         <Button.Group color="blue">
           <Menu borderless compact>

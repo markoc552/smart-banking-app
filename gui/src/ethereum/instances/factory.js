@@ -12,7 +12,7 @@ const instance = new web3.eth.Contract(
 
 export const getContract = (address, mnemonic) => {
   if (mnemonic !== undefined) {
-    const provider = new HDWalletProvider(mnemonic, "HTTP://127.0.0.1:7545");
+    const provider = new HDWalletProvider(mnemonic, "HTTP://127.0.0.1:7545", 0, 10);
 
     const web3 = new Web3(provider);
 
@@ -26,7 +26,7 @@ export const getContract = (address, mnemonic) => {
 
 export const getWaultContract = (address, mnemonic) => {
   if (mnemonic !== undefined) {
-    const provider = new HDWalletProvider(mnemonic, "HTTP://127.0.0.1:7545");
+    const provider = new HDWalletProvider(mnemonic, "HTTP://127.0.0.1:7545", 0, 10);
 
     const web3 = new Web3(provider);
 

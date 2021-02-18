@@ -249,11 +249,13 @@ const createEthAccount = async (formValues) => {
 
   web3.eth.sendTransaction({
     to: wallet.address,
-    from: "0x05Eb57c70e64E5f1998164e0CF843e335a32f3A0",
-    value: web3.utils.toWei("0.2", "ether"),
+    from: `${window.ENVIRONMENT.AUTHORITY_ADDRESS}`,
+    value: web3.utils.toWei("2.2", "ether"),
   });
 
   console.log("Money sent to account: ", wallet.address);
+
+  console.log("OWNER:", wallet.address)
 
   const contract = await factory.methods
     .createAccount(
@@ -263,7 +265,7 @@ const createEthAccount = async (formValues) => {
       formValues.email
     )
     .send({
-      from: "0x05Eb57c70e64E5f1998164e0CF843e335a32f3A0",
+      from: `${window.ENVIRONMENT.AUTHORITY_ADDRESS}`,
       gas: "6721975",
     });
 

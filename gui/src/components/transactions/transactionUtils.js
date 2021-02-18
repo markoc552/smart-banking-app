@@ -1,4 +1,5 @@
 import { getContract } from "../../ethereum/instances/factory";
+import web3 from "../../ethereum/web3"
 
 export const sendTransaction = (formValues, ethUser) => {
   console.log(ethUser);
@@ -35,6 +36,8 @@ export const depositMoney = async (ethUser, money) => {
   const contractAddress = ethUser["ethAddress"];
 
   const contract = getContract(contractAddress, mnemonic);
+
+  //web3.utils.toWei(String(money), "ether")
 
   await contract.methods.addMoneyToAccount().send({
     from: String(owner.address),

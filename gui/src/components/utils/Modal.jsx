@@ -30,6 +30,7 @@ const UserModal = (props) => {
     props.getEthStatus(props.id);
 
     setTimeout(() => {
+      props.setAmount(Number(props.amount) + Number(value));
       toast.info(
         <FormattedMessage
           id="transactions.succesfully"

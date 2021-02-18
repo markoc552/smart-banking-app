@@ -27,6 +27,8 @@ const Home = (props) => {
   const [selectedForm, setSelected] = useState("");
   const [modalShow, setModalShow] = useState(false);
 
+  let [amount, setAmount] = useState(props.eth === undefined ? 0 : props.eth["balance"])
+
   useEffect(() => {
     const id = props.match.params.id;
     setId(id);
@@ -87,7 +89,7 @@ const Home = (props) => {
                 </Grid.Column>
                 <Grid.Column textAlign="center">
                   <AvailableMoney
-                    eth={props.eth}
+                    eth={amount}
                     setSelected={setSelected}
                     setModalShow={setModalShow}
                   />
@@ -108,6 +110,8 @@ const Home = (props) => {
               show={modalShow}
               onHide={() => setModalShow(false)}
               setSelected={setSelected}
+              amount={amount}
+              setAmount={setAmount}
               title={
                 <FormattedMessage
                   id="home.dialog.deposit"
@@ -123,6 +127,8 @@ const Home = (props) => {
               show={modalShow}
               onHide={() => setModalShow(false)}
               setSelected={setSelected}
+              amount={amount}
+              setAmount={setAmount}
               title={
                 <FormattedMessage
                   id="home.dialog.withdraw"

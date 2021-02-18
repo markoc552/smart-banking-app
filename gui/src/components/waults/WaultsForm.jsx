@@ -49,7 +49,9 @@ const WaultsForm = (props) => {
 
         const contract = getContract(contractAddress, mnemonic);
 
-        console.log(values.money, values.reason, moment(values.date).unix());
+        console.log(values.date)
+
+        console.log(moment.unix(values.date).format("MM/DD/YYYY"));
 
         contract.methods
           .createWault(values.money, values.reason, moment(values.date).unix())
@@ -76,6 +78,15 @@ const WaultsForm = (props) => {
                   progress: undefined,
                 }
               );
+              props.setWaultsData([
+                ...props.waultsData,
+                {
+                  reason: values.reason,
+                  amount: values.money,
+                  time: moment(values.date).format("MM/DD/YYYY"),
+                  saved: "0",
+                },
+              ]);
               props.getWaultStatus(address);
               setSubmitting(false);
               setSending(false);
@@ -83,7 +94,7 @@ const WaultsForm = (props) => {
             }, 3000);
           })
           .catch((err) => {
-            console.log(err)
+            console.log(err);
             toast.error(
               <FormattedMessage
                 id="wault.create.failed"

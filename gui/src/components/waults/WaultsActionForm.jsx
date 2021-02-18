@@ -29,20 +29,22 @@ const WaultsForm = (props) => {
 
   const address = useSelector((state) => state.waults.active);
 
+  const owner = useSelector((state) => state.accounts[props.id]);
+
   const waults = useSelector((state) => state.waults.status);
 
   const handleDeposit = (values, setSubmitting) => {
     const wault = address[props.owner.id];
 
-    const contract = getWaultContract(wault);
+    const contract = getWaultContract(wault, owner.mnemonic);
 
-    console.log(props.owner);
+    console.log("AA", owner);
 
     contract.methods
       .sendMoneyToWault()
       .send({
-        from: "0x05Eb57c70e64E5f1998164e0CF843e335a32f3A0",
-        value: String(values.money),
+        from: owner.wallet.address,
+        value: web3.utils.toWei(values.money, "ether"),
         gas: "6721975",
       })
       .then(() => {
@@ -65,6 +67,28 @@ const WaultsForm = (props) => {
           setSubmitting(false);
           setSending(false);
           props.onHide();
+
+          props.waultsData.map((wault, i) => {
+            console.log("REASON", wault.reason)
+            console.log(props.owner.original.reason)
+
+            if (wault.reason === props.owner.original.reason) {
+
+              const removed = props.waultsData.splice(i, 1);
+
+              console.log(removed)
+
+              props.setWaultsData([
+                ...props.waultsData,
+                {
+                  reason: wault.reason,
+                  amount: wault.amount,
+                  saved: Number(values.money) + Number(wault.saved),
+                  time: wault.time,
+                },
+              ]);
+            }
+          });
         }, 2000);
       })
       .catch((err) => {
@@ -97,9 +121,9 @@ const WaultsForm = (props) => {
       const contract = getWaultContract(wault);
 
       contract.methods
-        .withDrawMoney("0x05Eb57c70e64E5f1998164e0CF843e335a32f3A0")
+        .withDrawMoney(`${window.ENVIRONMENT.AUTHORITY_ADDRESS}`)
         .send({
-          from: "0x05Eb57c70e64E5f1998164e0CF843e335a32f3A0",
+          from: `${window.ENVIRONMENT.AUTHORITY_ADDRESS}`,
           value: "0.1",
           gas: "6721975",
         })

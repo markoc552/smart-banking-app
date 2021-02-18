@@ -7,15 +7,36 @@ import Spinner from "react-bootstrap/Spinner";
 import { matchSorter } from "match-sorter";
 import { getWaultStatus } from "../../redux/actions";
 import { FormattedMessage } from "react-intl";
+import { getWaultContract } from "../../ethereum/instances/factory";
+import moment from "moment";
+import web3 from "../../ethereum/web3";
 
 const Table = (props) => {
   const address = useSelector((state) => state.waults.active);
 
   const waults = useSelector((state) => state.waults.status);
 
-  useState(() => {
+  useState(async () => {
     if (address !== undefined) {
-      props.getWaultStatus(address);
+      let waultArr = [];
+
+      await Promise.all(
+        address.map(async (i, index) => {
+          const contract = getWaultContract(i);
+
+          const wault = await contract.methods.getWaultStatus().call();
+
+          waultArr.push({
+            reason: wault[3],
+            time: moment.unix(wault[2]).format("MM/DD/YYYY"),
+            amount: parseInt(wault[0]),
+            saved: web3.utils.fromWei(wault[1], "ether"),
+          });
+        })
+      );
+
+      console.log(waultArr)
+      props.setWaultsData(waultArr);
     }
   }, [address]);
 
@@ -51,7 +72,7 @@ const Table = (props) => {
     renderedWaults = [];
   }
 
-  const data = useMemo(() => [...renderedWaults], []);
+  const data = useMemo(() => [...props.waultsData], [props.waultsData]);
 
   console.log(data);
 

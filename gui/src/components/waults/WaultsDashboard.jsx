@@ -13,6 +13,8 @@ const WaultsDashboard = (props) => {
   const [title, setTitle] = useState("");
   const [owner, setOwner] = useState("");
   const [option, setOption] = useState("");
+  let [waultsData, setWaultsData] = useState([]);
+
 
   const count = useSelector((state) => state.waults.count);
 
@@ -99,6 +101,8 @@ const WaultsDashboard = (props) => {
             setTitle={setTitle}
             getTrProps={(row) => console.log(row)}
             setOption={setOption}
+            setWaultsData={setWaultsData}
+            waultsData={waultsData}
           />
         </Grid.Row>
         <Grid.Row>
@@ -115,6 +119,9 @@ const WaultsDashboard = (props) => {
           id={props.id}
           action="NEW_WAULT"
           show={show}
+          waultsData={waultsData}
+          setWaultsData={setWaultsData}
+          owner={owner}
           title={
             <FormattedMessage
               id="wault.modal.create"
@@ -130,6 +137,8 @@ const WaultsDashboard = (props) => {
           action="WAULT_ACTION"
           show={actionShow}
           title={title}
+          waultsData={waultsData}
+          setWaultsData={setWaultsData}
           onHide={() => setActionShow(false)}
           owner={owner}
           option={option}

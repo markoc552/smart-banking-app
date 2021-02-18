@@ -44,7 +44,7 @@ const Table = (props) => {
     renderedTransactions = [];
   }
 
-  const data = useMemo(() => [...renderedTransactions], []);
+  const data = useMemo(() => [...renderedTransactions], [renderedTransactions]);
 
   function DefaultColumnFilter({
     column: { filterValue, preFilteredRows, setFilter },

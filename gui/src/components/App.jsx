@@ -25,29 +25,6 @@ const App = (props) => {
 
   const [lang, setLang] = useState(preferedLanguage);
 
-  // const PrivateRoute = ({
-  //   component: Component,
-  //   path,
-  //   registeredOnly,
-  //   ...rest
-  // }) => {
-  //   const isLoggedIn = useSelector((state) => state.accounts.login);
-  //
-  //   return (
-  //     <Route
-  //       {...rest}
-  //       render={(props) => <Component {...props} onLangChange={setLang} />}
-  //     />
-  //   );
-  //
-  //   // return isLoggedIn && registeredOnly ? (
-  //   //   <Route {...rest} render={(props) => <Component {...props} />} />
-  //   // ) : (
-  //   //   <Redirect to="/loggedOut" />
-  //   // );
-  // };
-
-
   const PrivateRoute = ({
     component: Component,
     path,
@@ -56,12 +33,35 @@ const App = (props) => {
   }) => {
     const isLoggedIn = useSelector((state) => state.accounts.login);
 
-    return isLoggedIn && registeredOnly ? (
-      <Route {...rest} render={(props) => <Component {...props} onLangChange={setLang} />} />
-    ) : (
-      <Redirect to="/loggedOut" />
+    return (
+      <Route
+        {...rest}
+        render={(props) => <Component {...props} onLangChange={setLang} />}
+      />
     );
+
+    // return isLoggedIn && registeredOnly ? (
+    //   <Route {...rest} render={(props) => <Component {...props} />} />
+    // ) : (
+    //   <Redirect to="/loggedOut" />
+    // );
   };
+
+
+  // const PrivateRoute = ({
+  //   component: Component,
+  //   path,
+  //   registeredOnly,
+  //   ...rest
+  // }) => {
+  //   const isLoggedIn = useSelector((state) => state.accounts.login);
+  //
+  //   return isLoggedIn && registeredOnly ? (
+  //     <Route {...rest} render={(props) => <Component {...props} onLangChange={setLang} />} />
+  //   ) : (
+  //     <Redirect to="/loggedOut" />
+  //   );
+  // };
 
   return (
     <IntlProvider locale={lang} messages={messages[lang]}>
