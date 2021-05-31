@@ -210,7 +210,7 @@ export const getEthStatus = (id) => async (dispatch) => {
           ? "Deposit"
           : transaction[1],
       time: moment(transactions[2]).format("LLLL"),
-      amount: transaction[3],
+      amount: String(web3.utils.fromWei(String(transaction[3]), "ether")),
     });
   }
 

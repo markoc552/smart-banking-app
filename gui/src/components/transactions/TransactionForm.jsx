@@ -16,6 +16,8 @@ import { getContract } from "../../ethereum/instances/factory";
 import moment from "moment";
 import { addFailedTransaction, getEthStatus } from "../../redux/actions";
 import { FormattedMessage } from "react-intl";
+import web3 from "../../ethereum/web3"
+
 
 const TransactionForm = (props) => {
   const [sending, setSending] = useState(false);
@@ -45,7 +47,7 @@ const TransactionForm = (props) => {
         const contract = getContract(contractAddress, mnemonic);
 
         contract.methods
-          .sendMoney(values.recepient, values.amount)
+          .sendMoney(values.recepient, String(web3.utils.toWei(String(values.amount))))
           .send({
             from: String(owner.address),
             gas: "6721975",

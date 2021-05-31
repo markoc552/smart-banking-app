@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { MoneyDialog } from "../utils/StyledComponents";
 import { Grid, Card, Menu, Dropdown, Icon, Button } from "semantic-ui-react";
 import { FormattedMessage } from "react-intl";
+import web3 from "../../ethereum/web3"
+
 
 const AvailableMoney = (props) => {
   console.log(props.eth);
@@ -22,7 +24,7 @@ const AvailableMoney = (props) => {
           />
         </MoneyDialog>
       </Card.Content>
-      <Card.Content>{props.eth},00 ETH</Card.Content>
+      <Card.Content>{String(web3.utils.fromWei(String(props.eth), "ether"))} ETH</Card.Content>
       <Card.Content>
         <Button.Group color="blue">
           <Menu borderless compact>

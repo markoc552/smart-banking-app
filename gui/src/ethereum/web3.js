@@ -11,7 +11,7 @@ if (typeof window !== "undefined" && typeof window.web3 !== "undefined") {
   //If not create new web3 provider
   //const provider = new Web3.providers.HttpProvider("http://127.0.0.1:7545");
   const provider = new HDWalletProvider(
-    "follow measure van surprise legend garage shoulder follow impact axis across city",
+    "erode creek tongue ghost exotic opinion trick concert dinner coyote transfer stem",
     "http://127.0.0.1:7545", 0, 10, true, "m/44'/60'/0'/0/"
   );
   web3 = new Web3(provider);

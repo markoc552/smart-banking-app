@@ -14,7 +14,7 @@ export const sendTransaction = (formValues, ethUser) => {
   let error;
 
   contract.methods
-    .sendMoney(formValues.recepient, formValues.amount)
+    .sendMoney(formValues.recepient, String(web3.utils.toWei(String(formValues.amount), "ether")))
     .send({
       from: String(owner.address),
       gas: "6721975",
@@ -41,7 +41,7 @@ export const depositMoney = async (ethUser, money) => {
 
   await contract.methods.addMoneyToAccount().send({
     from: String(owner.address),
-    value: String(money),
+    value: String(web3.utils.toWei(String(money), "ether")),
     gas: "6721975",
   });
 };
@@ -56,7 +56,7 @@ export const withDrawMoney = async (ethUser, money) => {
   const contract = getContract(contractAddress, mnemonic);
 
   await contract.methods
-    .withDrawMoney(money, window.ENVIRONMENT.AUTHORITY_ADDRESS)
+    .withDrawMoney(String(web3.utils.toWei(String(money), "ether")), window.ENVIRONMENT.AUTHORITY_ADDRESS)
     .send({
       from: String(owner.address),
       gas: "6721975",
