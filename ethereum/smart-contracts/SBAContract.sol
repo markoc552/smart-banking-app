@@ -2,7 +2,7 @@
 * Smart Banking app smart contract.
 *
 * Created by: Marko Perajica
-* Date: 02.05.2020
+* Date: 02.05.2021
 ******************************************************************************/
 
 pragma solidity 0.4.17;
