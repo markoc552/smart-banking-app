@@ -8,7 +8,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Spinner from "react-bootstrap/Spinner";
 import InputGroup from "react-bootstrap/InputGroup";
-import { sendTransaction } from "../transactions/transactionUtils";
 import { ToastContainer, toast } from "react-toastify";
 import Container from "react-bootstrap/Container";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,6 +16,7 @@ import moment from "moment";
 import { addFailedTransaction, getEthStatus } from "../../redux/actions";
 import { FormattedMessage } from "react-intl";
 import web3 from "../../ethereum/web3"
+import {sendTransaction} from "./transactionUtils"
 
 
 const TransactionForm = (props) => {
@@ -46,12 +46,7 @@ const TransactionForm = (props) => {
 
         const contract = getContract(contractAddress, mnemonic);
 
-        contract.methods
-          .sendMoney(values.recepient, String(web3.utils.toWei(String(values.amount))))
-          .send({
-            from: String(owner.address),
-            gas: "6721975",
-          })
+        sendTransaction(values, eth)
           .then(() => {
 
             props.getEthStatus(props.id)

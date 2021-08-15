@@ -1,0 +1,1 @@
+web3j generate truffle --truffle-json=/Users/markoperajica/Documents/repos/smart-banking-app/ethereum/sba-truffle-suite/build/contracts/FactorySBA.json --outputDir=/Users/markoperajica/Downloads/sba-banking/src/main/java/sba/backend/sbabanking/contract --package=sba.backend

@@ -151,7 +151,7 @@ contract SBAContract
 
       Transaction memory newTransaction = Transaction({
           _sender : msg.sender,
-          _recepient : 0,
+          _recepient : 0x1,
           _timestamp: block.timestamp,
           _amount : _amount
           });

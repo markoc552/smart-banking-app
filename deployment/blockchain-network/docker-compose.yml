@@ -19,19 +19,13 @@ x-healthcheck:
 
 services:
 
- client:
-  image: sba_client:latest
-  restart: on-failure
-   <<: *logging-config
-   <<: *healthcheck-config
-  ports:
-   - 3000:3000
-
- ethereum:
-  image: trufflesuite/ganache-cli
-  ports:
-   - 8545:8545
-
+# client:
+  #image: sba_client:latest
+#  restart: on-failure
+   #<<: *logging-config
+   #<<: *healthcheck-config
+#  ports:
+#   - 3000:3000
  node-1:
   image: hyperledger/besu:latest
   hostname: node-1
@@ -40,7 +34,8 @@ services:
    - 8545:8545
    - 8546:8546
    - 8547:8547
-   - 30303:30303
+   - 30303:30303/tcp
+   - 30303:30303/udp
   volumes:
    - ./bootnode_config.toml:/config/config.toml
    - ./genesis.json:/config/genesis.json
@@ -48,7 +43,7 @@ services:
    - volume_besu_node_1:/opt/besu
   networks:
    besu-net:
-    ipv4_address: 172.16.239.31
+    ipv4_address: 172.16.239.1
   entrypoint:
    - /bin/sh
    - -c
@@ -68,6 +63,9 @@ services:
   image: hyperledger/besu:latest
   hostname: node-2
   restart: on-failure
+  ports:
+   - 30304:30304/tcp
+   - 30304:30304/udp
   depends_on:
    - node-1
   volumes:
@@ -77,14 +75,14 @@ services:
    - volume_besu_node_2:/opt/besu
   networks:
    besu-net:
-    ipv4_address: 172.16.239.32
+    ipv4_address: 172.16.239.2
   links:
    - node-1
   entrypoint:
    - /bin/sh
    - -c
    - |
-    sleep 5;
+    sleep 10;
     /opt/besu/bin/besu \
     --genesis-file=/config/genesis.json \
     --config-file=/config/config.toml \
@@ -99,6 +97,9 @@ services:
   image: hyperledger/besu:latest
   hostname: node-3
   restart: on-failure
+  ports:
+   - 30305:30305/tcp
+   - 30305:30305/udp
   depends_on:
    - node-1
   volumes:
@@ -108,14 +109,14 @@ services:
    - volume_besu_node_3:/opt/besu
   networks:
    besu-net:
-    ipv4_address: 172.16.239.33
+    ipv4_address: 172.16.239.3
   links:
    - node-1
   entrypoint:
    - /bin/sh
    - -c
    - |
-    sleep 5;
+    sleep 10;
     /opt/besu/bin/besu \
     --genesis-file=/config/genesis.json \
     --config-file=/config/config.toml \
@@ -129,6 +130,9 @@ services:
   image: hyperledger/besu:latest
   hostname: node-4
   restart: on-failure
+  ports:
+   - 30306:30306/tcp
+   - 30306:30306/udp
   depends_on:
    - node-1
   volumes:
@@ -138,14 +142,14 @@ services:
    - volume_besu_node_4:/opt/besu
   networks:
    besu-net:
-    ipv4_address: 172.16.239.34
+    ipv4_address: 172.16.239.4
   links:
    - node-1
   entrypoint:
    - /bin/sh
    - -c
    - |
-    sleep 5;
+    sleep 10;
     /opt/besu/bin/besu \
     --genesis-file=/config/genesis.json \
     --config-file=/config/config.toml \
@@ -155,79 +159,11 @@ services:
     --p2p-port=30306 \
     --rpc-http-api=ETH,MINER,IBFT,NET;
 
- explorer:
-  build: block-explorer-light/.
-  image: block-explorer-light:develop
-  depends_on:
-  - node-1
-  ports:
-   - 25000:80/tcp
-  networks:
-   besu-net:
-    ipv4_address: 172.16.239.35
-
- prometheus:
-  image: "prom/prometheus"
-  volumes:
-   - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-   - prometheus:/prometheus
-  command:
-   - --config.file=/etc/prometheus/prometheus.yml
-  ports:
-   - 9090:9090/tcp
-  networks:
-   besu-net:
-    ipv4_address: 172.16.239.36
-
- grafana:
-  image: "grafana/grafana"
-  environment:
-   - GF_AUTH_ANONYMOUS_ENABLED=true
-  volumes:
-   - ./grafana/provisioning/:/etc/grafana/provisioning/
-   - grafana:/var/lib/grafana
-  ports:
-   - 3050:3000/tcp
-  networks:
-   besu-net:
-    ipv4_address: 172.16.239.37
-
- rpcnode:
-  restart: "on-failure"
-  image: hyperledger/besu:latest
-  volumes:
-   - ./node_config.toml:/config/config.toml
-   - ./genesis.json:/config/genesis.json
-   - ./networkFiles/rpc-node/keys:/opt/besu/keys
-  depends_on:
-   - node-1
-  ports:
-   - 8540:8545/tcp
-   - 8541:8546/tcp
-  networks:
-   besu-net:
-    ipv4_address: 172.16.239.15
-  entrypoint:
-   - /bin/sh
-   - -c
-   - |
-    while [ ! -f "/opt/besu/public-keys/bootnode_pubkey" ]; do sleep 5; done ;
-    /opt/besu/bin/besu \
-    --config-file=/config/config.toml \
-    --p2p-host=$$(hostname -i) \
-    --genesis-file=/config/genesis.json \
-    --node-private-key-file=/opt/besu/keys/key \
-    --min-gas-price=0 \
-    --rpc-http-api=EEA,WEB3,ETH,NET,PERM,${BESU_CONS_API:-IBFT} \
-    --rpc-ws-api=EEA,WEB3,ETH,NET,PERM,${BESU_CONS_API:-IBFT} ;
-
 volumes:
  volume_besu_node_1:
  volume_besu_node_2:
  volume_besu_node_3:
  volume_besu_node_4:
- grafana:
- prometheus:
 
 networks:
   besu-net:

@@ -14,9 +14,8 @@ import { FormattedMessage } from "react-intl";
 const TransactionDashboard = (props) => {
   const [show, setShow] = useState(false);
 
-  const count = useSelector((state) => state.transactions.count);
-
-  console.log(count);
+  const countOfFailed = useSelector((state) => state.transactions.count);
+  const countOfSuccess = useSelector((state) => state.accounts[props.id]);
 
   return props.eth === undefined ? (
     <Spinner animation="border" role="status">
@@ -30,7 +29,7 @@ const TransactionDashboard = (props) => {
             <TransactionCountDialog>
               <FormattedMessage id="transactions.sent" defaultMessage="Sent transactions" />
               <Label circular color="black" style={{ marginLeft: "5px" }}>
-                {props.eth.transactionCount}
+                {countOfSuccess !== undefined ? countOfSuccess.txCount : 0}
               </Label>
             </TransactionCountDialog>
           </Grid.Column>
@@ -58,7 +57,7 @@ const TransactionDashboard = (props) => {
             <TransactionCountDialog>
               <FormattedMessage id="transactions.failed" defaultMessage="Failed transactions" />
               <Label circular color="black" style={{ marginLeft: "5px" }}>
-                {count !== undefined ? count : 0}
+                {countOfFailed !== undefined ? countOfFailed : 0}
               </Label>
             </TransactionCountDialog>
           </Grid.Column>

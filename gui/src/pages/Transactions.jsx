@@ -23,7 +23,9 @@ const Transactions = (props) => {
     setId(id);
     props.getEthStatus(id);
     props.getAccountName(id);
-    props.getWaultStatus(address)
+    if (address !== undefined) {
+      props.getWaultStatus(address);
+    }
   }, []);
 
   const variants = {

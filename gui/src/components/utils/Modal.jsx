@@ -20,12 +20,12 @@ const UserModal = (props) => {
   const [value, setValue] = useState(0);
   const [sending, setSending] = useState(false);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     setSending(true);
 
     props.action === "Withdraw"
-      ? withDrawMoney(props.ethUser, value)
-      : depositMoney(props.ethUser, value);
+      ? await withDrawMoney(props.ethUser, value)
+      : await depositMoney(props.ethUser, value);
 
     props.getEthStatus(props.id);
 

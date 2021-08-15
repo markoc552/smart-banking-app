@@ -1,6 +1,6 @@
 const HDWalletProvider = require('truffle-hdwallet-provider');
 
-const secret = "15990754260ba847c54e2620e465dad4b11ca4db65a077f0bd4970d2162d02c2";
+const secret = "e08b29c9cdbee9987946701c2088e295b2806dbf13d45000657354d780f7cd42";
 
 module.exports = {
   // Uncommenting the defaults below
@@ -21,7 +21,7 @@ module.exports = {
    test: {
      provider: () => new HDWalletProvider(secret, "http://localhost:8545"),
      port: 8545,
-     from: "0x941199f9877636e5f83d3b5d9e85450092a8492b",
+     from: "0x1b58692b3731feA3b53ABd17C799e0Dc09E8F8c9",
      network_id: "2018"
    }},
   compilers: {

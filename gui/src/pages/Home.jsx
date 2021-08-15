@@ -27,7 +27,7 @@ const Home = (props) => {
   const [selectedForm, setSelected] = useState("");
   const [modalShow, setModalShow] = useState(false);
 
-  let [amount, setAmount] = useState(props.eth === undefined ? 0 : props.eth["balance"])
+  let [amount, setAmount] = useState(props.eth === undefined ? 0 : props.eth.money)
 
   useEffect(() => {
     const id = props.match.params.id;

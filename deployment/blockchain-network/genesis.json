@@ -15,10 +15,7 @@
   "mixHash" : "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
   "coinbase" : "0x0000000000000000000000000000000000000000",
   "alloc" : {
-    "941199f9877636e5f83d3b5d9e85450092a8492b" : {
-      "balance" : "0xfffffffffffffffff"
-    },
-    "19334669dc75fdaffd164e325ec6b5b167edb1e2" : {
+    "1b58692b3731fea3b53abd17c799e0dc09e8f8c9" : {
       "balance" : "0xfffffffffffffffff"
     }
   },

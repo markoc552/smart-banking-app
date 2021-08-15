@@ -8,6 +8,7 @@ import { matchSorter } from "match-sorter";
 import { getWaultStatus } from "../../redux/actions";
 import { FormattedMessage } from "react-intl";
 import { getWaultContract } from "../../ethereum/instances/factory";
+import {getWaultDetails} from "../../backend-api"
 import moment from "moment";
 import web3 from "../../ethereum/web3";
 
@@ -16,21 +17,21 @@ const Table = (props) => {
 
   const waults = useSelector((state) => state.waults.status);
 
+  console.log(address)
+
   useState(async () => {
     if (address !== undefined) {
       let waultArr = [];
 
       await Promise.all(
         address.map(async (i, index) => {
-          const contract = getWaultContract(i);
-
-          const wault = await contract.methods.getWaultStatus().call();
+          const wault = await getWaultDetails(i)
 
           waultArr.push({
-            reason: wault[3],
-            time: moment.unix(wault[2]).format("MM/DD/YYYY"),
-            amount: parseInt(wault[0]),
-            saved: web3.utils.fromWei(wault[1], "ether"),
+            reason: wault.reason,
+            time: wault.time,
+            amount: wault.amount,
+            saved: wault.saved,
           });
         })
       );

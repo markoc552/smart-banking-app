@@ -12,7 +12,7 @@ if (typeof window !== "undefined" && typeof window.web3 !== "undefined") {
   //const provider = new Web3.providers.HttpProvider("http://127.0.0.1:7545");
   const provider = new HDWalletProvider(
     "erode creek tongue ghost exotic opinion trick concert dinner coyote transfer stem",
-    "http://127.0.0.1:7545", 0, 10, true, "m/44'/60'/0'/0/"
+    "http://127.0.0.1:8545", 0, 10, true, "m/44'/60'/0'/0/"
   );
   web3 = new Web3(provider);
 }

@@ -1,16 +1,18 @@
 import React from "react";
-import axios from "../axios";
+import {dbAxios as axios} from "../axios";
 import history from "../../history";
 import _ from "lodash";
-import web3 from "../../ethereum/web3";
-import factory, {
-  getWaultContract,
-  getContract,
-} from "../../ethereum/instances/factory";
 import { ethers } from "ethers";
-import { Icon } from "semantic-ui-react";
 import moment from "moment";
-import webb3 from "web3";
+import {
+  createAccount as createAcc,
+  sendMoney,
+  getAccountStatus,
+  getTransactionDetails,
+  getWaultDetails,
+  getWaults as getWaultList
+} from "../../backend-api"
+import { watch } from "fs";
 
 export const addFailedTransaction = (formValues) => async (dispatch) => {
   const failed = {
@@ -25,22 +27,33 @@ export const addFailedTransaction = (formValues) => async (dispatch) => {
 export const getWaultStatus = (address) => async (dispatch) => {
   let waultArr = [];
 
+  console.log("Address", address)
+
+  if(address == undefined) {
+    return;
+  }
+
   address.map(async (i, index) => {
-    const contract = getWaultContract(i);
+    const wault = await getWaultDetails(i)
 
-    const wault = await contract.methods.getWaultStatus().call();
-
-    console.log(wault);
+    console.log("Wault status" , wault);
 
     waultArr.push({
-      reason: wault[3],
-      time: moment.unix(wault[2]).format("MM/DD/YYYY"),
-      amount: parseInt(wault[0]),
-      saved: webb3.utils.fromWei(wault[1], "ether"),
+      reason: wault.reason,
+      time: wault.time,
+      amount: wault.amount,
+      saved: wault.saved,
     });
+
+    // waultArr.push({
+    //   reason: wault[3],
+    //   time: moment.unix(wault[2]).format("MM/DD/YYYY"),
+    //   amount: parseInt(wault[0]),
+    //   saved: webb3.utils.fromWei(wault[1], "ether"),
+    // });
   });
 
-  console.log(waultArr);
+  console.log("wault arr", waultArr);
   dispatch({
     type: "GET_WAULT_STATUS",
     payload: { waults: waultArr, count: address.length },
@@ -60,9 +73,9 @@ export const getWaults = (id) => async (dispatch) => {
 
   const mnemonic = mappedUser[id].data.mnemonic;
 
-  const contract = getContract(ethAddress);
+  console.log(ethAddress)
 
-  const waults = await contract.methods.getWaults().call();
+  const waults = await getWaultList(ethAddress)
 
   dispatch({ type: "GET_WAULTS", payload: waults });
 };
@@ -187,31 +200,34 @@ export const getEthStatus = (id) => async (dispatch) => {
 
   const mnemonic = mappedUser[id].data.mnemonic;
 
-  const contract = getContract(ethAddress);
+  const {money, txCount, waults} = await getAccountStatus(ethAddress)
 
-  const balance = await contract.methods.getMoneyStatus().call();
-
-  const waults = await contract.methods.getWaults().call();
-
-  const transactionCount = await contract.methods.getTransactionCount().call();
+  console.log(money, txCount, waults);
 
   let transactions = [];
 
   var i;
-  for (i = 0; i < transactionCount; i++) {
-    const transaction = await contract.methods.getTransactions(i).call();
+  for (i = 0; i <  txCount; i++) {
+    const transaction = await getTransactionDetails(ethAddress, i)
 
     console.log(transaction);
 
     transactions.push({
-      sender: transaction[0],
-      recepient:
-        transaction[1] === "0x0000000000000000000000000000000000000000"
-          ? "Deposit"
-          : transaction[1],
-      time: moment(transactions[2]).format("LLLL"),
-      amount: String(web3.utils.fromWei(String(transaction[3]), "ether")),
+      sender: transaction.sender,
+      recepient: transaction.recipient,
+      time: transaction.time,
+      amount: transaction.amount
     });
+
+    // transactions.push({
+    //   sender: transaction[0],
+    //   recepient:
+    //     transaction[1] === "0x0000000000000000000000000000000000000000"
+    //       ? "Deposit"
+    //       : transaction[1],
+    //   time: moment(transactions[2]).format("LLLL"),
+    //   amount: String(web3.utils.fromWei(String(transaction[3]), "ether")),
+    // });
   }
 
   console.log(transactions);
@@ -220,13 +236,13 @@ export const getEthStatus = (id) => async (dispatch) => {
     type: "ETH_STATUS",
     payload: {
       id,
-      balance,
+      money,
+      txCount,
       waults,
-      transactionCount,
       ethAddress,
       wallet,
       mnemonic,
-      transactions,
+      transactions
     },
   });
 };
@@ -247,60 +263,35 @@ const createEthAccount = async (formValues) => {
 
   const wallet = ethers.Wallet.fromMnemonic(mnemonic);
 
-  web3.eth.sendTransaction({
-    to: wallet.address,
-    from: `${window.ENVIRONMENT.AUTHORITY_ADDRESS}`,
-    value: web3.utils.toWei("2.2", "ether"),
-  });
+  // web3.eth.sendTransaction({
+  //   to: wallet.address,
+  //   from: `${window.ENVIRONMENT.AUTHORITY_ADDRESS}`,
+  //   value: web3.utils.toWei("2.2", "ether"),
+  // });
+
+  await sendMoney(wallet.address, 2.2, mnemonic)
 
   console.log("Money sent to account: ", wallet.address);
 
   console.log("OWNER:", wallet.address)
 
-  const contract = await factory.methods
-    .createAccount(
-      wallet.address,
-      formValues.firstname,
-      formValues.lastname,
-      formValues.email
-    )
-    .send({
-      from: `${window.ENVIRONMENT.AUTHORITY_ADDRESS}`,
-      gas: "6721975",
-    });
+  const address = await createAcc(formValues.firstname, formValues.lastname, formValues.email, wallet.address)
 
-  const address = await factory.methods.getAccount().call();
+  // const contract = await factory.methods
+  //   .createAccount(
+  //     wallet.address,
+  //     formValues.firstname,
+  //     formValues.lastname,
+  //     formValues.email
+  //   )
+  //   .send({
+  //     from: `${window.ENVIRONMENT.AUTHORITY_ADDRESS}`,
+  //     gas: "6721975",
+  //   });
+
+  // const address = await factory.methods.getAccount().call();
+
+  console.log(address)
 
   return { address, wallet, mnemonic };
 };
-
-// const createTable = async () => {
-//   const db = new Client({
-//     host: "db",
-//     user: "marko",
-//     database: "postgres",
-//     password: "admin123",
-//     port: 5000,
-//   });
-//
-//   await db.connect();
-//
-//   const crtbl = `
-//   CREATE TABLE users (
-//     id int PRIMARY KEY,
-//     firstName VARCHAR (50) NOT NULL,
-//     lastName VARCHAR (50) NOT NULL,
-//     email VARCHAR (50) NOT NULL,
-//     password VARCHAR (100) NOT NULL,
-//     wallet VARCHAR (100) NOT NULL,
-//     contract VARCHAR (100) NOT NULL,
-//     createdAt DATETIME)
-//   `;
-//   db.query(crtbl, (err, res) => {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       console.log(res);
-//     }
-//   });
-// };

@@ -13,5 +13,4 @@ rpc-http-cors-origins=["*"]
 rpc-http-host="127.0.0.1"
 
 #p2p
-p2p-host="127.0.0.1"
-
+p2p-host="172.16.239.1"

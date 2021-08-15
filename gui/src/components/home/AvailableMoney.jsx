@@ -24,7 +24,7 @@ const AvailableMoney = (props) => {
           />
         </MoneyDialog>
       </Card.Content>
-      <Card.Content>{String(web3.utils.fromWei(String(props.eth), "ether"))} ETH</Card.Content>
+      <Card.Content>{String(web3.utils.fromWei(String(props.eth == null ? 0 : props.eth), "ether"))} ETH</Card.Content>
       <Card.Content>
         <Button.Group color="blue">
           <Menu borderless compact>

@@ -22,11 +22,6 @@ services:
     ports:
       - 3000:3000
 
-  ethereum:
-    image: trufflesuite/ganache-cli
-    ports:
-      - 7545:8545
-
   node-1:
     image: hyperledger/besu:latest
     hostname: node-1

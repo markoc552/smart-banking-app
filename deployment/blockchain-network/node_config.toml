@@ -13,7 +13,6 @@ rpc-http-cors-origins=["*"]
 rpc-http-host="127.0.0.1"
 
 #p2p
-p2p-host="127.0.0.1"
+p2p-host="172.16.239.1"
 
-bootnodes=["enode://d1759e0fb29f10a0c8891d5cde45d54442c4eceb6d41dd3a79be48873bdcd1ba4417c694fed85a335efbf8aa139a40467de3ab492b0fea66be5160dec3fe9087@172.16.239.31:30303"]
-
+bootnodes=["enode://bf36d46c29afbfff0ba665668023195603d570742304415dd83be1e4317973ea7ea2956e97ca68a4f55c6236d0b40a59c67bc16dafd9cc3e5a7decf94030e199@172.16.239.1:30303"]

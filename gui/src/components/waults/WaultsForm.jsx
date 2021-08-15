@@ -20,6 +20,7 @@ import { FormattedMessage } from "react-intl";
 import { getWaults, getWaultStatus } from "../../redux/actions";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
+import {createWault} from "../../backend-api"
 import web3 from "../../ethereum/web3";
 
 const WaultsForm = (props) => {
@@ -49,19 +50,17 @@ const WaultsForm = (props) => {
 
         const contract = getContract(contractAddress, mnemonic);
 
-        console.log(values.date)
+        console.log(values)
 
         console.log(moment.unix(values.date).format("MM/DD/YYYY"));
 
-        contract.methods
-          .createWault(values.money, values.reason, moment(values.date).unix())
-          .send({
-            from: String(owner.address),
-            gas: "6721975",
-          })
+        createWault(values.reason, values.date, values.money, contractAddress, mnemonic)
           .then(() => {
             props.getWaults(props.id);
-            props.getWaultStatus(address);
+
+            if (address !== undefined) {
+              props.getWaultStatus(address);
+            }
             setTimeout(() => {
               toast.info(
                 <FormattedMessage
@@ -87,7 +86,9 @@ const WaultsForm = (props) => {
                   saved: "0",
                 },
               ]);
-              props.getWaultStatus(address);
+              if(address !== undefined) {
+                props.getWaultStatus(address);
+              }
               setSubmitting(false);
               setSending(false);
               props.onHide();

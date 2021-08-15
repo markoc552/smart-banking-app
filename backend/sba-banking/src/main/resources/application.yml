@@ -1,0 +1,7 @@
+web3j:
+  authority-wallet: "0x1b58692b3731feA3b53ABd17C799e0Dc09E8F8c9"
+  contract-address: "0x6f7E9698a1Ceca3faa95ebf8243c8c5A260ba839"
+  gas-price: 1000
+  gas-limit: 6721975
+  wallet-pass: 12345678
+  private-key: "e08b29c9cdbee9987946701c2088e295b2806dbf13d45000657354d780f7cd42"
