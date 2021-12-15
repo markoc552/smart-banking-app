@@ -1,8 +1,14 @@
-************************************************************
-************************************************************
-This application mocks todays mobile banking apps. Provides functionality for sending money,
-receiving money, and saving money in virtual wault. Also you can store your files safely on our servers.
-They will be encrypted asyncronously with RSA algorithm. Your filename is also hashed with Base64 algorithm.
+# Smart banking App
 
-Application is supported with ethereum technology. Smart contract is written in Solidity
-and wired up with client with web3 library. Backend is written in solidity and frontend in React.js.
+##### This application mocks todays internet banking apps. 
+##### Provides functionality for sending money, receiving money, and saving money in virtual wault.
+##### Entire application is based on the blockchain technology. 
+************************************************************
+
+Technologies used:
+
+ - Smart contract: written in Solidity
+ - Frontend: React.js and Redux
+ - Backend: Java and Spring ecosystem
+ - Blockchain: private blockchain set up with Hyperledger Besu.
+
