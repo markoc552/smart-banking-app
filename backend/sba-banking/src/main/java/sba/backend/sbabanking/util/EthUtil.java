@@ -7,13 +7,11 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.utils.Convert;
+import sba.backend.sbabanking.aspects.Log;
 import sba.backend.sbabanking.config.AppProperties;
 
 import java.math.BigInteger;
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -27,6 +25,7 @@ public class EthUtil {
         //private constructor
     }
 
+    @Log
     public static BigInteger getTransactionCount(Web3j web3j, String address) throws ExecutionException, InterruptedException {
         return  web3j.ethGetTransactionCount(
                 address,
@@ -36,6 +35,7 @@ public class EthUtil {
                 .getTransactionCount();
     }
 
+    @Log
     public static Transaction createTransactionCall(BigInteger nonce, AppProperties appProperties, String encodedFunction) {
         return Transaction.createFunctionCallTransaction(
                 appProperties.getAuthorityWallet(),
@@ -47,6 +47,7 @@ public class EthUtil {
         );
     }
 
+    @Log
     public static String parseTimestamp(BigInteger timestamp) {
         long timestampAsLong = timestamp.longValue() * 1000;
 
@@ -56,19 +57,21 @@ public class EthUtil {
         return parseTime(localDateTime);
     }
 
+    @Log
     public static String parseTime(LocalDateTime time) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm");
 
         return time.format(formatter);
     }
 
+    @Log
     public static String parseAmount(BigInteger amount) {
         String amountAsString = amount.toString();
 
         return Convert.fromWei(amountAsString, Convert.Unit.ETHER).toPlainString();
     }
 
-
+    @Log
     public static Credentials generateCredentialsFromMnemonic(String mnemonic) {
         byte[] seed = MnemonicUtils.generateSeed(mnemonic, "");
 

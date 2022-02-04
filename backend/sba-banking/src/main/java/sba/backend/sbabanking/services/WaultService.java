@@ -10,6 +10,7 @@ import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.tuples.generated.Tuple4;
 import org.web3j.tx.TransactionManager;
 import org.web3j.tx.gas.ContractGasProvider;
+import sba.backend.sbabanking.aspects.Log;
 import sba.backend.sbabanking.contracts.SBAContract;
 import sba.backend.sbabanking.contracts.Wault;
 import sba.backend.sbabanking.model.WaultDetails;
@@ -35,6 +36,7 @@ public class WaultService {
     @Autowired
     private Web3j web3j;
 
+    @Log
     public WaultDetails getWaultStatus(String address) throws ExecutionException, InterruptedException {
         Wault contract = Wault.load(address, web3j, txManager, gasProvider);
 
@@ -48,6 +50,7 @@ public class WaultService {
         );
     }
 
+    @Log
     public void createWault(WaultDetails details, String address, String mnemonic) throws ExecutionException, InterruptedException {
         Credentials credentials = generateCredentialsFromMnemonic(mnemonic);
 

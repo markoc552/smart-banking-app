@@ -12,8 +12,7 @@ import java.util.*;
 public class CorsConfiguration {
 
     @Bean
-    FilterRegistrationBean<CorsFilter> filterFilterRegistrationBean()
-    {
+    FilterRegistrationBean<CorsFilter> filterFilterRegistrationBean() {
         org.springframework.web.cors.CorsConfiguration configuration = new org.springframework.web.cors.CorsConfiguration();
 
         configuration.setAllowedOrigins(Collections.singletonList("*"));

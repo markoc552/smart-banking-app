@@ -5,3 +5,8 @@ web3j:
   gas-limit: 6721975
   wallet-pass: 12345678
   private-key: "e08b29c9cdbee9987946701c2088e295b2806dbf13d45000657354d780f7cd42"
+
+logging:
+  level:
+    root: info
+    sba.backend.sbabanking: debug

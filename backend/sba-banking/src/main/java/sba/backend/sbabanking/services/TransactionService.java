@@ -18,6 +18,7 @@ import org.web3j.tx.Transfer;
 import org.web3j.tx.gas.ContractGasProvider;
 import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;
+import sba.backend.sbabanking.aspects.Log;
 import sba.backend.sbabanking.config.AppProperties;
 import sba.backend.sbabanking.contracts.SBAContract;
 import sba.backend.sbabanking.util.EthUtil;
@@ -49,6 +50,7 @@ public class TransactionService {
     @Autowired
     private Credentials credentials;
 
+    @Log
     public String sendMoney(String to, String value, String mnemonic) throws TransactionException, IOException, InterruptedException, ExecutionException {
         TransactionReceipt receipt = Transfer.sendFunds (
                 web3j,
@@ -61,6 +63,7 @@ public class TransactionService {
         return receipt.getTransactionHash();
     }
 
+    @Log
     public void sendMoneyOverContract(String to, String value, String address) throws ExecutionException, InterruptedException {
         SBAContract contract = SBAContract.load(address, web3j, txManager, gasProvider);
 
@@ -71,6 +74,7 @@ public class TransactionService {
                 .get();
     }
 
+    @Log
     public void deposit(String value, String address) throws ExecutionException, InterruptedException {
         SBAContract contract = SBAContract.load(address, web3j, txManager, gasProvider);
 
@@ -81,6 +85,7 @@ public class TransactionService {
                 .get();
     }
 
+    @Log
     public void withdraw(String value, String address, String mnemonic) throws ExecutionException, InterruptedException {
         Credentials userCredentials = EthUtil.generateCredentialsFromMnemonic(mnemonic);
 

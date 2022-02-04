@@ -11,7 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TxDetails {
-
     private String sender;
     private String recipient;
     private String time;

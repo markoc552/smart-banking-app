@@ -10,7 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WaultDetails {
-
     String reason;
     String time;
     String amount;

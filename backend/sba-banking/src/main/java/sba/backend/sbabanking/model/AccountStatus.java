@@ -13,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountStatus {
-
     private BigInteger money;
     private BigInteger txCount;
     private List waults;

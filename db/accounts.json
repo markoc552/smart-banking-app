@@ -2026,6 +2026,41 @@
         "mnemonic": "news layer demise pumpkin place novel shoe uniform logic jungle prosper section mandate village flat dumb romance provide carpet timber capable pitch portion ball"
       },
       "id": 119
+    },
+    {
+      "password": "marko",
+      "username": "marko123",
+      "firstname": "Mate",
+      "lastname": "Matic",
+      "email": "marko@marko.hr",
+      "data": {
+        "address": "0xf8470ab2d10e3aedabb331c912640ff44e1d6255",
+        "wallet": {
+          "_isSigner": true,
+          "address": "0xc1bF4f0505eC3b6253b1f00f4248bBCC2c2acFd4",
+          "provider": null
+        },
+        "mnemonic": "runway open conduct crater silent receive better olympic waste void already mandate know bomb toe olive labor skin gather quit milk later other produce"
+      },
+      "id": 120,
+      "checkbox": true
+    },
+    {
+      "password": "marko",
+      "username": "marko1234",
+      "firstname": "Marko",
+      "lastname": "Perajica",
+      "email": "marko@marko.rr",
+      "data": {
+        "address": "0xfddd9e469c95228edd101a8a930b7164c62aa5f3",
+        "wallet": {
+          "_isSigner": true,
+          "address": "0x9058A394C9E6C1F5a35b690dE3270b22dAD65AD9",
+          "provider": null
+        },
+        "mnemonic": "pottery satoshi hurdle false tissue already worry tornado sing ritual car melt render arena animal thank supply wise much flavor orient area chronic assist"
+      },
+      "id": 121
     }
   ]
 }

@@ -6,6 +6,7 @@ import org.web3j.protocol.Web3j;
 import org.web3j.tuples.generated.Tuple4;
 import org.web3j.tx.TransactionManager;
 import org.web3j.tx.gas.ContractGasProvider;
+import sba.backend.sbabanking.aspects.Log;
 import sba.backend.sbabanking.contracts.SBAContract;
 import sba.backend.sbabanking.model.AccountStatus;
 import sba.backend.sbabanking.model.TxDetails;
@@ -29,6 +30,7 @@ public class AccountService {
     @Autowired
     private TransactionManager txManager;
 
+    @Log
     public AccountStatus getAccountStatus(String address) throws ExecutionException, InterruptedException {
         SBAContract contract = SBAContract.load(address, web3j, txManager, gasProvider);
 
@@ -39,6 +41,7 @@ public class AccountService {
         return new AccountStatus(money, txCount, waults);
     }
 
+    @Log
     public TxDetails getTransactionDetails(String address, BigInteger index) throws ExecutionException, InterruptedException {
         SBAContract contract = SBAContract.load(address, web3j, txManager, gasProvider);
 
@@ -52,6 +55,7 @@ public class AccountService {
         );
     }
 
+    @Log
     public List getWaults(String address) throws ExecutionException, InterruptedException {
         SBAContract contract = SBAContract.load(address, web3j, txManager, gasProvider);
 

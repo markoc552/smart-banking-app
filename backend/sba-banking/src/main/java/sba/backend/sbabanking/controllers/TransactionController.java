@@ -9,6 +9,7 @@ import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.methods.request.Transaction;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.protocol.exceptions.TransactionException;
+import sba.backend.sbabanking.aspects.Log;
 import sba.backend.sbabanking.model.EthTxRequest;
 import sba.backend.sbabanking.services.FactoryService;
 import sba.backend.sbabanking.services.TransactionService;
@@ -23,6 +24,7 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
+    @Log
     @PostMapping("/send-money")
     public ResponseEntity<Object> sendMoney(@RequestBody EthTxRequest request) throws ExecutionException, InterruptedException, IOException, TransactionException {
         String txHash = transactionService.sendMoney(request.getTo(), request.getValue(), request.getMnemonic());
@@ -30,6 +32,7 @@ public class TransactionController {
         return new ResponseEntity<>(txHash, HttpStatus.OK);
     }
 
+    @Log
     @PostMapping("/contract/{address}/send-money")
     public ResponseEntity<Object> sendMoneyOverContract(@RequestBody EthTxRequest request, @PathVariable String address) throws ExecutionException, InterruptedException, IOException {
         transactionService.sendMoneyOverContract(request.getTo(), request.getValue(), address);
@@ -37,6 +40,7 @@ public class TransactionController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @Log
     @PostMapping("/contract/{address}/deposit")
     public ResponseEntity<Object> deposit(@RequestBody EthTxRequest request, @PathVariable String address) throws ExecutionException, InterruptedException, IOException {
         transactionService.deposit(request.getValue(), address);

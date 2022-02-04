@@ -67,9 +67,10 @@ export const Modal = styled.div`
   box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.75);
   top: 25%;
   position: relative;
+  margin: 0 auto;
 
-  @media only screen and (max-width: 600px) {
-    width: 90%;
+  @media only screen and (max-width: 780px) {
+    width: 52vw;
   }
 `;
 
@@ -85,6 +86,7 @@ export const ModalContainer = styled.div`
   right: 0;
   top: 0;
   bottom: 0;
+  display: flex;
 `;
 
 export const Image = styled.img`

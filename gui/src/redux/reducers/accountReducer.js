@@ -1,5 +1,6 @@
 export default (
   state = {
+    isRegistered: true,
     profile:
       "https://www.iconfinder.com/data/icons/business-avatar-1/512/7_avatar-512.png",
   },

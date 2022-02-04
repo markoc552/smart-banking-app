@@ -10,25 +10,16 @@ export const sendTransaction = async (formValues, ethUser) => {
 
   const contractAddress = ethUser["ethAddress"];
 
-  await doTransaction(owner.address, formValues.amount, contractAddress, mnemonic, "send-money");
+  //await doTransaction(owner.address, formValues.amount, contractAddress, mnemonic, "send-money");
 
-  // const contract = getContract(contractAddress, mnemonic);
+  const contract = getContract(contractAddress, mnemonic);
 
-  // let error;
-
-  // contract.methods
-  //   .sendMoney(formValues.recepient, String(web3.utils.toWei(String(formValues.amount), "ether")))
-  //   .send({
-  //     from: String(owner.address),
-  //     gas: "6721975",
-  //   })
-  //   .then(() => console.log("sent succesfully"))
-  //   .catch((err) => {
-  //     console.log(err);
-  //     error = err;
-  //   });
-
-  // return error;
+  return contract.methods
+    .sendMoney(formValues.recepient, String(web3.utils.toWei(String(formValues.amount), "ether")))
+    .send({
+      from: String(owner.address),
+      gas: "6721975",
+    })
 };
 
 export const depositMoney = async (ethUser, money) => {
@@ -38,17 +29,17 @@ export const depositMoney = async (ethUser, money) => {
 
   const contractAddress = ethUser["ethAddress"];
 
-  await doTransaction(owner.address, money, contractAddress, mnemonic, "deposit");
+  //await doTransaction(owner.address, money, contractAddress, mnemonic, "deposit");
 
-  // const contract = getContract(contractAddress, mnemonic);
+  const contract = getContract(contractAddress, mnemonic);
 
-  // //web3.utils.toWei(String(money), "ether")
+  //web3.utils.toWei(String(money), "ether")
 
-  // await contract.methods.addMoneyToAccount().send({
-  //   from: String(owner.address),
-  //   value: String(web3.utils.toWei(String(money), "ether")),
-  //   gas: "6721975",
-  // });
+  await contract.methods.addMoneyToAccount().send({
+    from: String(owner.address),
+    value: String(web3.utils.toWei(String(money), "ether")),
+    gas: "6721975",
+  });
 };
 
 export const withDrawMoney = async (ethUser, money) => {
@@ -58,14 +49,14 @@ export const withDrawMoney = async (ethUser, money) => {
 
   const contractAddress = ethUser["ethAddress"];
 
-  await doTransaction(owner.address, money, contractAddress, mnemonic, "withdraw");
+  //await doTransaction(owner.address, money, contractAddress, mnemonic, "withdraw");
 
-  // const contract = getContract(contractAddress, mnemonic);
+  const contract = getContract(contractAddress, mnemonic);
 
-  // await contract.methods
-  //   .withDrawMoney(String(web3.utils.toWei(String(money), "ether")), window.ENVIRONMENT.AUTHORITY_ADDRESS)
-  //   .send({
-  //     from: String(owner.address),
-  //     gas: "6721975",
-  //   });
+  await contract.methods
+    .withDrawMoney(String(web3.utils.toWei(String(money), "ether")), window.ENVIRONMENT.AUTHORITY_ADDRESS)
+    .send({
+      from: String(owner.address),
+      gas: "6721975",
+    });
 };

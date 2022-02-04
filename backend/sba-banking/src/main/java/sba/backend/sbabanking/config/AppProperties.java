@@ -15,7 +15,6 @@ import java.math.BigInteger;
 @Getter
 @Setter
 public class AppProperties {
-
     private String contractAddress;
     private String privateKey;
     private String walletPass;
