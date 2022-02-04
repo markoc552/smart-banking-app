@@ -6,7 +6,7 @@
     </weaver>
 
     <aspects>
-        <aspect name="sba.backend.sbabanking.aspects.LoggingAspect" />
+        <aspect name="sba.backend.sbabanking.aspects.LogAspect" />
     </aspects>
 
 </aspectj>
